@@ -1,0 +1,12 @@
+{
+    "@@locale": "en",
+    "app_title": "Ques",
+    "with_placeholders": "Likes: {count}",
+    "@with_placeholders": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    }
+}
