@@ -19,7 +19,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: packages/flutter_comms
+        working-directory: mobile
 
     steps:
       - name: Clone repository
