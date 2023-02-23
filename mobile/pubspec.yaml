@@ -9,6 +9,9 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.2
+  firebase_auth: ^4.2.9
+  firebase_core: ^2.7.0
+  firebase_crashlytics: ^3.0.15
   flutter:
     sdk: flutter
   flutter_gen_runner: ^5.2.0
