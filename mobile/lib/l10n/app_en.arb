@@ -1,6 +1,11 @@
 {
     "@@locale": "en",
     "app_title": "Ques",
+    "sing_in_page_sign_in_headline": "Sign in to your account",
+    "sign_in_page_sign_in_button": "sign in",
+    "sign_in_page_email": "email",
+    "sign_in_page_password": "password",
+    "sign_out_button": "sign out",
     "with_placeholders": "Likes: {count}",
     "@with_placeholders": {
         "placeholders": {

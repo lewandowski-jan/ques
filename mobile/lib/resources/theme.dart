@@ -71,68 +71,18 @@ class QSTheme {
       splashFactory: NoSplash.splashFactory,
       textTheme: TextTheme(
         headline1: TextStyle(
-          fontSize: 96,
           color: defaultTextColor,
-          fontWeight: FontWeight.w300,
-        ),
-        headline2: TextStyle(
-          color: defaultTextColor,
-          fontSize: 60,
-          fontWeight: FontWeight.w300,
-        ),
-        headline3: TextStyle(
-          color: defaultTextColor,
-          fontSize: 34,
-          fontWeight: FontWeight.w400,
-        ),
-        headline4: TextStyle(
-          color: defaultTextColor,
-          fontSize: 34,
-          fontWeight: FontWeight.w400,
-        ),
-        headline5: TextStyle(
-          color: defaultTextColor,
-          fontSize: 24,
-          fontWeight: FontWeight.w400,
+          fontSize: 48,
+          fontWeight: FontWeight.bold,
         ),
         headline6: TextStyle(
           color: defaultTextColor,
-          fontSize: 20,
+          fontSize: 24,
           fontWeight: FontWeight.w500,
         ),
         subtitle1: TextStyle(
           color: defaultTextColor,
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
-        subtitle2: TextStyle(
-          color: defaultTextColor,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-        bodyText1: TextStyle(
-          color: defaultTextColor,
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
-        bodyText2: TextStyle(
-          color: defaultTextColor,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
-        button: TextStyle(
-          color: defaultTextColor,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
-        caption: TextStyle(
-          color: defaultTextColor,
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),
-        overline: TextStyle(
-          color: defaultTextColor,
-          fontSize: 10,
+          fontSize: 20,
           fontWeight: FontWeight.w400,
         ),
       ),
