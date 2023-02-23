@@ -280,7 +280,7 @@ packages:
     source: hosted
     version: "5.2.0"
   flutter_gen_runner:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: flutter_gen_runner
       url: "https://pub.dartlang.org"

@@ -98,6 +98,36 @@ abstract class QSLocalizations {
   /// **'Ques'**
   String get app_title;
 
+  /// No description provided for @sing_in_page_sign_in_headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to your account'**
+  String get sing_in_page_sign_in_headline;
+
+  /// No description provided for @sign_in_page_sign_in_button.
+  ///
+  /// In en, this message translates to:
+  /// **'sign in'**
+  String get sign_in_page_sign_in_button;
+
+  /// No description provided for @sign_in_page_email.
+  ///
+  /// In en, this message translates to:
+  /// **'email'**
+  String get sign_in_page_email;
+
+  /// No description provided for @sign_in_page_password.
+  ///
+  /// In en, this message translates to:
+  /// **'password'**
+  String get sign_in_page_password;
+
+  /// No description provided for @sign_out_button.
+  ///
+  /// In en, this message translates to:
+  /// **'sign out'**
+  String get sign_out_button;
+
   /// No description provided for @with_placeholders.
   ///
   /// In en, this message translates to:
