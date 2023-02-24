@@ -98,6 +98,12 @@ abstract class QSLocalizations {
   /// **'Ques'**
   String get app_title;
 
+  /// No description provided for @sing_in_page_create_account.
+  ///
+  /// In en, this message translates to:
+  /// **'create new account'**
+  String get sing_in_page_create_account;
+
   /// No description provided for @sing_in_page_sign_in_headline.
   ///
   /// In en, this message translates to:
@@ -127,6 +133,30 @@ abstract class QSLocalizations {
   /// In en, this message translates to:
   /// **'sign out'**
   String get sign_out_button;
+
+  /// No description provided for @create_account_page_create_account_headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new account'**
+  String get create_account_page_create_account_headline;
+
+  /// No description provided for @create_account_page_email.
+  ///
+  /// In en, this message translates to:
+  /// **'email'**
+  String get create_account_page_email;
+
+  /// No description provided for @create_account_page_password.
+  ///
+  /// In en, this message translates to:
+  /// **'password'**
+  String get create_account_page_password;
+
+  /// No description provided for @create_account_page_create_button.
+  ///
+  /// In en, this message translates to:
+  /// **'create'**
+  String get create_account_page_create_button;
 
   /// No description provided for @with_placeholders.
   ///

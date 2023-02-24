@@ -14,19 +14,17 @@ class QSTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        height: 40,
-        width: 200,
-        decoration: BoxDecoration(
-          color: context.colors.secondaryLight,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(
+    return OnPressedAnimatedScale(
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
           child: QSText(
             text,
-            style: context.textTheme.subtitle1,
+            style: context.textTheme.caption,
+            color: context.colors.primaryLight,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ),

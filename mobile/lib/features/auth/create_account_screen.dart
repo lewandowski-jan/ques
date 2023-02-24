@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:ques/features/auth/auth_notifier.dart';
-import 'package:ques/features/auth/create_account_screen.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
+import 'package:ques/widgets/app_bar.dart';
 import 'package:ques/widgets/widgets.dart';
 
-class SignInScreen extends HookConsumerWidget {
-  const SignInScreen({super.key});
+class CreateAccountRoute extends MaterialPageRoute<void> {
+  CreateAccountRoute()
+      : super(
+          builder: (context) => const CreateAccountScreen(),
+        );
+}
+
+class CreateAccountScreen extends HookConsumerWidget {
+  const CreateAccountScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,7 +39,7 @@ class SignInScreen extends HookConsumerWidget {
     Future<void> onSubmitted() async {
       emailFocusNode.unfocus();
       passwordFocusNode.unfocus();
-      final result = await authNotifier.signIn(
+      final result = await authNotifier.signUp(
         email: emailController.text,
         password: passwordController.text,
       );
@@ -40,6 +47,7 @@ class SignInScreen extends HookConsumerWidget {
     }
 
     return Scaffold(
+      appBar: const QSAppBar(),
       body: SafeArea(
         child: GestureDetector(
           onTap: FocusManager.instance.primaryFocus?.unfocus,
@@ -52,21 +60,8 @@ class SignInScreen extends HookConsumerWidget {
               clipBehavior: Clip.none,
               child: Column(
                 children: [
-                  const SizedBox(height: 32),
                   QSText(
-                    context.l10n.app_title,
-                    style: context.textTheme.headline2,
-                    color: context.colors.primary,
-                  ),
-                  const SizedBox(height: 16),
-                  Assets.animation.mapLoupe.lottie(
-                    animate: true,
-                    repeat: true,
-                    width: 300,
-                    height: 150,
-                  ),
-                  QSText(
-                    context.l10n.sing_in_page_sign_in_headline,
+                    context.l10n.create_account_page_create_account_headline,
                     style: context.textTheme.headline6,
                   ),
                   const SizedBox(height: 32),
@@ -111,16 +106,9 @@ class SignInScreen extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   QSPrimaryButton(
-                    text: context.l10n.sign_in_page_sign_in_button,
+                    text: context.l10n.create_account_page_create_button,
                     onPressed: onSubmitted,
                   ),
-                  const SizedBox(height: 32),
-                  QSTextButton(
-                    text: context.l10n.sing_in_page_create_account,
-                    onPressed: () => Navigator.of(context).push(
-                      CreateAccountRoute(),
-                    ),
-                  )
                 ],
               ),
             ),

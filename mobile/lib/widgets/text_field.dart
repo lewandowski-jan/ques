@@ -8,40 +8,45 @@ class QSTextField extends StatelessWidget {
     required this.controller,
     this.hasError = false,
     this.obscureText = false,
-    this.labelText,
+    this.hintText,
     this.trailling,
     this.autofillHints,
     this.keyboardType,
     this.textInputAction,
+    this.focusNode,
+    this.onSubmitted,
   });
 
   final TextEditingController controller;
   final bool obscureText;
-  final String? labelText;
+  final String? hintText;
   final bool hasError;
   final Widget? trailling;
   final Iterable<String>? autofillHints;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final FocusNode? focusNode;
+  final ValueChanged<String>? onSubmitted;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      focusNode: focusNode,
+      onSubmitted: onSubmitted,
       autocorrect: false,
-      autofocus: true,
       obscureText: obscureText,
-      obscuringCharacter: '●',
       cursorColor: context.colors.textDark,
       autofillHints: autofillHints,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       style: context.textTheme.subtitle1,
       decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: context.textTheme.subtitle1!.copyWith(
+        hintText: hintText,
+        hintStyle: context.textTheme.subtitle1!.copyWith(
           color: context.colors.textLight,
         ),
+        alignLabelWithHint: true,
         errorText: hasError ? '' : null,
         floatingLabelBehavior: FloatingLabelBehavior.never,
         errorStyle: const TextStyle(height: 0),

@@ -85,6 +85,16 @@ class QSTheme {
           fontSize: 20,
           fontWeight: FontWeight.w400,
         ),
+        subtitle2: TextStyle(
+          color: defaultTextColor,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+        caption: TextStyle(
+          color: defaultTextColor,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }
