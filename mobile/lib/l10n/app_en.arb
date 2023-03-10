@@ -1,11 +1,16 @@
 {
     "@@locale": "en",
     "app_title": "Ques",
+    "sing_in_page_create_account": "create new account",
     "sing_in_page_sign_in_headline": "Sign in to your account",
     "sign_in_page_sign_in_button": "sign in",
     "sign_in_page_email": "email",
     "sign_in_page_password": "password",
     "sign_out_button": "sign out",
+    "create_account_page_create_account_headline": "Create new account",
+    "create_account_page_email": "email",
+    "create_account_page_password": "password",
+    "create_account_page_create_button": "create",
     "with_placeholders": "Likes: {count}",
     "@with_placeholders": {
         "placeholders": {

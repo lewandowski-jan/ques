@@ -70,19 +70,29 @@ class QSTheme {
       highlightColor: Colors.transparent,
       splashFactory: NoSplash.splashFactory,
       textTheme: TextTheme(
-        headline1: TextStyle(
+        displayLarge: TextStyle(
           color: defaultTextColor,
           fontSize: 48,
           fontWeight: FontWeight.bold,
         ),
-        headline6: TextStyle(
+        titleLarge: TextStyle(
           color: defaultTextColor,
           fontSize: 24,
           fontWeight: FontWeight.w500,
         ),
-        subtitle1: TextStyle(
+        titleMedium: TextStyle(
           color: defaultTextColor,
           fontSize: 20,
+          fontWeight: FontWeight.w400,
+        ),
+        titleSmall: TextStyle(
+          color: defaultTextColor,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+        bodySmall: TextStyle(
+          color: defaultTextColor,
+          fontSize: 16,
           fontWeight: FontWeight.w400,
         ),
       ),

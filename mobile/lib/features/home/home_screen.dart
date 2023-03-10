@@ -14,7 +14,7 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: QSTextButton(
+          child: QSPrimaryButton(
             onPressed: authNotifier.signOut,
             text: context.l10n.sign_out_button,
           ),

@@ -8,6 +8,9 @@ class QSLocalizationsEn extends QSLocalizations {
   String get app_title => 'Ques';
 
   @override
+  String get sing_in_page_create_account => 'create new account';
+
+  @override
   String get sing_in_page_sign_in_headline => 'Sign in to your account';
 
   @override
@@ -21,6 +24,19 @@ class QSLocalizationsEn extends QSLocalizations {
 
   @override
   String get sign_out_button => 'sign out';
+
+  @override
+  String get create_account_page_create_account_headline =>
+      'Create new account';
+
+  @override
+  String get create_account_page_email => 'email';
+
+  @override
+  String get create_account_page_password => 'password';
+
+  @override
+  String get create_account_page_create_button => 'create';
 
   @override
   String with_placeholders(int count) {

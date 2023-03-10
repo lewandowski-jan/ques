@@ -13,13 +13,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
   StreamSubscription<User?>? authStateSubscription;
 
   Future<void> init() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      state = AuthUnauthenticated();
-    } else {
-      state = AuthAuthenticated(user);
-    }
-
     await authStateSubscription?.cancel();
     authStateSubscription = FirebaseAuth.instance.authStateChanges().listen(
       (user) {
