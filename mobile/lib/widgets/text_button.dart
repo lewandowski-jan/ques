@@ -21,7 +21,7 @@ class QSTextButton extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: QSText(
             text,
-            style: context.textTheme.caption,
+            style: context.textTheme.bodySmall,
             color: context.colors.primaryLight,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

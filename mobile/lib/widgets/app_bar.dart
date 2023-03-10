@@ -25,7 +25,7 @@ class QSAppBar extends StatelessWidget implements PreferredSizeWidget {
           Center(
             child: QSText(
               title,
-              style: context.textTheme.subtitle2,
+              style: context.textTheme.titleSmall,
             ),
           ),
           if (canPop)

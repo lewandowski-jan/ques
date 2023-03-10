@@ -55,7 +55,7 @@ class SignInScreen extends HookConsumerWidget {
                   const SizedBox(height: 32),
                   QSText(
                     context.l10n.app_title,
-                    style: context.textTheme.headline2,
+                    style: context.textTheme.displayMedium,
                     color: context.colors.primary,
                   ),
                   const SizedBox(height: 16),
@@ -67,7 +67,7 @@ class SignInScreen extends HookConsumerWidget {
                   ),
                   QSText(
                     context.l10n.sing_in_page_sign_in_headline,
-                    style: context.textTheme.headline6,
+                    style: context.textTheme.titleLarge,
                   ),
                   const SizedBox(height: 32),
                   QSTextField(

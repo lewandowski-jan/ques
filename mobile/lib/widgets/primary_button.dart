@@ -27,7 +27,7 @@ class QSPrimaryButton extends StatelessWidget {
           child: Center(
             child: QSText(
               text,
-              style: context.textTheme.subtitle1,
+              style: context.textTheme.titleMedium,
               color: context.colors.primary,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

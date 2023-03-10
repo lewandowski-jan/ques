@@ -40,10 +40,10 @@ class QSTextField extends StatelessWidget {
       autofillHints: autofillHints,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
-      style: context.textTheme.subtitle1,
+      style: context.textTheme.titleMedium,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: context.textTheme.subtitle1!.copyWith(
+        hintStyle: context.textTheme.titleMedium!.copyWith(
           color: context.colors.textLight,
         ),
         alignLabelWithHint: true,

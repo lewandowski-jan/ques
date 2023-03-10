@@ -62,7 +62,7 @@ class CreateAccountScreen extends HookConsumerWidget {
                 children: [
                   QSText(
                     context.l10n.create_account_page_create_account_headline,
-                    style: context.textTheme.headline6,
+                    style: context.textTheme.titleLarge,
                   ),
                   const SizedBox(height: 32),
                   QSTextField(
