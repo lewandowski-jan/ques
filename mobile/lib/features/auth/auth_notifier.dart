@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final authProvider = StateNotifierProvider.autoDispose<AuthNotifier, AuthState>(
+final authProvider = StateNotifierProvider<AuthNotifier, AuthState>(
   (ref) => AuthNotifier()..init(),
 );
 
@@ -30,6 +30,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String password,
   }) async {
     try {
+      state = AuthInitial();
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -47,6 +48,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String password,
   }) async {
     try {
+      state = AuthInitial();
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -64,14 +66,35 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 }
 
-abstract class AuthState {}
+abstract class AuthState {
+  bool get authenticated;
+  bool get loading;
+}
 
-class AuthInitial extends AuthState {}
+class AuthInitial extends AuthState {
+  @override
+  bool get authenticated => false;
+
+  @override
+  bool get loading => true;
+}
 
 class AuthAuthenticated extends AuthState {
   AuthAuthenticated(this.user);
 
   final User user;
+
+  @override
+  bool get authenticated => true;
+
+  @override
+  bool get loading => false;
 }
 
-class AuthUnauthenticated extends AuthState {}
+class AuthUnauthenticated extends AuthState {
+  @override
+  bool get authenticated => false;
+
+  @override
+  bool get loading => false;
+}

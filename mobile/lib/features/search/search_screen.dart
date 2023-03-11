@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/widgets/widgets.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class SearchScreen extends StatelessWidget {
+  const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: QSText(
-            'HOME',
+            'SEARCH',
             style: context.textTheme.bodyLarge,
           ),
         ),

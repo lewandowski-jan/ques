@@ -45,6 +45,8 @@ abstract class QSColors {
   QSColor get accent;
   QSColor get accentLight;
 
+  QSColor get transparent;
+
   QSColor get textDark;
   QSColor get text;
   QSColor get textLight;
@@ -68,6 +70,9 @@ class _ColorsLight extends QSColors {
   QSColor get secondary => const QSColor._(0xFFBAE8E8);
   @override
   QSColor get secondaryLight => const QSColor._(0xFFE3F6F5);
+
+  @override
+  QSColor get transparent => const QSColor._(0x00000000);
 
   @override
   QSColor get text => const QSColor._(0xFF3C3B3B);

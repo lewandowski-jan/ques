@@ -158,6 +158,24 @@ abstract class QSLocalizations {
   /// **'create'**
   String get create_account_page_create_button;
 
+  /// No description provided for @main_page_bottom_navigation_home.
+  ///
+  /// In en, this message translates to:
+  /// **'home'**
+  String get main_page_bottom_navigation_home;
+
+  /// No description provided for @main_page_bottom_navigation_search.
+  ///
+  /// In en, this message translates to:
+  /// **'search'**
+  String get main_page_bottom_navigation_search;
+
+  /// No description provided for @main_page_bottom_navigation_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'settings'**
+  String get main_page_bottom_navigation_settings;
+
   /// No description provided for @with_placeholders.
   ///
   /// In en, this message translates to:
