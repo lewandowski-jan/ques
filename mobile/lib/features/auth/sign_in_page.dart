@@ -7,6 +7,10 @@ import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/widgets/widgets.dart';
 
+class SignInPage extends MaterialPage<void> {
+  const SignInPage() : super(child: const SignInScreen());
+}
+
 class SignInScreen extends HookConsumerWidget {
   const SignInScreen({super.key});
 

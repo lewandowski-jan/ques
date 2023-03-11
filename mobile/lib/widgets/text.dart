@@ -26,7 +26,7 @@ class QSText extends StatelessWidget {
     return Text(
       data,
       style: style!.copyWith(
-        color: color,
+        color: color ?? context.colors.textDark,
         fontWeight: fontWeight,
       ),
       maxLines: maxLines,

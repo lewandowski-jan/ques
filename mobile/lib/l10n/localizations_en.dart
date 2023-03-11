@@ -39,6 +39,15 @@ class QSLocalizationsEn extends QSLocalizations {
   String get create_account_page_create_button => 'create';
 
   @override
+  String get main_page_bottom_navigation_home => 'home';
+
+  @override
+  String get main_page_bottom_navigation_search => 'search';
+
+  @override
+  String get main_page_bottom_navigation_settings => 'settings';
+
+  @override
   String with_placeholders(int count) {
     return 'Likes: $count';
   }

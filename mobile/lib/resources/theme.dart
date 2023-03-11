@@ -95,6 +95,11 @@ class QSTheme {
           fontSize: 16,
           fontWeight: FontWeight.w400,
         ),
+        labelSmall: TextStyle(
+          color: defaultTextColor,
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

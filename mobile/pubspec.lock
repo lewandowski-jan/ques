@@ -42,7 +42,7 @@ packages:
     source: hosted
     version: "2.4.0"
   async:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: async
       sha256: bfe67ef28df125b7dddcea62755991f807aa39a2492a23e1550161692950bbe0
@@ -661,6 +661,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
+  riverpod_context:
+    dependency: "direct main"
+    description:
+      name: riverpod_context
+      sha256: "1f50bb8cca121da52b96707442c28f0070b07b3e7305377bd247221048701adb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   shelf:
     dependency: transitive
     description:

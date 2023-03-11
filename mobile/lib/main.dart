@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ques/app.dart';
 import 'package:ques/firebase_options.dart';
+import 'package:riverpod_context/riverpod_context.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,9 @@ void main() async {
 
   runApp(
     const ProviderScope(
-      child: QSApp(),
+      child: InheritedConsumer(
+        child: QSApp(),
+      ),
     ),
   );
 }

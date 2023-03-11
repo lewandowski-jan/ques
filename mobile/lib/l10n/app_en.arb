@@ -11,6 +11,9 @@
     "create_account_page_email": "email",
     "create_account_page_password": "password",
     "create_account_page_create_button": "create",
+    "main_page_bottom_navigation_home": "home",
+    "main_page_bottom_navigation_search": "search",
+    "main_page_bottom_navigation_settings": "settings",
     "with_placeholders": "Likes: {count}",
     "@with_placeholders": {
         "placeholders": {
