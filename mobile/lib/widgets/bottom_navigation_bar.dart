@@ -25,7 +25,7 @@ class QSBottomNavigationBar extends HookWidget {
       alignment: Alignment.bottomCenter,
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(bottom: min(0, 40 - bottomPadding)),
+          padding: EdgeInsets.only(bottom: max(0, 40 - bottomPadding)),
           child: Stack(
             alignment: Alignment.center,
             children: [

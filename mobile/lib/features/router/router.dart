@@ -9,7 +9,7 @@ import 'package:ques/features/router/routes.dart';
 import 'package:riverpod_context/riverpod_context.dart';
 
 final qsRouterProvider = Provider<QSRouter>((ref) {
-  final authNotifier = ref.read(authProvider.notifier);
+  final authNotifier = ref.watch(authProvider.notifier);
 
   return QSRouter(
     refreshStreams: [authNotifier.stream],
@@ -45,10 +45,6 @@ class QSRouter {
     GoRouterState state,
   ) {
     final authState = context.read(authProvider);
-
-    if (authState.loading) {
-      return _antiLoopGuard(state.location, GoLoadingRoute().location);
-    }
 
     if (!authState.authenticated) {
       return _antiLoopGuard(state.location, GoSignInRoute().location);
