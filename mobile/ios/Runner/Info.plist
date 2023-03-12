@@ -45,5 +45,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The app uses location to determin devices location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The app uses location to determin devices location</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>The app uses bluetooth to find, connect and transfer data between different devices</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>The app uses bluetooth to find, connect and transfer data between different devices</string>
 </dict>
 </plist>

@@ -30,7 +30,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String password,
   }) async {
     try {
-      state = AuthInitial();
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -48,7 +47,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String password,
   }) async {
     try {
-      state = AuthInitial();
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -68,15 +66,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
 abstract class AuthState {
   bool get authenticated;
-  bool get loading;
 }
 
 class AuthInitial extends AuthState {
   @override
   bool get authenticated => false;
-
-  @override
-  bool get loading => true;
 }
 
 class AuthAuthenticated extends AuthState {
@@ -86,15 +80,9 @@ class AuthAuthenticated extends AuthState {
 
   @override
   bool get authenticated => true;
-
-  @override
-  bool get loading => false;
 }
 
 class AuthUnauthenticated extends AuthState {
   @override
   bool get authenticated => false;
-
-  @override
-  bool get loading => false;
 }

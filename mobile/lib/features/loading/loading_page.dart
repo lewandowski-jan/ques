@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:ques/resources/resources.dart';
 
 class LoadingPage extends MaterialPage<void> {
-  const LoadingPage() : super(child: const QSLoading(transparent: false));
+  const LoadingPage() : super(child: const QSLoading());
 }
 
 class QSLoading extends StatelessWidget {
   const QSLoading({
     super.key,
-    required this.transparent,
+    this.transparent = false,
   });
 
   final bool transparent;
