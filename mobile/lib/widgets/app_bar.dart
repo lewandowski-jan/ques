@@ -11,21 +11,25 @@ class QSAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
   @override
-  Size get preferredSize => const Size.fromHeight(110);
+  Size get preferredSize => const Size.fromHeight(100);
 
   @override
   Widget build(BuildContext context) {
     final canPop = Navigator.of(context).canPop();
 
     return SizedBox(
-      height: 150,
+      height: 100,
       child: Stack(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.bottomLeft,
         children: [
-          Center(
-            child: QSText(
-              title,
-              style: context.textTheme.titleSmall,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: QSText(
+                title,
+                style: context.textTheme.titleSmall,
+              ),
             ),
           ),
           if (canPop)

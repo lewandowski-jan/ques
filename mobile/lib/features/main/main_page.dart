@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
-import 'package:ques/features/bluetooth/bluetooth_notifier.dart';
 import 'package:ques/features/home/home_screen.dart';
-import 'package:ques/features/location/location_notifier.dart';
 import 'package:ques/features/router/routes.dart';
 import 'package:ques/features/search/search_screen.dart';
 import 'package:ques/features/settings/settings_screen.dart';
@@ -13,7 +10,7 @@ class MainPage extends MaterialPage<void> {
   MainPage({required Tabs tab}) : super(child: MainScreen(tab: tab));
 }
 
-class MainScreen extends HookConsumerWidget {
+class MainScreen extends HookWidget {
   const MainScreen({
     super.key,
     required this.tab,
@@ -40,17 +37,7 @@ class MainScreen extends HookConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    useEffect(
-      () {
-        ref
-          ..read(locationProvider.notifier)
-          ..read(bluetoothProvider.notifier);
-        return null;
-      },
-      [],
-    );
-
+  Widget build(BuildContext context) {
     final tabController = _useTabControllerEffect();
 
     return Scaffold(

@@ -3,18 +3,9 @@ import 'dart:async';
 import 'package:async/async.dart' show StreamGroup;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ques/features/auth/auth_notifier.dart';
+import 'package:provider/provider.dart';
+import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/router/routes.dart';
-import 'package:riverpod_context/riverpod_context.dart';
-
-final qsRouterProvider = Provider<QSRouter>((ref) {
-  final authNotifier = ref.watch(authProvider.notifier);
-
-  return QSRouter(
-    refreshStreams: [authNotifier.stream],
-  );
-});
 
 class QSRouter {
   QSRouter({
@@ -44,7 +35,7 @@ class QSRouter {
     BuildContext context,
     GoRouterState state,
   ) {
-    final authState = context.read(authProvider);
+    final authState = context.read<AuthCubit>().state;
 
     if (!authState.authenticated) {
       return _antiLoopGuard(state.location, GoSignInRoute().location);

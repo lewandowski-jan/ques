@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_comms/flutter_comms.dart';
 
-final authProvider = StateNotifierProvider<AuthNotifier, AuthState>(
-  (ref) => AuthNotifier()..init(),
-);
-
-class AuthNotifier extends StateNotifier<AuthState> {
-  AuthNotifier() : super(AuthInitial());
+class AuthCubit extends Cubit<AuthState> with StateSender {
+  AuthCubit() : super(AuthInitial()) {
+    init();
+  }
 
   StreamSubscription<User?>? authStateSubscription;
 
@@ -17,9 +16,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
     authStateSubscription = FirebaseAuth.instance.authStateChanges().listen(
       (user) {
         if (user == null) {
-          state = AuthUnauthenticated();
+          emit(AuthUnauthenticated());
         } else {
-          state = AuthAuthenticated(user);
+          emit(AuthAuthenticated(user));
         }
       },
     );
@@ -58,9 +57,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   @override
-  void dispose() {
-    authStateSubscription?.cancel();
-    super.dispose();
+  Future<void> close() async {
+    await authStateSubscription?.cancel();
+    await super.close();
   }
 }
 

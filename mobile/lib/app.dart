@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider/provider.dart';
 import 'package:ques/features/router/router.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
 
-class QSApp extends ConsumerWidget {
+class QSApp extends StatelessWidget {
   const QSApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final qsRouter = ref.watch(qsRouterProvider);
+  Widget build(BuildContext context) {
+    final router = context.read<QSRouter>();
 
     return MaterialApp.router(
       locale: const Locale('en'),
@@ -18,7 +18,7 @@ class QSApp extends ConsumerWidget {
       onGenerateTitle: (context) => context.l10n.app_title,
       theme: QSTheme.light(context),
       darkTheme: QSTheme.dark(context),
-      routerConfig: qsRouter.router,
+      routerConfig: router.router,
     );
   }
 }
