@@ -14,33 +14,35 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Device _$DeviceFromJson(Map<String, dynamic> json) {
-  return _Device.fromJson(json);
+UserDevice _$UserDeviceFromJson(Map<String, dynamic> json) {
+  return _UserDevice.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Device {
+mixin _$UserDevice {
   String get id => throw _privateConstructorUsedError;
-  DeviceType get type => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  DeviceType get type => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DeviceCopyWith<Device> get copyWith => throw _privateConstructorUsedError;
+  $UserDeviceCopyWith<UserDevice> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DeviceCopyWith<$Res> {
-  factory $DeviceCopyWith(Device value, $Res Function(Device) then) =
-      _$DeviceCopyWithImpl<$Res, Device>;
+abstract class $UserDeviceCopyWith<$Res> {
+  factory $UserDeviceCopyWith(
+          UserDevice value, $Res Function(UserDevice) then) =
+      _$UserDeviceCopyWithImpl<$Res, UserDevice>;
   @useResult
-  $Res call({String id, DeviceType type, String name});
+  $Res call({String id, String name, DeviceType type});
 }
 
 /// @nodoc
-class _$DeviceCopyWithImpl<$Res, $Val extends Device>
-    implements $DeviceCopyWith<$Res> {
-  _$DeviceCopyWithImpl(this._value, this._then);
+class _$UserDeviceCopyWithImpl<$Res, $Val extends UserDevice>
+    implements $UserDeviceCopyWith<$Res> {
+  _$UserDeviceCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -51,131 +53,137 @@ class _$DeviceCopyWithImpl<$Res, $Val extends Device>
   @override
   $Res call({
     Object? id = null,
-    Object? type = null,
     Object? name = null,
+    Object? type = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as DeviceType,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as DeviceType,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_DeviceCopyWith<$Res> implements $DeviceCopyWith<$Res> {
-  factory _$$_DeviceCopyWith(_$_Device value, $Res Function(_$_Device) then) =
-      __$$_DeviceCopyWithImpl<$Res>;
+abstract class _$$_UserDeviceCopyWith<$Res>
+    implements $UserDeviceCopyWith<$Res> {
+  factory _$$_UserDeviceCopyWith(
+          _$_UserDevice value, $Res Function(_$_UserDevice) then) =
+      __$$_UserDeviceCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, DeviceType type, String name});
+  $Res call({String id, String name, DeviceType type});
 }
 
 /// @nodoc
-class __$$_DeviceCopyWithImpl<$Res>
-    extends _$DeviceCopyWithImpl<$Res, _$_Device>
-    implements _$$_DeviceCopyWith<$Res> {
-  __$$_DeviceCopyWithImpl(_$_Device _value, $Res Function(_$_Device) _then)
+class __$$_UserDeviceCopyWithImpl<$Res>
+    extends _$UserDeviceCopyWithImpl<$Res, _$_UserDevice>
+    implements _$$_UserDeviceCopyWith<$Res> {
+  __$$_UserDeviceCopyWithImpl(
+      _$_UserDevice _value, $Res Function(_$_UserDevice) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
-    Object? type = null,
     Object? name = null,
+    Object? type = null,
   }) {
-    return _then(_$_Device(
+    return _then(_$_UserDevice(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as DeviceType,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_Device implements _Device {
-  const _$_Device({required this.id, required this.type, required this.name});
+class _$_UserDevice implements _UserDevice {
+  const _$_UserDevice(
+      {required this.id, required this.name, this.type = DeviceType.unknown});
 
-  factory _$_Device.fromJson(Map<String, dynamic> json) =>
-      _$$_DeviceFromJson(json);
+  factory _$_UserDevice.fromJson(Map<String, dynamic> json) =>
+      _$$_UserDeviceFromJson(json);
 
   @override
   final String id;
   @override
-  final DeviceType type;
-  @override
   final String name;
+  @override
+  @JsonKey()
+  final DeviceType type;
 
   @override
   String toString() {
-    return 'Device(id: $id, type: $type, name: $name)';
+    return 'UserDevice(id: $id, name: $name, type: $type)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Device &&
+            other is _$_UserDevice &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, type, name);
+  int get hashCode => Object.hash(runtimeType, id, name, type);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DeviceCopyWith<_$_Device> get copyWith =>
-      __$$_DeviceCopyWithImpl<_$_Device>(this, _$identity);
+  _$$_UserDeviceCopyWith<_$_UserDevice> get copyWith =>
+      __$$_UserDeviceCopyWithImpl<_$_UserDevice>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DeviceToJson(
+    return _$$_UserDeviceToJson(
       this,
     );
   }
 }
 
-abstract class _Device implements Device {
-  const factory _Device(
+abstract class _UserDevice implements UserDevice {
+  const factory _UserDevice(
       {required final String id,
-      required final DeviceType type,
-      required final String name}) = _$_Device;
+      required final String name,
+      final DeviceType type}) = _$_UserDevice;
 
-  factory _Device.fromJson(Map<String, dynamic> json) = _$_Device.fromJson;
+  factory _UserDevice.fromJson(Map<String, dynamic> json) =
+      _$_UserDevice.fromJson;
 
   @override
   String get id;
   @override
-  DeviceType get type;
-  @override
   String get name;
   @override
+  DeviceType get type;
+  @override
   @JsonKey(ignore: true)
-  _$$_DeviceCopyWith<_$_Device> get copyWith =>
+  _$$_UserDeviceCopyWith<_$_UserDevice> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

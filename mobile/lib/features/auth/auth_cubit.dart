@@ -12,6 +12,13 @@ class AuthCubit extends Cubit<AuthState> with StateSender {
   StreamSubscription<User?>? authStateSubscription;
 
   Future<void> init() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      emit(AuthAuthenticated(user));
+    } else {
+      emit(AuthUnauthenticated());
+    }
+
     await authStateSubscription?.cancel();
     authStateSubscription = FirebaseAuth.instance.authStateChanges().listen(
       (user) {

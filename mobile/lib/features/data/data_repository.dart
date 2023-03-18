@@ -10,7 +10,7 @@ class DataRepository implements IDataRepository {
   final DynamicDatabase _database;
 
   @override
-  Future<List<Device>> getUserDevices() async {
+  Future<List<UserDevice>> getUserDevices() async {
     // TODO: implement getDevices
     throw UnimplementedError();
   }

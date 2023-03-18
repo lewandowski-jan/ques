@@ -85,6 +85,11 @@ class QSTheme {
           fontSize: 20,
           fontWeight: FontWeight.w400,
         ),
+        bodyMedium: TextStyle(
+          color: defaultTextColor,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
         titleSmall: TextStyle(
           color: defaultTextColor,
           fontSize: 16,
@@ -99,6 +104,11 @@ class QSTheme {
           color: defaultTextColor,
           fontSize: 14,
           fontWeight: FontWeight.bold,
+        ),
+        displaySmall: TextStyle(
+          color: defaultTextColor,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

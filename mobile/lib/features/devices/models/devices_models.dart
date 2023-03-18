@@ -3,17 +3,28 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'devices_models.freezed.dart';
 part 'devices_models.g.dart';
 
-enum DeviceType { headphones, keyboard, laptop, phone, unknown }
+enum DeviceType {
+  headphones,
+  keyboard,
+  mouse,
+  laptop,
+  phone,
+  watch,
+  tablet,
+  tv,
+  unknown,
+}
 
 @freezed
-class Device with _$Device {
-  const factory Device({
+class UserDevice with _$UserDevice {
+  const factory UserDevice({
     required String id,
-    required DeviceType type,
     required String name,
-  }) = _Device;
+    @Default(DeviceType.unknown) DeviceType type,
+  }) = _UserDevice;
 
-  factory Device.fromJson(Map<String, Object?> json) => _$DeviceFromJson(json);
+  factory UserDevice.fromJson(Map<String, Object?> json) =>
+      _$UserDeviceFromJson(json);
 }
 
 @freezed

@@ -139,3 +139,18 @@ MapController useMapController({
     ),
   );
 }
+
+MapController useQsMapController({
+  required ValueChanged<MapController> onMapIsReady,
+}) {
+  final mapController = useMapController(
+    initMapWithUserPosition: true,
+  );
+
+  useMapIsReady(
+    controller: mapController,
+    mapIsReady: () => onMapIsReady(mapController),
+  );
+
+  return mapController;
+}

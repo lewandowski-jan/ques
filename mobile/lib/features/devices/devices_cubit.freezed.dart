@@ -20,21 +20,21 @@ mixin _$DevicesState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Device> devices) success,
+    required TResult Function(List<UserDevice> devices) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Device> devices)? success,
+    TResult? Function(List<UserDevice> devices)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Device> devices)? success,
+    TResult Function(List<UserDevice> devices)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,7 +120,7 @@ class _$DevicesInitial implements DevicesInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Device> devices) success,
+    required TResult Function(List<UserDevice> devices) success,
   }) {
     return initial();
   }
@@ -130,7 +130,7 @@ class _$DevicesInitial implements DevicesInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Device> devices)? success,
+    TResult? Function(List<UserDevice> devices)? success,
   }) {
     return initial?.call();
   }
@@ -140,7 +140,7 @@ class _$DevicesInitial implements DevicesInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Device> devices)? success,
+    TResult Function(List<UserDevice> devices)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -228,7 +228,7 @@ class _$DevicesLoading implements DevicesLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Device> devices) success,
+    required TResult Function(List<UserDevice> devices) success,
   }) {
     return loading();
   }
@@ -238,7 +238,7 @@ class _$DevicesLoading implements DevicesLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Device> devices)? success,
+    TResult? Function(List<UserDevice> devices)? success,
   }) {
     return loading?.call();
   }
@@ -248,7 +248,7 @@ class _$DevicesLoading implements DevicesLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Device> devices)? success,
+    TResult Function(List<UserDevice> devices)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -302,7 +302,7 @@ abstract class _$$DevicesSuccessCopyWith<$Res> {
           _$DevicesSuccess value, $Res Function(_$DevicesSuccess) then) =
       __$$DevicesSuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Device> devices});
+  $Res call({List<UserDevice> devices});
 }
 
 /// @nodoc
@@ -322,7 +322,7 @@ class __$$DevicesSuccessCopyWithImpl<$Res>
       devices: null == devices
           ? _value._devices
           : devices // ignore: cast_nullable_to_non_nullable
-              as List<Device>,
+              as List<UserDevice>,
     ));
   }
 }
@@ -330,12 +330,12 @@ class __$$DevicesSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DevicesSuccess implements DevicesSuccess {
-  const _$DevicesSuccess({required final List<Device> devices})
+  const _$DevicesSuccess({required final List<UserDevice> devices})
       : _devices = devices;
 
-  final List<Device> _devices;
+  final List<UserDevice> _devices;
   @override
-  List<Device> get devices {
+  List<UserDevice> get devices {
     if (_devices is EqualUnmodifiableListView) return _devices;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_devices);
@@ -369,7 +369,7 @@ class _$DevicesSuccess implements DevicesSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Device> devices) success,
+    required TResult Function(List<UserDevice> devices) success,
   }) {
     return success(devices);
   }
@@ -379,7 +379,7 @@ class _$DevicesSuccess implements DevicesSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Device> devices)? success,
+    TResult? Function(List<UserDevice> devices)? success,
   }) {
     return success?.call(devices);
   }
@@ -389,7 +389,7 @@ class _$DevicesSuccess implements DevicesSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Device> devices)? success,
+    TResult Function(List<UserDevice> devices)? success,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -434,10 +434,10 @@ class _$DevicesSuccess implements DevicesSuccess {
 }
 
 abstract class DevicesSuccess implements DevicesState {
-  const factory DevicesSuccess({required final List<Device> devices}) =
+  const factory DevicesSuccess({required final List<UserDevice> devices}) =
       _$DevicesSuccess;
 
-  List<Device> get devices;
+  List<UserDevice> get devices;
   @JsonKey(ignore: true)
   _$$DevicesSuccessCopyWith<_$DevicesSuccess> get copyWith =>
       throw _privateConstructorUsedError;

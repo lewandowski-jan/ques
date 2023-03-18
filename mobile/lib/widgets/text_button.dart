@@ -18,7 +18,7 @@ class QSTextButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onPressed,
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(12),
           child: QSText(
             text,
             style: context.textTheme.bodySmall,
