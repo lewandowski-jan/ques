@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:provider/provider.dart';
 import 'package:ques/features/loading/loading_page.dart';
-import 'package:ques/features/location/location_notifier.dart';
+import 'package:ques/features/location/location_cubit.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/utils/osm_hooks.dart';
 
@@ -18,25 +18,23 @@ class SearchScreen extends StatelessWidget {
   }
 }
 
-class MapBody extends HookConsumerWidget {
+class MapBody extends HookWidget {
   const MapBody({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    useAutomaticKeepAlive();
-
+  Widget build(BuildContext context) {
     final mapController = useMapController(
       initMapWithUserPosition: true,
     );
 
-    final locationNotifier = ref.read(locationProvider.notifier);
-    final location = ref.read(locationProvider);
+    final locationCubit = context.read<LocationCubit>();
+    final location = locationCubit.state;
 
     useMapIsReady(
       controller: mapController,
       mapIsReady: () async {
         if (location != null) {
-          locationNotifier.addListener((location) async {
+          locationCubit.stream.listen((location) async {
             if (location != null) {
               await mapController.setStaticPosition(
                 [

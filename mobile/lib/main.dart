@@ -3,10 +3,14 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:ques/app.dart';
+import 'package:ques/features/auth/auth_cubit.dart';
+import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
+import 'package:ques/features/location/location_cubit.dart';
+import 'package:ques/features/router/router.dart';
 import 'package:ques/firebase_options.dart';
-import 'package:riverpod_context/riverpod_context.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,10 +30,29 @@ void main() async {
   };
 
   runApp(
-    const ProviderScope(
-      child: InheritedConsumer(
-        child: QSApp(),
-      ),
+    MultiProvider(
+      providers: [
+        BlocProvider(
+          lazy: false,
+          create: (_) => AuthCubit(),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (_) => LocationCubit(),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (_) => BluetoothCubit(),
+        ),
+        Provider(
+          create: (context) => QSRouter(
+            refreshStreams: [
+              context.read<AuthCubit>().stream,
+            ],
+          ),
+        ),
+      ],
+      child: const QSApp(),
     ),
   );
 }

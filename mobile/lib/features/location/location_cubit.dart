@@ -1,37 +1,37 @@
 import 'dart:async';
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_comms/flutter_comms.dart';
 import 'package:location/location.dart';
-import 'package:ques/features/auth/auth_notifier.dart';
+import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/location/models/location_models.dart';
 
-final locationProvider = StateNotifierProvider<LocationNotifier, LatLong?>(
-  (ref) {
-    final authState = ref.watch(authProvider);
-
-    if (authState.authenticated) {
-      return LocationNotifier()..init();
-    }
-
-    return LocationNotifier();
-  },
-);
-
-class LocationNotifier extends StateNotifier<LatLong?> {
-  LocationNotifier() : super(null);
+class LocationCubit extends ListenerCubit<LatLong?, AuthState> {
+  LocationCubit() : super(null);
 
   final _location = Location();
   StreamSubscription<LocationData>? _locationStreamSub;
 
+  @override
+  Future<void> onMessage(AuthState message) async {
+    if (message.authenticated) {
+      await init();
+      return;
+    }
+
+    await _locationStreamSub?.cancel();
+    emit(null);
+  }
+
+  @override
+  void onInitialMessage(AuthState message) => onMessage(message);
+
   Future<void> init() async {
-    state = null;
+    emit(null);
 
     final success = await _requestServiceAndPermissions();
     if (!success) {
       return;
     }
-
-    await _location.enableBackgroundMode();
 
     await _locationStreamSub?.cancel();
     _locationStreamSub = _location.onLocationChanged.listen((currentLocation) {
@@ -39,9 +39,11 @@ class LocationNotifier extends StateNotifier<LatLong?> {
       final longitude = currentLocation.longitude;
 
       if (latitude != null && longitude != null) {
-        state = LatLong(
-          latitude: latitude,
-          longitude: longitude,
+        emit(
+          LatLong(
+            latitude: latitude,
+            longitude: longitude,
+          ),
         );
       }
     });
@@ -71,8 +73,8 @@ class LocationNotifier extends StateNotifier<LatLong?> {
   }
 
   @override
-  Future<void> dispose() async {
+  Future<void> close() async {
     await _locationStreamSub?.cancel();
-    super.dispose();
+    await super.close();
   }
 }

@@ -1,37 +1,39 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter_comms/flutter_comms.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ques/features/auth/auth_notifier.dart';
+import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
 
-part 'bluetooth_notifier.freezed.dart';
+part 'bluetooth_cubit.freezed.dart';
 
-final bluetoothProvider =
-    StateNotifierProvider<BluetoothNotifier, BluetoothState>(
-  (ref) {
-    final authState = ref.watch(authProvider);
+class BluetoothCubit extends ListenerCubit<BluetoothState, AuthState> {
+  BluetoothCubit() : super(const BluetoothState.initial());
 
-    if (authState.authenticated) {
-      return BluetoothNotifier()..init();
-    }
-
-    return BluetoothNotifier();
-  },
-);
-
-class BluetoothNotifier extends StateNotifier<BluetoothState> {
-  BluetoothNotifier() : super(const BluetoothState.initial());
-
-  static const _measuredPower = -50;
+  static const _measuredPower = -70;
   static const _n = 2;
   static const _discoveryDateValidity = Duration(seconds: 30);
 
   final _ble = FlutterReactiveBle();
   StreamSubscription<DiscoveredDevice>? _discoveredStreamSub;
   Timer? _filterTimer;
+
+  @override
+  Future<void> onMessage(AuthState message) async {
+    if (message.authenticated) {
+      await init();
+      return;
+    }
+
+    await _discoveredStreamSub?.cancel();
+    _filterTimer?.cancel();
+    emit(const BluetoothState.initial());
+  }
+
+  @override
+  void onInitialMessage(AuthState message) => onMessage(message);
 
   Future<void> init() async {
     final discovered = _ble.scanForDevices(
@@ -53,12 +55,12 @@ class BluetoothNotifier extends StateNotifier<BluetoothState> {
 
         state.when(
           initial: () {
-            state = BluetoothState.found(devices: {id: bluetoothDevice});
+            emit(BluetoothState.found(devices: {id: bluetoothDevice}));
           },
           found: (devices) {
             final newDevices = {...devices};
             newDevices[id] = bluetoothDevice;
-            state = BluetoothState.found(devices: newDevices);
+            emit(BluetoothState.found(devices: newDevices));
           },
         );
       }
@@ -86,16 +88,16 @@ class BluetoothNotifier extends StateNotifier<BluetoothState> {
             newDevices.remove(deviceEntry.key);
           }
         }
-        state = BluetoothState.found(devices: newDevices);
+        emit(BluetoothState.found(devices: newDevices));
       },
     );
   }
 
   @override
-  Future<void> dispose() async {
+  Future<void> close() async {
     await _discoveredStreamSub?.cancel();
     _filterTimer?.cancel();
-    super.dispose();
+    await super.close();
   }
 }
 

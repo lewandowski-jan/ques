@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
-import 'package:ques/features/auth/auth_notifier.dart';
+import 'package:provider/provider.dart';
+import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/auth/create_account_screen.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
@@ -11,12 +11,12 @@ class SignInPage extends MaterialPage<void> {
   const SignInPage() : super(child: const SignInScreen());
 }
 
-class SignInScreen extends HookConsumerWidget {
+class SignInScreen extends HookWidget {
   const SignInScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final authNotifier = ref.read(authProvider.notifier);
+  Widget build(BuildContext context) {
+    final authCubit = context.read<AuthCubit>();
 
     final emailEmpty = useState(true);
     final hasError = useState(false);
@@ -36,7 +36,7 @@ class SignInScreen extends HookConsumerWidget {
     Future<void> onSubmitted() async {
       emailFocusNode.unfocus();
       passwordFocusNode.unfocus();
-      final result = await authNotifier.signIn(
+      final result = await authCubit.signIn(
         email: emailController.text,
         password: passwordController.text,
       );

@@ -176,6 +176,42 @@ abstract class QSLocalizations {
   /// **'settings'**
   String get main_page_bottom_navigation_settings;
 
+  /// No description provided for @home_page_add_new_device.
+  ///
+  /// In en, this message translates to:
+  /// **'+ add new device'**
+  String get home_page_add_new_device;
+
+  /// No description provided for @add_new_device_page_add_new_device.
+  ///
+  /// In en, this message translates to:
+  /// **'Add new device'**
+  String get add_new_device_page_add_new_device;
+
+  /// No description provided for @add_new_device_page_select_device.
+  ///
+  /// In en, this message translates to:
+  /// **'SELECT DEVICE'**
+  String get add_new_device_page_select_device;
+
+  /// No description provided for @add_new_device_page_edit_device_name.
+  ///
+  /// In en, this message translates to:
+  /// **'EDIT DEVICE NAME'**
+  String get add_new_device_page_edit_device_name;
+
+  /// No description provided for @add_new_device_page_select_device_type.
+  ///
+  /// In en, this message translates to:
+  /// **'SELECT DEVICE TYPE'**
+  String get add_new_device_page_select_device_type;
+
+  /// No description provided for @add_new_device_page_add.
+  ///
+  /// In en, this message translates to:
+  /// **'add'**
+  String get add_new_device_page_add;
+
   /// No description provided for @with_placeholders.
   ///
   /// In en, this message translates to:

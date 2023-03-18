@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
-import 'package:ques/features/auth/auth_notifier.dart';
+import 'package:provider/provider.dart';
+import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/widgets/app_bar.dart';
@@ -14,12 +14,12 @@ class CreateAccountRoute extends MaterialPageRoute<void> {
         );
 }
 
-class CreateAccountScreen extends HookConsumerWidget {
+class CreateAccountScreen extends HookWidget {
   const CreateAccountScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final authNotifier = ref.read(authProvider.notifier);
+  Widget build(BuildContext context) {
+    final authCubit = context.read<AuthCubit>();
 
     final emailEmpty = useState(true);
     final hasError = useState(false);
@@ -39,7 +39,7 @@ class CreateAccountScreen extends HookConsumerWidget {
     Future<void> onSubmitted() async {
       emailFocusNode.unfocus();
       passwordFocusNode.unfocus();
-      final result = await authNotifier.signUp(
+      final result = await authCubit.signUp(
         email: emailController.text,
         password: passwordController.text,
       );
@@ -48,69 +48,68 @@ class CreateAccountScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: const QSAppBar(),
+      backgroundColor: context.colors.background,
       body: SafeArea(
         child: GestureDetector(
           onTap: FocusManager.instance.primaryFocus?.unfocus,
           behavior: HitTestBehavior.translucent,
-          child: Container(
-            color: context.colors.background,
+          child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              clipBehavior: Clip.none,
-              child: Column(
-                children: [
-                  QSText(
-                    context.l10n.create_account_page_create_account_headline,
-                    style: context.textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 32),
-                  QSTextField(
-                    controller: emailController,
-                    focusNode: emailFocusNode,
-                    hasError: hasError.value,
-                    hintText: context.l10n.sign_in_page_email,
-                    autofillHints: const [AutofillHints.email],
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    trailling: emailEmpty.value
-                        ? null
-                        : GestureDetector(
-                            onTap: emailController.clear,
-                            child: Icon(
-                              Icons.close,
-                              color: context.colors.text,
-                            ),
+            physics: const ClampingScrollPhysics(),
+            clipBehavior: Clip.none,
+            child: Column(
+              children: [
+                const SizedBox(height: 40),
+                QSText(
+                  context.l10n.create_account_page_create_account_headline,
+                  style: context.textTheme.titleLarge,
+                ),
+                const SizedBox(height: 32),
+                QSTextField(
+                  controller: emailController,
+                  focusNode: emailFocusNode,
+                  hasError: hasError.value,
+                  hintText: context.l10n.sign_in_page_email,
+                  autofillHints: const [AutofillHints.email],
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  trailling: emailEmpty.value
+                      ? null
+                      : GestureDetector(
+                          onTap: emailController.clear,
+                          child: Icon(
+                            Icons.close,
+                            color: context.colors.text,
                           ),
-                  ),
-                  const SizedBox(height: 16),
-                  QSTextField(
-                    controller: passwordController,
-                    focusNode: passwordFocusNode,
-                    obscureText: obscureText.value,
-                    hasError: hasError.value,
-                    hintText: context.l10n.sign_in_page_password,
-                    autofillHints: const [AutofillHints.password],
-                    keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.go,
-                    trailling: GestureDetector(
-                      onTap: () => obscureText.value = !obscureText.value,
-                      child: Icon(
-                        obscureText.value
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        color: context.colors.text,
-                      ),
+                        ),
+                ),
+                const SizedBox(height: 16),
+                QSTextField(
+                  controller: passwordController,
+                  focusNode: passwordFocusNode,
+                  obscureText: obscureText.value,
+                  hasError: hasError.value,
+                  hintText: context.l10n.sign_in_page_password,
+                  autofillHints: const [AutofillHints.password],
+                  keyboardType: TextInputType.visiblePassword,
+                  textInputAction: TextInputAction.go,
+                  trailling: GestureDetector(
+                    onTap: () => obscureText.value = !obscureText.value,
+                    child: Icon(
+                      obscureText.value
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: context.colors.text,
                     ),
-                    onSubmitted: (_) async => onSubmitted(),
                   ),
-                  const SizedBox(height: 16),
-                  QSPrimaryButton(
-                    text: context.l10n.create_account_page_create_button,
-                    onPressed: onSubmitted,
-                  ),
-                ],
-              ),
+                  onSubmitted: (_) async => onSubmitted(),
+                ),
+                const SizedBox(height: 16),
+                QSPrimaryButton(
+                  text: context.l10n.create_account_page_create_button,
+                  onPressed: onSubmitted,
+                ),
+              ],
             ),
           ),
         ),

@@ -48,6 +48,24 @@ class QSLocalizationsEn extends QSLocalizations {
   String get main_page_bottom_navigation_settings => 'settings';
 
   @override
+  String get home_page_add_new_device => '+ add new device';
+
+  @override
+  String get add_new_device_page_add_new_device => 'Add new device';
+
+  @override
+  String get add_new_device_page_select_device => 'SELECT DEVICE';
+
+  @override
+  String get add_new_device_page_edit_device_name => 'EDIT DEVICE NAME';
+
+  @override
+  String get add_new_device_page_select_device_type => 'SELECT DEVICE TYPE';
+
+  @override
+  String get add_new_device_page_add => 'add';
+
+  @override
   String with_placeholders(int count) {
     return 'Likes: $count';
   }

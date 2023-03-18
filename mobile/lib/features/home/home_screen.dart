@@ -1,51 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ques/features/bluetooth/bluetooth_notifier.dart';
-import 'package:ques/resources/resources.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:ques/features/add_device/select_device_route.dart';
+import 'package:ques/l10n/l10n.dart';
 import 'package:ques/widgets/widgets.dart';
 
-class HomeScreen extends HookConsumerWidget {
+class HomeScreen extends HookWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final bluetoothState = ref.watch(bluetoothProvider);
-
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: bluetoothState.map(
-          initial: (_) => const Center(
-            child: CircularProgressIndicator(),
-          ),
-          found: (state) => Column(
-            children: state.devices.values
-                .map(
-                  (device) => Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: QSText(
-                            device.name,
-                            style: context.textTheme.bodyMedium,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: QSText(
-                            '${device.distanceInMeters.toStringAsFixed(3)} m',
-                            style: context.textTheme.bodyMedium,
-                            maxLines: 1,
-                          ),
-                        ),
-                      ],
-                    ),
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              Center(
+                child: QSTextButton(
+                  text: context.l10n.home_page_add_new_device,
+                  onPressed: () => Navigator.of(context).push(
+                    SelectDeviceRoute(),
                   ),
-                )
-                .toList(),
+                ),
+              ),
+            ],
           ),
         ),
       ),
