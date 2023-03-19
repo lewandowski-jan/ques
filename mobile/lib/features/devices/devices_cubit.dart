@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'dart:math' show asin, cos, sqrt;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_comms/flutter_comms.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
 import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
 import 'package:ques/features/data/data_repository.dart';
@@ -98,7 +98,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
                   final distanceInMeters = _lastLocation != null &&
                           deviceLocation.latitude != null &&
                           deviceLocation.longitude != null
-                      ? Geolocator.distanceBetween(
+                      ? calculateDistanceInMeters(
                           _lastLocation!.latitude,
                           _lastLocation!.longitude,
                           deviceLocation.latitude!,
@@ -121,6 +121,19 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
         );
       },
     );
+  }
+
+  double calculateDistanceInMeters(
+    double lat1,
+    double lon1,
+    double lat2,
+    double lon2,
+  ) {
+    const p = 0.017453292519943295;
+    final a = 0.5 -
+        cos((lat2 - lat1) * p) / 2 +
+        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a)) * 1000;
   }
 
   Future<void> addDevice({
