@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
+import 'package:intl/intl.dart';
 import 'package:ques/features/devices/models/devices_models.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/widgets/widgets.dart';
@@ -12,16 +12,16 @@ class QSDeviceTile extends StatelessWidget {
     this.onTap,
   });
 
-  final BluetoothDevice device;
+  final Device device;
   final DeviceType deviceType;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final distanceInMeters = device.distanceInMeters.toStringAsFixed(1);
-    final discoveryDate = device.discoveryDate;
-    final lastSeenInSeconds =
-        DateTime.now().difference(discoveryDate).inSeconds;
+    final distanceInMeters = device.deviceLocation.distanceInMeters;
+    final discoveryDate = device.deviceLocation.discoveryDate;
+    final lastSeen =
+        discoveryDate != null ? DateFormat.EEEE().format(discoveryDate) : null;
 
     return OnPressedAnimatedScale(
       child: GestureDetector(
@@ -49,7 +49,7 @@ class QSDeviceTile extends StatelessWidget {
                 height: 40,
                 width: 40,
                 child: Icon(
-                  Icons.bluetooth,
+                  getIconFromDeviceType(device.type),
                   size: 40,
                   color: context.colors.text,
                 ),
@@ -73,21 +73,24 @@ class QSDeviceTile extends StatelessWidget {
                       child: Flex(
                         direction: Axis.horizontal,
                         children: [
-                          Flexible(
-                            child: QSText(
-                              'distance: $distanceInMeters m',
-                              style: context.textTheme.displaySmall,
-                              maxLines: 1,
+                          if (distanceInMeters != null) ...[
+                            Flexible(
+                              child: QSText(
+                                'distance: $distanceInMeters m',
+                                style: context.textTheme.displaySmall,
+                                maxLines: 1,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          Flexible(
-                            child: QSText(
-                              'last seen: $lastSeenInSeconds s',
-                              style: context.textTheme.displaySmall,
-                              maxLines: 1,
+                            const SizedBox(width: 8),
+                          ],
+                          if (lastSeen != null)
+                            Flexible(
+                              child: QSText(
+                                'last seen: $lastSeen',
+                                style: context.textTheme.displaySmall,
+                                maxLines: 1,
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ),

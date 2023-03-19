@@ -1,23 +1,35 @@
-import 'package:ques/features/data/dynamic_database.dart';
+import 'package:async/async.dart';
+import 'package:flutter_comms/flutter_comms.dart';
+import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/data/i_data_repository.dart';
+import 'package:ques/features/data/realtime_database.dart';
 import 'package:ques/features/devices/models/devices_models.dart';
 
-class DataRepository implements IDataRepository {
-  const DataRepository({
-    required DynamicDatabase database,
-  }) : _database = database;
+class DataRepository with Listener<AuthState> implements IDataRepository {
+  DataRepository({
+    required RealtimeDatabase database,
+  }) : _database = database {
+    listen();
+  }
 
-  final DynamicDatabase _database;
+  final RealtimeDatabase _database;
+  String? _userId;
 
   @override
-  Future<List<UserDevice>> getUserDevices() async {
-    // TODO: implement getDevices
-    throw UnimplementedError();
+  void onMessage(AuthState message) {
+    if (message is AuthAuthenticated) {
+      _userId = message.user.uid;
+      return;
+    }
+    _userId = null;
   }
 
   @override
+  void onInitialMessage(AuthState message) => onMessage(message);
+
+  @override
   Future<void> tryUpdateDeviceLocation(DeviceLocation deviceLocation) async {
-    final path = DynamicDatabasePath.getDevicePath(deviceLocation.id);
+    final path = RealtimeDatabasePath.getDeviceLocationPath(deviceLocation.id);
     final deviceExists = await _database.exists(path);
 
     if (!deviceExists) {
@@ -25,5 +37,100 @@ class DataRepository implements IDataRepository {
     }
 
     await _database.update(path, json: deviceLocation.toJson());
+  }
+
+  @override
+  Future<void> addDevice(Device device) async {
+    await addUserDevice(device.userDevice);
+    await addDeviceLocation(device.deviceLocation);
+  }
+
+  @override
+  Future<void> addUserDevice(UserDevice device) async {
+    final userId = _userId;
+    if (userId == null) {
+      return;
+    }
+
+    final path = RealtimeDatabasePath.getUserDevicePath(
+      userId,
+      device.id,
+    );
+
+    await _database.update(path, json: device.toJson());
+  }
+
+  @override
+  Future<void> addDeviceLocation(DeviceLocation device) async {
+    final userId = _userId;
+    if (userId == null) {
+      return;
+    }
+
+    final path = RealtimeDatabasePath.getDeviceLocationPath(device.id);
+
+    await _database.update(path, json: device.toJson());
+  }
+
+  @override
+  Stream<List<UserDevice>> onUserDevices() async* {
+    final userId = _userId;
+    if (userId == null) {
+      return;
+    }
+
+    final path = RealtimeDatabasePath.getUserPath(userId);
+
+    yield* _database.onValue(path).map((json) {
+      final entries = json?.entries ?? [];
+
+      final userDevices = entries
+          .map(
+            (e) => UserDevice.fromJson(
+              Map<String, dynamic>.from(e.value as Map<Object?, Object?>),
+            ),
+          )
+          .toList();
+
+      return userDevices;
+    });
+  }
+
+  @override
+  Stream<DeviceLocation?> onDeviceLocation(String deviceId) async* {
+    final path = RealtimeDatabasePath.getDeviceLocationPath(deviceId);
+
+    yield* _database.onValue(path).map((json) {
+      if (json != null) {
+        final deviceLocation = DeviceLocation.fromJson(json);
+
+        return deviceLocation;
+      }
+
+      return null;
+    });
+  }
+
+  @override
+  Stream<DeviceLocation?> onDevicesLocations(List<String> deviceIds) async* {
+    final userId = _userId;
+    if (userId == null) {
+      return;
+    }
+
+    Stream<DeviceLocation?>? devicesLocationsStream;
+
+    final devicesLocationsStreams = <Stream<DeviceLocation?>>[];
+    for (final deviceId in deviceIds) {
+      devicesLocationsStreams.add(onDeviceLocation(deviceId));
+    }
+
+    devicesLocationsStream = StreamGroup.merge(devicesLocationsStreams);
+
+    yield* devicesLocationsStream;
+  }
+
+  void dispose() {
+    cancel();
   }
 }

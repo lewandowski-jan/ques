@@ -5,7 +5,8 @@ import 'package:location/location.dart';
 import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/location/models/location_models.dart';
 
-class LocationCubit extends ListenerCubit<LatLong?, AuthState> {
+class LocationCubit extends ListenerCubit<LatLong?, AuthState>
+    with StateSender {
   LocationCubit() : super(null);
 
   final _location = Location();

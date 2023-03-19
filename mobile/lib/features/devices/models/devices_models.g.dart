@@ -6,6 +6,18 @@ part of 'devices_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$_Device _$$_DeviceFromJson(Map<String, dynamic> json) => _$_Device(
+      userDevice:
+          UserDevice.fromJson(json['userDevice'] as Map<String, dynamic>),
+      deviceLocation: DeviceLocation.fromJson(
+          json['deviceLocation'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$_DeviceToJson(_$_Device instance) => <String, dynamic>{
+      'userDevice': instance.userDevice,
+      'deviceLocation': instance.deviceLocation,
+    };
+
 _$_UserDevice _$$_UserDeviceFromJson(Map<String, dynamic> json) =>
     _$_UserDevice(
       id: json['id'] as String,

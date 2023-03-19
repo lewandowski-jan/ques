@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:provider/provider.dart';
 import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
+import 'package:ques/features/devices/devices_cubit.dart';
 import 'package:ques/features/devices/models/devices_models.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
@@ -29,7 +31,11 @@ class EditDeviceScreen extends HookWidget {
     required VoidCallback onError,
   }) async {
     if (name.isNotEmpty) {
-      // TODO: handle adding device to firebase
+      await context.read<DevicesCubit>().addDevice(
+            device: device,
+            name: name,
+            deviceType: deviceType,
+          );
       Navigator.of(context).popUntil((route) => route.isFirst);
       return;
     }
