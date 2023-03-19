@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:ques/features/add_device/select_device_route.dart';
+import 'package:ques/features/devices/devices_cubit.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
+import 'package:ques/utils/spaced.dart';
 import 'package:ques/widgets/widgets.dart';
 
 class HomeScreen extends HookWidget {
@@ -26,6 +29,8 @@ class HomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final devicesState = context.watch<DevicesCubit>().state;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -48,6 +53,26 @@ class HomeScreen extends HookWidget {
                 child: QSText(
                   context.l10n.home_page_devices,
                   style: context.textTheme.bodySmall,
+                ),
+              ),
+              const SizedBox(height: 16),
+              devicesState.map(
+                initial: (_) => const SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: Center(
+                    child: SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                ),
+                success: (success) => Column(
+                  children: success.devices
+                      .map((device) => QSDeviceTile(device: device))
+                      .spaced(8)
+                      .toList(),
                 ),
               ),
               const SizedBox(height: 16),

@@ -9,7 +9,9 @@ import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
 
 part 'bluetooth_cubit.freezed.dart';
 
-class BluetoothCubit extends ListenerCubit<BluetoothState, AuthState> {
+// TODO: handle permissions and service like in LocationCubit
+class BluetoothCubit extends ListenerCubit<BluetoothState, AuthState>
+    with Sender<BluetoothMessage> {
   BluetoothCubit() : super(const BluetoothState.initial());
 
   static const _measuredPower = -70;
@@ -77,7 +79,7 @@ class BluetoothCubit extends ListenerCubit<BluetoothState, AuthState> {
         (_measuredPower - rssi) / (10 * _n),
       ).toDouble();
 
-  void _filterDevices() {
+  Future<void> _filterDevices() async {
     state.whenOrNull(
       found: (devices) {
         final newDevices = {...devices};
@@ -88,6 +90,8 @@ class BluetoothCubit extends ListenerCubit<BluetoothState, AuthState> {
             newDevices.remove(deviceEntry.key);
           }
         }
+
+        send(BluetoothDevices(newDevices.values.toList()));
         emit(BluetoothState.found(devices: newDevices));
       },
     );
@@ -108,4 +112,12 @@ class BluetoothState with _$BluetoothState {
   factory BluetoothState.found({
     required Map<String, BluetoothDevice> devices,
   }) = BluetoothDevicesFound;
+}
+
+abstract class BluetoothMessage {}
+
+class BluetoothDevices extends BluetoothMessage {
+  BluetoothDevices(this.devices);
+
+  final List<BluetoothDevice> devices;
 }

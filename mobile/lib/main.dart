@@ -8,6 +8,9 @@ import 'package:provider/provider.dart';
 import 'package:ques/app.dart';
 import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
+import 'package:ques/features/data/data_repository.dart';
+import 'package:ques/features/data/realtime_database.dart';
+import 'package:ques/features/devices/devices_cubit.dart';
 import 'package:ques/features/location/location_cubit.dart';
 import 'package:ques/features/router/router.dart';
 import 'package:ques/firebase_options.dart';
@@ -19,7 +22,7 @@ void main() async {
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
 
-  await Firebase.initializeApp(
+  final firebaseApp = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -40,15 +43,31 @@ void main() async {
           lazy: false,
           create: (_) => LocationCubit(),
         ),
-        BlocProvider(
-          lazy: false,
-          create: (_) => BluetoothCubit(),
-        ),
         Provider(
+          lazy: false,
           create: (context) => QSRouter(
             refreshStreams: [
               context.read<AuthCubit>().stream,
             ],
+          ),
+        ),
+        Provider(
+          lazy: false,
+          create: (_) => DataRepository(
+            database: RealtimeDatabase(
+              firebaseApp: firebaseApp,
+            ),
+          ),
+          dispose: (_, dataRepository) => dataRepository.dispose(),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (context) => BluetoothCubit(),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (context) => DevicesCubit(
+            dataRepository: context.read<DataRepository>(),
           ),
         ),
       ],

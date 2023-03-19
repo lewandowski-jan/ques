@@ -1,22 +1,185 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_comms/flutter_comms.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
+import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
+import 'package:ques/features/data/data_repository.dart';
 import 'package:ques/features/devices/models/devices_models.dart';
+import 'package:ques/features/location/models/location_models.dart';
 
 part 'devices_cubit.freezed.dart';
 
-class DevicesNotifier extends Cubit<DevicesState> {
-  DevicesNotifier() : super(const DevicesState.initial());
+class DevicesCubit extends Cubit<DevicesState> with MultiListener {
+  DevicesCubit({required DataRepository dataRepository})
+      : _dataRepository = dataRepository,
+        super(const DevicesState.initial()) {
+    listen();
+    init();
+  }
 
-  Future<void> init() async {}
+  final DataRepository _dataRepository;
+
+  StreamSubscription<List<UserDevice>>? userDevicesSub;
+  StreamSubscription<DeviceLocation?>? deviceLocationSub;
+
+  LatLong? _lastLocation;
+
+  @override
+  List<ListenerDelegate> get listenerDelegates => [
+        ListenerDelegate<LatLong?>(),
+        ListenerDelegate<BluetoothMessage>(),
+      ];
+
+  @override
+  Future<void> onMessage(dynamic message) async {
+    if (message is LatLong?) {
+      if (message != null) {
+        _lastLocation = message;
+      }
+    }
+
+    if (message is BluetoothMessage) {
+      if (message is BluetoothDevices) {
+        await updateDevicesLocations(devices: message.devices);
+      }
+    }
+  }
+
+  @override
+  void onInitialMessage(dynamic message) => onMessage(message);
+
+  Future<void> init() async {
+    await userDevicesSub?.cancel();
+    userDevicesSub = _dataRepository.onUserDevices().listen(
+      (userDevices) async {
+        emit(
+          DevicesState.success(
+            devices: userDevices
+                .map(
+                  (e) => Device(
+                    userDevice: e,
+                    deviceLocation: DeviceLocation(
+                      id: e.id,
+                      discoveryDate: null,
+                      distanceInMeters: null,
+                      latitude: null,
+                      longitude: null,
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        );
+
+        final deviceIds = userDevices.map((e) => e.id).toList();
+        await deviceLocationSub?.cancel();
+        deviceLocationSub =
+            _dataRepository.onDevicesLocations(deviceIds).listen(
+          (deviceLocation) {
+            if (deviceLocation == null) {
+              return;
+            }
+
+            final deviceId = deviceLocation.id;
+            final devices = state.mapOrNull(
+              success: (success) => success.devices,
+            );
+
+            if (devices == null) {
+              return;
+            }
+
+            final newDevices = [...devices].map(
+              (device) {
+                if (device.id == deviceId) {
+                  final distanceInMeters = _lastLocation != null &&
+                          deviceLocation.latitude != null &&
+                          deviceLocation.longitude != null
+                      ? Geolocator.distanceBetween(
+                          _lastLocation!.latitude,
+                          _lastLocation!.longitude,
+                          deviceLocation.latitude!,
+                          deviceLocation.longitude!,
+                        )
+                      : null;
+
+                  return device.copyWith(
+                    deviceLocation: deviceLocation.copyWith(
+                      distanceInMeters: distanceInMeters?.round(),
+                    ),
+                  );
+                }
+                return device;
+              },
+            ).toList();
+
+            emit(DevicesState.success(devices: newDevices));
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> addDevice({
+    required BluetoothDevice device,
+    required String name,
+    DeviceType? deviceType,
+  }) async {
+    final newDevice = Device(
+      userDevice: UserDevice(
+        id: device.id,
+        name: name,
+        type: deviceType ?? DeviceType.unknown,
+      ),
+      deviceLocation: DeviceLocation(
+        id: device.id,
+        latitude: _lastLocation?.latitude,
+        longitude: _lastLocation?.longitude,
+        distanceInMeters: device.distanceInMeters.round(),
+        discoveryDate: device.discoveryDate,
+      ),
+    );
+
+    await _dataRepository.addDevice(newDevice);
+  }
+
+  Future<void> updateDevicesLocations({
+    required List<BluetoothDevice> devices,
+  }) async {
+    if (_lastLocation == null) {
+      return;
+    }
+
+    for (final device in devices) {
+      await _dataRepository.tryUpdateDeviceLocation(
+        DeviceLocation(
+          id: device.id,
+          latitude: _lastLocation!.latitude,
+          longitude: _lastLocation!.longitude,
+          distanceInMeters: device.distanceInMeters.round(),
+          discoveryDate: device.discoveryDate,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<void> close() async {
+    await userDevicesSub?.cancel();
+    await deviceLocationSub?.cancel();
+    cancel();
+    return super.close();
+  }
 }
 
 @freezed
 class DevicesState with _$DevicesState {
   const factory DevicesState.initial() = DevicesInitial;
 
-  const factory DevicesState.loading() = DevicesLoading;
-
   const factory DevicesState.success({
-    required List<UserDevice> devices,
+    required List<Device> devices,
   }) = DevicesSuccess;
 }
