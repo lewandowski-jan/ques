@@ -182,6 +182,30 @@ abstract class QSLocalizations {
   /// **'+ add new device'**
   String get home_page_add_new_device;
 
+  /// No description provided for @home_page_greeting_morning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get home_page_greeting_morning;
+
+  /// No description provided for @home_page_greeting_afternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get home_page_greeting_afternoon;
+
+  /// No description provided for @home_page_greeting_evening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get home_page_greeting_evening;
+
+  /// No description provided for @home_page_devices.
+  ///
+  /// In en, this message translates to:
+  /// **'DEVICES'**
+  String get home_page_devices;
+
   /// No description provided for @add_new_device_page_add_new_device.
   ///
   /// In en, this message translates to:

@@ -33,6 +33,14 @@ class LocationCubit extends ListenerCubit<LatLong?, AuthState> {
       return;
     }
 
+    await _location.changeSettings(
+      accuracy: LocationAccuracy.navigation,
+    );
+
+    await subscribeToLocationChanges();
+  }
+
+  Future<void> subscribeToLocationChanges() async {
     await _locationStreamSub?.cancel();
     _locationStreamSub = _location.onLocationChanged.listen((currentLocation) {
       final latitude = currentLocation.latitude;

@@ -51,6 +51,18 @@ class QSLocalizationsEn extends QSLocalizations {
   String get home_page_add_new_device => '+ add new device';
 
   @override
+  String get home_page_greeting_morning => 'Good morning';
+
+  @override
+  String get home_page_greeting_afternoon => 'Good afternoon';
+
+  @override
+  String get home_page_greeting_evening => 'Good evening';
+
+  @override
+  String get home_page_devices => 'DEVICES';
+
+  @override
   String get add_new_device_page_add_new_device => 'Add new device';
 
   @override

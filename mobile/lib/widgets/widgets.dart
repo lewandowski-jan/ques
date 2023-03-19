@@ -1,5 +1,6 @@
 export 'bottom_navigation_bar.dart';
 export 'device_tile.dart';
+export 'device_type_tile.dart';
 export 'input_border.dart';
 export 'on_pressed_animated_scale.dart';
 export 'primary_button.dart';

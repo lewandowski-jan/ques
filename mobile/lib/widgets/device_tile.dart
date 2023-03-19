@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
+import 'package:ques/features/devices/models/devices_models.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/widgets/widgets.dart';
-
-enum DeviceType { unknown, phone, keyboard, headphones, laptop }
 
 class QSDeviceTile extends StatelessWidget {
   const QSDeviceTile({
@@ -77,7 +76,7 @@ class QSDeviceTile extends StatelessWidget {
                           Flexible(
                             child: QSText(
                               'distance: $distanceInMeters m',
-                              style: context.textTheme.bodyMedium,
+                              style: context.textTheme.displaySmall,
                               maxLines: 1,
                             ),
                           ),
@@ -85,7 +84,7 @@ class QSDeviceTile extends StatelessWidget {
                           Flexible(
                             child: QSText(
                               'last seen: $lastSeenInSeconds s',
-                              style: context.textTheme.bodyMedium,
+                              style: context.textTheme.displaySmall,
                               maxLines: 1,
                             ),
                           ),

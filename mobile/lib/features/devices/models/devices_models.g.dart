@@ -6,23 +6,30 @@ part of 'devices_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Device _$$_DeviceFromJson(Map<String, dynamic> json) => _$_Device(
+_$_UserDevice _$$_UserDeviceFromJson(Map<String, dynamic> json) =>
+    _$_UserDevice(
       id: json['id'] as String,
-      type: $enumDecode(_$DeviceTypeEnumMap, json['type']),
       name: json['name'] as String,
+      type: $enumDecodeNullable(_$DeviceTypeEnumMap, json['type']) ??
+          DeviceType.unknown,
     );
 
-Map<String, dynamic> _$$_DeviceToJson(_$_Device instance) => <String, dynamic>{
+Map<String, dynamic> _$$_UserDeviceToJson(_$_UserDevice instance) =>
+    <String, dynamic>{
       'id': instance.id,
-      'type': _$DeviceTypeEnumMap[instance.type]!,
       'name': instance.name,
+      'type': _$DeviceTypeEnumMap[instance.type]!,
     };
 
 const _$DeviceTypeEnumMap = {
   DeviceType.headphones: 'headphones',
   DeviceType.keyboard: 'keyboard',
+  DeviceType.mouse: 'mouse',
   DeviceType.laptop: 'laptop',
   DeviceType.phone: 'phone',
+  DeviceType.watch: 'watch',
+  DeviceType.tablet: 'tablet',
+  DeviceType.tv: 'tv',
   DeviceType.unknown: 'unknown',
 };
 
