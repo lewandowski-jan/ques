@@ -18,10 +18,12 @@ class QSDeviceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final distanceInMeters = device.deviceLocation.distanceInMeters;
+    final distanceInMeters = device.deviceLocation.distanceInMeters != null
+        ? NumberFormat.compact().format(device.deviceLocation.distanceInMeters)
+        : null;
     final discoveryDate = device.deviceLocation.discoveryDate;
     final lastSeen =
-        discoveryDate != null ? DateFormat.EEEE().format(discoveryDate) : null;
+        discoveryDate != null ? DateFormat.yMd().format(discoveryDate) : null;
 
     return OnPressedAnimatedScale(
       child: GestureDetector(
@@ -74,17 +76,15 @@ class QSDeviceTile extends StatelessWidget {
                         direction: Axis.horizontal,
                         children: [
                           if (distanceInMeters != null) ...[
-                            Flexible(
-                              child: QSText(
-                                'distance: $distanceInMeters m',
-                                style: context.textTheme.displaySmall,
-                                maxLines: 1,
-                              ),
+                            QSText(
+                              'dist.: ${distanceInMeters}m',
+                              style: context.textTheme.displaySmall,
+                              maxLines: 1,
                             ),
                             const SizedBox(width: 8),
                           ],
                           if (lastSeen != null)
-                            Flexible(
+                            Expanded(
                               child: QSText(
                                 'last seen: $lastSeen',
                                 style: context.textTheme.displaySmall,

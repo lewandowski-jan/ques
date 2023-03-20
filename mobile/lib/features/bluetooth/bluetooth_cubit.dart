@@ -83,6 +83,8 @@ class BluetoothCubit extends ListenerCubit<BluetoothState, AuthState>
     state.whenOrNull(
       found: (devices) {
         final newDevices = {...devices};
+        send(BluetoothDevices(newDevices.values.toList()));
+
         for (final deviceEntry in devices.entries) {
           final device = deviceEntry.value;
           final diff = DateTime.now().difference(device.discoveryDate);
@@ -91,7 +93,6 @@ class BluetoothCubit extends ListenerCubit<BluetoothState, AuthState>
           }
         }
 
-        send(BluetoothDevices(newDevices.values.toList()));
         emit(BluetoothState.found(devices: newDevices));
       },
     );
