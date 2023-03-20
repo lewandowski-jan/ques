@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
+import 'package:ques/features/devices/devices_cubit.dart';
 import 'package:ques/features/location/location_cubit.dart';
 import 'package:ques/features/router/router.dart';
 import 'package:ques/l10n/l10n.dart';
@@ -20,6 +21,7 @@ class QSApp extends HookWidget {
       if ((wasPaused || wasInactive) && isResumed) {
         context.read<BluetoothCubit>().init();
         context.read<LocationCubit>().subscribeToLocationChanges();
+        context.read<DevicesCubit>().init();
       }
     });
 

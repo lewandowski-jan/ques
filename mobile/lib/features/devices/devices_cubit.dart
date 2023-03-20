@@ -4,6 +4,7 @@ import 'dart:math' show asin, cos, sqrt;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_comms/flutter_comms.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
 import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
 import 'package:ques/features/data/data_repository.dart';
@@ -31,6 +32,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
   List<ListenerDelegate> get listenerDelegates => [
         ListenerDelegate<LatLong?>(),
         ListenerDelegate<BluetoothMessage>(),
+        ListenerDelegate<AuthState>(),
       ];
 
   @override
@@ -46,6 +48,16 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
         await updateDevicesLocations(devices: message.devices);
       }
     }
+
+    if (message is AuthState) {
+      if (message.authenticated) {
+        await init();
+      } else {
+        emit(const DevicesState.initial());
+        await userDevicesSub?.cancel();
+        await deviceLocationSub?.cancel();
+      }
+    }
   }
 
   @override
@@ -55,26 +67,25 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
     await userDevicesSub?.cancel();
     userDevicesSub = _dataRepository.onUserDevices().listen(
       (userDevices) async {
-        emit(
-          DevicesState.success(
-            devices: userDevices
-                .map(
-                  (e) => Device(
-                    userDevice: e,
-                    deviceLocation: DeviceLocation(
-                      id: e.id,
-                      discoveryDate: null,
-                      distanceInMeters: null,
-                      latitude: null,
-                      longitude: null,
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-        );
+        final devices = userDevices
+            .map(
+              (e) => Device(
+                userDevice: e,
+                deviceLocation: DeviceLocation(
+                  id: e.id,
+                  discoveryDate: null,
+                  distanceInMeters: null,
+                  latitude: null,
+                  longitude: null,
+                ),
+              ),
+            )
+            .toList();
 
-        final deviceIds = userDevices.map((e) => e.id).toList();
+        emit(DevicesState.success(devices: devices));
+
+        final deviceIds = devices.map((e) => e.id).toList();
+
         await deviceLocationSub?.cancel();
         deviceLocationSub =
             _dataRepository.onDevicesLocations(deviceIds).listen(
@@ -106,12 +117,17 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
                         )
                       : null;
 
+                  if (distanceInMeters == null) {
+                    return device;
+                  }
+
                   return device.copyWith(
                     deviceLocation: deviceLocation.copyWith(
-                      distanceInMeters: distanceInMeters?.round(),
+                      distanceInMeters: distanceInMeters.round(),
                     ),
                   );
                 }
+
                 return device;
               },
             ).toList();
