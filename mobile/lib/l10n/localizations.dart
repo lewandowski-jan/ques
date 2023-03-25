@@ -230,6 +230,12 @@ abstract class QSLocalizations {
   /// **'SELECT DEVICE TYPE'**
   String get add_new_device_page_select_device_type;
 
+  /// No description provided for @add_new_device_page_device_exists.
+  ///
+  /// In en, this message translates to:
+  /// **'This device is already registered in the system'**
+  String get add_new_device_page_device_exists;
+
   /// No description provided for @add_new_device_page_add.
   ///
   /// In en, this message translates to:

@@ -75,6 +75,10 @@ class QSLocalizationsEn extends QSLocalizations {
   String get add_new_device_page_select_device_type => 'SELECT DEVICE TYPE';
 
   @override
+  String get add_new_device_page_device_exists =>
+      'This device is already registered in the system';
+
+  @override
   String get add_new_device_page_add => 'add';
 
   @override

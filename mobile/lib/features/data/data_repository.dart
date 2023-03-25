@@ -40,9 +40,18 @@ class DataRepository with Listener<AuthState> implements IDataRepository {
   }
 
   @override
-  Future<void> addDevice(Device device) async {
+  Future<bool> addDevice(Device device) async {
+    final path = RealtimeDatabasePath.getDeviceLocationPath(device.id);
+    final exists = await _database.exists(path);
+
+    if (exists) {
+      return false;
+    }
+
     await addUserDevice(device.userDevice);
     await addDeviceLocation(device.deviceLocation);
+
+    return true;
   }
 
   @override
