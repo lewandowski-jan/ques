@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:ques/features/auth/auth_cubit.dart';
-import 'package:ques/features/auth/create_account_screen.dart';
+import 'package:ques/features/auth/create_account_route.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/widgets/widgets.dart';

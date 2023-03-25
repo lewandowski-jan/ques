@@ -82,7 +82,59 @@ class QSLocalizationsEn extends QSLocalizations {
   String get add_new_device_page_add => 'add';
 
   @override
-  String with_placeholders(int count) {
-    return 'Likes: $count';
-  }
+  String get account_page_account => 'Account';
+
+  @override
+  String get account_page_change_name => 'Change name';
+
+  @override
+  String get account_page_change_password => 'Change password';
+
+  @override
+  String get account_page_sign_out => 'Sign out';
+
+  @override
+  String get change_name_page_change_name => 'Change name';
+
+  @override
+  String get change_name_page_name => 'new name';
+
+  @override
+  String get change_name_page_save => 'save';
+
+  @override
+  String get change_password_page_change_password => 'Change password';
+
+  @override
+  String get change_password_page_password => 'new password';
+
+  @override
+  String get change_password_page_confirm_password => 'confirm new password';
+
+  @override
+  String get change_password_page_save => 'save';
+
+  @override
+  String get settings_page_app_settings => 'App settings';
+
+  @override
+  String get settings_page_battery_settings => 'Battery settings';
+
+  @override
+  String get settings_page_notifications_settings => 'Notifications settings';
+
+  @override
+  String get settings_page_information => 'Information';
+
+  @override
+  String get settings_page_privacy_notice => 'Privacy notice';
+
+  @override
+  String get settings_page_acknowledgements => 'Acknowledgements';
+
+  @override
+  String get settings_page_you_are_signed_in_as => 'You are signed in as';
+
+  @override
+  String get settings_page_ques => 'Ques';
 }

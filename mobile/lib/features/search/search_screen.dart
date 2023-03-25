@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ques/maps/map_body.dart';
+import 'package:ques/features/maps/map_body.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});

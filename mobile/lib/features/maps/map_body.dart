@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:ques/features/devices/devices_cubit.dart';
 import 'package:ques/features/loading/loading_page.dart';
 import 'package:ques/features/location/location_cubit.dart';
-import 'package:ques/maps/map_controller_extension.dart';
+import 'package:ques/features/maps/map_controller_extension.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/utils/osm_hooks.dart';
 

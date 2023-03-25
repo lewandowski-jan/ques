@@ -242,11 +242,119 @@ abstract class QSLocalizations {
   /// **'add'**
   String get add_new_device_page_add;
 
-  /// No description provided for @with_placeholders.
+  /// No description provided for @account_page_account.
   ///
   /// In en, this message translates to:
-  /// **'Likes: {count}'**
-  String with_placeholders(int count);
+  /// **'Account'**
+  String get account_page_account;
+
+  /// No description provided for @account_page_change_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Change name'**
+  String get account_page_change_name;
+
+  /// No description provided for @account_page_change_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get account_page_change_password;
+
+  /// No description provided for @account_page_sign_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get account_page_sign_out;
+
+  /// No description provided for @change_name_page_change_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Change name'**
+  String get change_name_page_change_name;
+
+  /// No description provided for @change_name_page_name.
+  ///
+  /// In en, this message translates to:
+  /// **'new name'**
+  String get change_name_page_name;
+
+  /// No description provided for @change_name_page_save.
+  ///
+  /// In en, this message translates to:
+  /// **'save'**
+  String get change_name_page_save;
+
+  /// No description provided for @change_password_page_change_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get change_password_page_change_password;
+
+  /// No description provided for @change_password_page_password.
+  ///
+  /// In en, this message translates to:
+  /// **'new password'**
+  String get change_password_page_password;
+
+  /// No description provided for @change_password_page_confirm_password.
+  ///
+  /// In en, this message translates to:
+  /// **'confirm new password'**
+  String get change_password_page_confirm_password;
+
+  /// No description provided for @change_password_page_save.
+  ///
+  /// In en, this message translates to:
+  /// **'save'**
+  String get change_password_page_save;
+
+  /// No description provided for @settings_page_app_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'App settings'**
+  String get settings_page_app_settings;
+
+  /// No description provided for @settings_page_battery_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery settings'**
+  String get settings_page_battery_settings;
+
+  /// No description provided for @settings_page_notifications_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications settings'**
+  String get settings_page_notifications_settings;
+
+  /// No description provided for @settings_page_information.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get settings_page_information;
+
+  /// No description provided for @settings_page_privacy_notice.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy notice'**
+  String get settings_page_privacy_notice;
+
+  /// No description provided for @settings_page_acknowledgements.
+  ///
+  /// In en, this message translates to:
+  /// **'Acknowledgements'**
+  String get settings_page_acknowledgements;
+
+  /// No description provided for @settings_page_you_are_signed_in_as.
+  ///
+  /// In en, this message translates to:
+  /// **'You are signed in as'**
+  String get settings_page_you_are_signed_in_as;
+
+  /// No description provided for @settings_page_ques.
+  ///
+  /// In en, this message translates to:
+  /// **'Ques'**
+  String get settings_page_ques;
 }
 
 class _QSLocalizationsDelegate extends LocalizationsDelegate<QSLocalizations> {
