@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
 import 'package:ques/features/devices/devices_cubit.dart';
@@ -27,14 +28,17 @@ class QSApp extends HookWidget {
 
     final router = context.read<QSRouter>();
 
-    return MaterialApp.router(
-      locale: const Locale('en'),
-      supportedLocales: QSLocalizations.supportedLocales,
-      localizationsDelegates: QSLocalizations.localizationsDelegates,
-      onGenerateTitle: (context) => context.l10n.app_title,
-      theme: QSTheme.light(context),
-      darkTheme: QSTheme.dark(context),
-      routerConfig: router.router,
+    return OKToast(
+      position: ToastPosition.bottom,
+      child: MaterialApp.router(
+        locale: const Locale('en'),
+        supportedLocales: QSLocalizations.supportedLocales,
+        localizationsDelegates: QSLocalizations.localizationsDelegates,
+        onGenerateTitle: (context) => context.l10n.app_title,
+        theme: QSTheme.light(context),
+        darkTheme: QSTheme.dark(context),
+        routerConfig: router.router,
+      ),
     );
   }
 }

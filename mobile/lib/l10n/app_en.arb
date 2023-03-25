@@ -23,6 +23,7 @@
     "add_new_device_page_select_device": "SELECT DEVICE",
     "add_new_device_page_edit_device_name": "EDIT DEVICE NAME",
     "add_new_device_page_select_device_type": "SELECT DEVICE TYPE",
+    "add_new_device_page_device_exists": "This device is already registered in the system",
     "add_new_device_page_add": "add",
     "with_placeholders": "Likes: {count}",
     "@with_placeholders": {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
 import 'package:ques/features/devices/devices_cubit.dart';
@@ -31,13 +32,21 @@ class EditDeviceScreen extends HookWidget {
     required VoidCallback onError,
   }) async {
     if (name.isNotEmpty) {
-      await context.read<DevicesCubit>().addDevice(
+      final result = await context.read<DevicesCubit>().addDevice(
             device: device,
             name: name,
             deviceType: deviceType,
           );
-      Navigator.of(context).popUntil((route) => route.isFirst);
-      return;
+
+      if (result) {
+        return Navigator.of(context).popUntil((route) => route.isFirst);
+      }
+
+      showToast(
+        context.l10n.add_new_device_page_device_exists,
+        textStyle: context.textTheme.bodySmall,
+        backgroundColor: context.colors.accent,
+      );
     }
 
     onError();

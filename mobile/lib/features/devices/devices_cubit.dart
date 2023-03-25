@@ -152,7 +152,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
     return 12742 * asin(sqrt(a)) * 1000;
   }
 
-  Future<void> addDevice({
+  Future<bool> addDevice({
     required BluetoothDevice device,
     required String name,
     DeviceType? deviceType,
@@ -172,7 +172,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
       ),
     );
 
-    await _dataRepository.addDevice(newDevice);
+    return _dataRepository.addDevice(newDevice);
   }
 
   Future<void> updateDevicesLocations({
