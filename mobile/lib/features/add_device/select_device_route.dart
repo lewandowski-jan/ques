@@ -7,7 +7,6 @@ import 'package:ques/features/devices/models/devices_models.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/utils/spaced.dart';
-import 'package:ques/widgets/app_bar.dart';
 import 'package:ques/widgets/widgets.dart';
 
 class SelectDeviceRoute extends MaterialPageRoute<void> {

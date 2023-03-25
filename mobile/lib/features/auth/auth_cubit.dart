@@ -10,6 +10,7 @@ class AuthCubit extends Cubit<AuthState> with StateSender {
   }
 
   StreamSubscription<User?>? authStateSubscription;
+  StreamSubscription<User?>? userChangesSubscription;
 
   Future<void> init() async {
     final user = FirebaseAuth.instance.currentUser;
@@ -21,6 +22,17 @@ class AuthCubit extends Cubit<AuthState> with StateSender {
 
     await authStateSubscription?.cancel();
     authStateSubscription = FirebaseAuth.instance.authStateChanges().listen(
+      (user) {
+        if (user == null) {
+          emit(AuthUnauthenticated());
+        } else {
+          emit(AuthAuthenticated(user));
+        }
+      },
+    );
+
+    await userChangesSubscription?.cancel();
+    userChangesSubscription = FirebaseAuth.instance.userChanges().listen(
       (user) {
         if (user == null) {
           emit(AuthUnauthenticated());
@@ -63,9 +75,49 @@ class AuthCubit extends Cubit<AuthState> with StateSender {
     }
   }
 
+  Future<bool> changeUserName({required String userName}) async {
+    if (!state.authenticated) {
+      return false;
+    }
+
+    final authenticated = state as AuthAuthenticated;
+    final user = authenticated.user;
+
+    try {
+      await user.updateDisplayName(userName);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> changePassword({
+    required String password,
+    required String confirmPassword,
+  }) async {
+    if (password != confirmPassword) {
+      return false;
+    }
+
+    if (!state.authenticated) {
+      return false;
+    }
+
+    final authenticated = state as AuthAuthenticated;
+    final user = authenticated.user;
+
+    try {
+      await user.updatePassword(password);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   @override
   Future<void> close() async {
     await authStateSubscription?.cancel();
+    await userChangesSubscription?.cancel();
     await super.close();
   }
 }

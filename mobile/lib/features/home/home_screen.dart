@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:ques/features/add_device/select_device_route.dart';
 import 'package:ques/features/devices/devices_cubit.dart';
+import 'package:ques/features/profile/profile_route.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/utils/spaced.dart';
@@ -40,12 +41,18 @@ class HomeScreen extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: QSText(
-                  _getGreeting(context, null),
-                  style: context.textTheme.bodyMedium,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  QSText(
+                    _getGreeting(context, null),
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  QSAvatar(
+                    size: 50,
+                    onTap: () => Navigator.of(context).push(ProfileRoute()),
+                  ),
+                ],
               ),
               const SizedBox(height: 32),
               Align(

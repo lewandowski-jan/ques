@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
-import 'package:ques/widgets/app_bar.dart';
 import 'package:ques/widgets/widgets.dart';
 
 class CreateAccountRoute extends MaterialPageRoute<void> {
@@ -90,7 +89,7 @@ class CreateAccountScreen extends HookWidget {
                   obscureText: obscureText.value,
                   hasError: hasError.value,
                   hintText: context.l10n.sign_in_page_password,
-                  autofillHints: const [AutofillHints.password],
+                  autofillHints: const [AutofillHints.newPassword],
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.go,
                   trailling: GestureDetector(

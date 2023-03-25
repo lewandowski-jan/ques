@@ -25,12 +25,23 @@
     "add_new_device_page_select_device_type": "SELECT DEVICE TYPE",
     "add_new_device_page_device_exists": "This device is already registered in the system",
     "add_new_device_page_add": "add",
-    "with_placeholders": "Likes: {count}",
-    "@with_placeholders": {
-        "placeholders": {
-            "count": {
-                "type": "int"
-            }
-        }
-    }
+    "account_page_account": "Account",
+    "account_page_change_name": "Change name",
+    "account_page_change_password": "Change password",
+    "account_page_sign_out": "Sign out",
+    "change_name_page_change_name": "Change name",
+    "change_name_page_name": "new name",
+    "change_name_page_save": "save",
+    "change_password_page_change_password": "Change password",
+    "change_password_page_password": "new password",
+    "change_password_page_confirm_password": "confirm new password",
+    "change_password_page_save": "save",
+    "settings_page_app_settings": "App settings",
+    "settings_page_battery_settings": "Battery settings",
+    "settings_page_notifications_settings": "Notifications settings",
+    "settings_page_information": "Information",
+    "settings_page_privacy_notice": "Privacy notice",
+    "settings_page_acknowledgements": "Acknowledgements",
+    "settings_page_you_are_signed_in_as": "You are signed in as",
+    "settings_page_ques": "Ques"
 }
