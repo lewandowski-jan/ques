@@ -10,7 +10,6 @@ import 'package:ques/maps/map_controller_extension.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/utils/osm_hooks.dart';
 
-// TODO: handle OSM errors
 class MapBody extends HookWidget {
   const MapBody({super.key});
 
