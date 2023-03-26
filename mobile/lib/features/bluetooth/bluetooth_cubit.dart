@@ -38,6 +38,8 @@ class BluetoothCubit extends ListenerCubit<BluetoothState, AuthState>
   void onInitialMessage(AuthState message) => onMessage(message);
 
   Future<void> init() async {
+    emit(const BluetoothState.initial());
+
     final discovered = _ble.scanForDevices(
       withServices: [],
       scanMode: ScanMode.lowLatency,
@@ -83,7 +85,6 @@ class BluetoothCubit extends ListenerCubit<BluetoothState, AuthState>
     state.whenOrNull(
       found: (devices) {
         final newDevices = {...devices};
-        send(BluetoothDevices(newDevices.values.toList()));
 
         for (final deviceEntry in devices.entries) {
           final device = deviceEntry.value;
@@ -93,6 +94,7 @@ class BluetoothCubit extends ListenerCubit<BluetoothState, AuthState>
           }
         }
 
+        send(BluetoothDevices(newDevices.values.toList()));
         emit(BluetoothState.found(devices: newDevices));
       },
     );

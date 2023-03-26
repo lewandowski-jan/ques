@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ques/features/auth/auth_cubit.dart';
+import 'package:ques/features/battery_strategy/battery_strategy_route.dart';
+import 'package:ques/features/notifications_strategy/notifications_strategy_route.dart';
+import 'package:ques/features/settings/privacy_notice_route.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/widgets/widgets.dart';
@@ -27,12 +30,16 @@ class SettingsScreen extends StatelessWidget {
                 title: context.l10n.settings_page_app_settings,
                 buttons: [
                   SettingsButtonData(
-                    text: context.l10n.settings_page_battery_settings,
-                    onTap: () {},
+                    text: context.l10n.settings_page_battery_saving,
+                    onTap: () => Navigator.of(context).push(
+                      BatteryStrategyRoute(),
+                    ),
                   ),
                   SettingsButtonData(
-                    text: context.l10n.settings_page_notifications_settings,
-                    onTap: () {},
+                    text: context.l10n.settings_page_notifications_management,
+                    onTap: () => Navigator.of(context).push(
+                      NotificationsStrategyRoute(),
+                    ),
                   ),
                 ],
                 style: SettingsSectionStyle.primary,
@@ -43,11 +50,48 @@ class SettingsScreen extends StatelessWidget {
                 buttons: [
                   SettingsButtonData(
                     text: context.l10n.settings_page_privacy_notice,
-                    onTap: () {},
+                    onTap: () => Navigator.of(context).push(
+                      PrivacyNoticeRoute(),
+                    ),
                   ),
                   SettingsButtonData(
                     text: context.l10n.settings_page_acknowledgements,
-                    onTap: () {},
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (context) => Theme(
+                          data: context.theme.copyWith(
+                            appBarTheme: AppBarTheme(
+                              foregroundColor: context.colors.background,
+                              backgroundColor: context.colors.primary,
+                              toolbarTextStyle:
+                                  context.textTheme.titleLarge!.copyWith(
+                                color: context.colors.background,
+                              ),
+                              shadowColor: context.colors.transparent,
+                            ),
+                            dividerTheme: DividerThemeData(
+                              color: context.colors.primary,
+                              thickness: 2,
+                            ),
+                            listTileTheme: const ListTileThemeData(
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              minVerticalPadding: 0,
+                            ),
+                            textTheme: TextTheme(
+                              bodyMedium: context.textTheme.titleSmall,
+                              titleMedium: context.textTheme.titleMedium,
+                              titleSmall: context.textTheme.titleLarge,
+                              headlineSmall: context.textTheme.titleLarge!
+                                  .copyWith(color: context.colors.primary),
+                            ),
+                            cardColor: context.colors.background,
+                          ),
+                          child: const LicensePage(),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
                 style: SettingsSectionStyle.secondary,

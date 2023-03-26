@@ -119,4 +119,6 @@ extension BuildContextTheme on BuildContext {
   QSColors get colors => QSColors.of(this);
 
   TextTheme get textTheme => Theme.of(this).textTheme;
+
+  ThemeData get theme => Theme.of(this);
 }

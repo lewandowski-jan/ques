@@ -67,6 +67,8 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
   void onInitialMessage(dynamic message) => onMessage(message);
 
   Future<void> init() async {
+    emit(const DevicesState.initial());
+
     await userDevicesSub?.cancel();
     userDevicesSub = _dataRepository.onUserDevices().listen(
       (userDevices) async {
