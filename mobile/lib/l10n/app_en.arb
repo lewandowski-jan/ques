@@ -43,5 +43,8 @@
     "settings_page_privacy_notice": "Privacy notice",
     "settings_page_acknowledgements": "Acknowledgements",
     "settings_page_you_are_signed_in_as": "You are signed in as",
+    "devices_sorting_button_distance_increasing": "distance ↑",
+    "devices_sorting_button_distance_decreasing": "distance ↓",
+    "devices_sorting_button_last_seen": "last seen",
     "settings_page_ques": "Ques"
 }

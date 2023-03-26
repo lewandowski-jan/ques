@@ -55,12 +55,15 @@ class HomeScreen extends HookWidget {
                 ],
               ),
               const SizedBox(height: 32),
-              Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: QSText(
-                  context.l10n.home_page_devices,
-                  style: context.textTheme.bodySmall,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  QSText(
+                    context.l10n.home_page_devices,
+                    style: context.textTheme.bodySmall,
+                  ),
+                  const QSDevicesSortingButton(),
+                ],
               ),
               const SizedBox(height: 16),
               devicesState.map(

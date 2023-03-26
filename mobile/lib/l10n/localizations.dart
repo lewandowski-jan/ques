@@ -350,6 +350,24 @@ abstract class QSLocalizations {
   /// **'You are signed in as'**
   String get settings_page_you_are_signed_in_as;
 
+  /// No description provided for @devices_sorting_button_distance_increasing.
+  ///
+  /// In en, this message translates to:
+  /// **'distance ↑'**
+  String get devices_sorting_button_distance_increasing;
+
+  /// No description provided for @devices_sorting_button_distance_decreasing.
+  ///
+  /// In en, this message translates to:
+  /// **'distance ↓'**
+  String get devices_sorting_button_distance_decreasing;
+
+  /// No description provided for @devices_sorting_button_last_seen.
+  ///
+  /// In en, this message translates to:
+  /// **'last seen'**
+  String get devices_sorting_button_last_seen;
+
   /// No description provided for @settings_page_ques.
   ///
   /// In en, this message translates to:

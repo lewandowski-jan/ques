@@ -13,6 +13,8 @@ import 'package:ques/features/location/models/location_models.dart';
 
 part 'devices_cubit.freezed.dart';
 
+enum DevicesSorting { distanceIncreasing, lastSeen, distanceDecreasing }
+
 class DevicesCubit extends Cubit<DevicesState> with MultiListener {
   DevicesCubit({required DataRepository dataRepository})
       : _dataRepository = dataRepository,
@@ -27,6 +29,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
   StreamSubscription<DeviceLocation?>? deviceLocationSub;
 
   LatLong? _lastLocation;
+  DevicesSorting sorting = DevicesSorting.distanceIncreasing;
 
   @override
   List<ListenerDelegate> get listenerDelegates => [
@@ -109,7 +112,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
                   final distanceInMeters = _lastLocation != null &&
                           deviceLocation.latitude != null &&
                           deviceLocation.longitude != null
-                      ? calculateDistanceInMeters(
+                      ? _calculateDistanceInMeters(
                           _lastLocation!.latitude,
                           _lastLocation!.longitude,
                           deviceLocation.latitude!,
@@ -133,13 +136,15 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
             ).toList();
 
             emit(DevicesState.success(devices: newDevices));
+
+            changeSorting(sorting);
           },
         );
       },
     );
   }
 
-  double calculateDistanceInMeters(
+  double _calculateDistanceInMeters(
     double lat1,
     double lon1,
     double lat2,
@@ -193,6 +198,40 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
         ),
       );
     }
+  }
+
+  void changeSorting(DevicesSorting newSorting) {
+    sorting = newSorting;
+
+    state.mapOrNull(
+      success: (success) {
+        final devices = [...success.devices]..sort((a, b) {
+            switch (newSorting) {
+              case DevicesSorting.distanceIncreasing:
+                return (a.deviceLocation.distanceInMeters?.toDouble() ??
+                        double.infinity)
+                    .compareTo(
+                  b.deviceLocation.distanceInMeters?.toDouble() ??
+                      double.infinity,
+                );
+              case DevicesSorting.lastSeen:
+                return (a.deviceLocation.discoveryDate ?? DateTime(1999))
+                    .compareTo(
+                  b.deviceLocation.discoveryDate ?? DateTime(1999),
+                );
+              case DevicesSorting.distanceDecreasing:
+                return (b.deviceLocation.distanceInMeters?.toDouble() ??
+                        double.infinity)
+                    .compareTo(
+                  a.deviceLocation.distanceInMeters?.toDouble() ??
+                      double.infinity,
+                );
+            }
+          });
+
+        emit(DevicesState.success(devices: devices));
+      },
+    );
   }
 
   @override
