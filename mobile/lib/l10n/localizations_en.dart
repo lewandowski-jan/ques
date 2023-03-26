@@ -136,5 +136,14 @@ class QSLocalizationsEn extends QSLocalizations {
   String get settings_page_you_are_signed_in_as => 'You are signed in as';
 
   @override
+  String get devices_sorting_button_distance_increasing => 'distance ↑';
+
+  @override
+  String get devices_sorting_button_distance_decreasing => 'distance ↓';
+
+  @override
+  String get devices_sorting_button_last_seen => 'last seen';
+
+  @override
   String get settings_page_ques => 'Ques';
 }
