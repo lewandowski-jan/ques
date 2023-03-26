@@ -118,10 +118,11 @@ class QSLocalizationsEn extends QSLocalizations {
   String get settings_page_app_settings => 'App settings';
 
   @override
-  String get settings_page_battery_settings => 'Battery settings';
+  String get settings_page_battery_saving => 'Battery saving';
 
   @override
-  String get settings_page_notifications_settings => 'Notifications settings';
+  String get settings_page_notifications_management =>
+      'Notifications management';
 
   @override
   String get settings_page_information => 'Information';
@@ -136,6 +137,9 @@ class QSLocalizationsEn extends QSLocalizations {
   String get settings_page_you_are_signed_in_as => 'You are signed in as';
 
   @override
+  String get settings_page_ques => 'Ques';
+
+  @override
   String get devices_sorting_button_distance_increasing => 'distance ↑';
 
   @override
@@ -145,5 +149,47 @@ class QSLocalizationsEn extends QSLocalizations {
   String get devices_sorting_button_last_seen => 'last seen';
 
   @override
-  String get settings_page_ques => 'Ques';
+  String get battery_saving_page_battery_saving => 'Battery saving';
+
+  @override
+  String get battery_saving_page_battery_usage_strategy =>
+      'BATTERY USAGE STRATEGY';
+
+  @override
+  String get battery_saving_page_precision => 'precision';
+
+  @override
+  String get battery_saving_page_accurate => 'accurate';
+
+  @override
+  String get battery_saving_page_optimal => 'optimal';
+
+  @override
+  String get battery_saving_page_loose => 'loose';
+
+  @override
+  String get notifications_management_page_notifications_management =>
+      'Notifications management';
+
+  @override
+  String get notifications_management_page_notifications_strategy =>
+      'NOTIFICATIONS STRATEGY';
+
+  @override
+  String get notifications_management_page_every => 'every';
+
+  @override
+  String get notifications_management_page_one => 'one';
+
+  @override
+  String get notifications_management_page_more => 'more';
+
+  @override
+  String get notifications_management_page_information => 'information';
+
+  @override
+  String get notifications_management_page_only => 'only';
+
+  @override
+  String get notifications_management_page_important => 'important';
 }

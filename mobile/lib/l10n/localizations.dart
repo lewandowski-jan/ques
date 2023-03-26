@@ -314,17 +314,17 @@ abstract class QSLocalizations {
   /// **'App settings'**
   String get settings_page_app_settings;
 
-  /// No description provided for @settings_page_battery_settings.
+  /// No description provided for @settings_page_battery_saving.
   ///
   /// In en, this message translates to:
-  /// **'Battery settings'**
-  String get settings_page_battery_settings;
+  /// **'Battery saving'**
+  String get settings_page_battery_saving;
 
-  /// No description provided for @settings_page_notifications_settings.
+  /// No description provided for @settings_page_notifications_management.
   ///
   /// In en, this message translates to:
-  /// **'Notifications settings'**
-  String get settings_page_notifications_settings;
+  /// **'Notifications management'**
+  String get settings_page_notifications_management;
 
   /// No description provided for @settings_page_information.
   ///
@@ -350,6 +350,12 @@ abstract class QSLocalizations {
   /// **'You are signed in as'**
   String get settings_page_you_are_signed_in_as;
 
+  /// No description provided for @settings_page_ques.
+  ///
+  /// In en, this message translates to:
+  /// **'Ques'**
+  String get settings_page_ques;
+
   /// No description provided for @devices_sorting_button_distance_increasing.
   ///
   /// In en, this message translates to:
@@ -368,11 +374,89 @@ abstract class QSLocalizations {
   /// **'last seen'**
   String get devices_sorting_button_last_seen;
 
-  /// No description provided for @settings_page_ques.
+  /// No description provided for @battery_saving_page_battery_saving.
   ///
   /// In en, this message translates to:
-  /// **'Ques'**
-  String get settings_page_ques;
+  /// **'Battery saving'**
+  String get battery_saving_page_battery_saving;
+
+  /// No description provided for @battery_saving_page_battery_usage_strategy.
+  ///
+  /// In en, this message translates to:
+  /// **'BATTERY USAGE STRATEGY'**
+  String get battery_saving_page_battery_usage_strategy;
+
+  /// No description provided for @battery_saving_page_precision.
+  ///
+  /// In en, this message translates to:
+  /// **'precision'**
+  String get battery_saving_page_precision;
+
+  /// No description provided for @battery_saving_page_accurate.
+  ///
+  /// In en, this message translates to:
+  /// **'accurate'**
+  String get battery_saving_page_accurate;
+
+  /// No description provided for @battery_saving_page_optimal.
+  ///
+  /// In en, this message translates to:
+  /// **'optimal'**
+  String get battery_saving_page_optimal;
+
+  /// No description provided for @battery_saving_page_loose.
+  ///
+  /// In en, this message translates to:
+  /// **'loose'**
+  String get battery_saving_page_loose;
+
+  /// No description provided for @notifications_management_page_notifications_management.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications management'**
+  String get notifications_management_page_notifications_management;
+
+  /// No description provided for @notifications_management_page_notifications_strategy.
+  ///
+  /// In en, this message translates to:
+  /// **'NOTIFICATIONS STRATEGY'**
+  String get notifications_management_page_notifications_strategy;
+
+  /// No description provided for @notifications_management_page_every.
+  ///
+  /// In en, this message translates to:
+  /// **'every'**
+  String get notifications_management_page_every;
+
+  /// No description provided for @notifications_management_page_one.
+  ///
+  /// In en, this message translates to:
+  /// **'one'**
+  String get notifications_management_page_one;
+
+  /// No description provided for @notifications_management_page_more.
+  ///
+  /// In en, this message translates to:
+  /// **'more'**
+  String get notifications_management_page_more;
+
+  /// No description provided for @notifications_management_page_information.
+  ///
+  /// In en, this message translates to:
+  /// **'information'**
+  String get notifications_management_page_information;
+
+  /// No description provided for @notifications_management_page_only.
+  ///
+  /// In en, this message translates to:
+  /// **'only'**
+  String get notifications_management_page_only;
+
+  /// No description provided for @notifications_management_page_important.
+  ///
+  /// In en, this message translates to:
+  /// **'important'**
+  String get notifications_management_page_important;
 }
 
 class _QSLocalizationsDelegate extends LocalizationsDelegate<QSLocalizations> {
