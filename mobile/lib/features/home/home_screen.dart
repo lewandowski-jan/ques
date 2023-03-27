@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:ques/features/add_device/select_device_route.dart';
 import 'package:ques/features/devices/devices_cubit.dart';
+import 'package:ques/features/edit_user_device/edit_user_device_route.dart';
 import 'package:ques/features/profile/profile_route.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
@@ -80,7 +81,16 @@ class HomeScreen extends HookWidget {
                 ),
                 success: (success) => Column(
                   children: success.devices
-                      .map((device) => QSDeviceTile(device: device))
+                      .map(
+                        (device) => QSDeviceTile(
+                          device: device,
+                          onLongPress: () => Navigator.of(context).push(
+                            EditUserDeviceRoute(
+                              device: device.userDevice,
+                            ),
+                          ),
+                        ),
+                      )
                       .spaced(8)
                       .toList(),
                 ),

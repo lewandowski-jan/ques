@@ -42,6 +42,6 @@ We take reasonable measures to protect your information from unauthorized access
 We may update this Privacy Policy from time to time. If we make material changes, we will notify you by email or by posting a notice on our website.
 
 ## Contact Us
-If you have any questions or concerns about this Privacy Policy, please contact us at iasiu@icloud.com.
+If you have any questions or concerns about this Privacy Policy, please contact us at jan.lewandowski4.stud@pw.edu.pl.
 ''';
 }

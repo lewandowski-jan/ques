@@ -182,6 +182,14 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
     return _dataRepository.addDevice(newDevice);
   }
 
+  Future<bool> editDevice({required UserDevice device}) async {
+    return _dataRepository.editUserDevice(device);
+  }
+
+  Future<bool> deleteDevice({required String deviceId}) async {
+    return _dataRepository.deleteDevice(deviceId);
+  }
+
   Future<void> updateDevicesLocations({
     required List<BluetoothDevice> devices,
   }) async {

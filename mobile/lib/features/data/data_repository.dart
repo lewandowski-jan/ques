@@ -55,6 +55,55 @@ class DataRepository with Listener<AuthState> implements IDataRepository {
   }
 
   @override
+  Future<bool> editUserDevice(UserDevice device) async {
+    final userId = _userId;
+    if (userId == null) {
+      return false;
+    }
+
+    final path = RealtimeDatabasePath.getUserDevicePath(
+      userId,
+      device.id,
+    );
+
+    final exists = await _database.exists(path);
+    if (!exists) {
+      return false;
+    }
+
+    await _database.update(path, json: device.toJson());
+
+    return true;
+  }
+
+  @override
+  Future<bool> deleteDevice(String deviceId) async {
+    final userId = _userId;
+    if (userId == null) {
+      return false;
+    }
+
+    final userDevicePath = RealtimeDatabasePath.getUserDevicePath(
+      userId,
+      deviceId,
+    );
+
+    final exists = await _database.exists(userDevicePath);
+    if (!exists) {
+      return false;
+    }
+
+    final deviceLocationPath = RealtimeDatabasePath.getDeviceLocationPath(
+      deviceId,
+    );
+
+    await _database.delete(userDevicePath);
+    await _database.delete(deviceLocationPath);
+
+    return true;
+  }
+
+  @override
   Future<void> addUserDevice(UserDevice device) async {
     final userId = _userId;
     if (userId == null) {

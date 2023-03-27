@@ -7,10 +7,12 @@ class QSPrimaryButton extends StatelessWidget {
     super.key,
     required this.text,
     this.onPressed,
+    this.destructive = false,
   });
 
   final String text;
   final VoidCallback? onPressed;
+  final bool destructive;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,9 @@ class QSPrimaryButton extends StatelessWidget {
           height: 40,
           width: 200,
           decoration: BoxDecoration(
-            color: context.colors.secondaryLight,
+            color: destructive
+                ? context.colors.accentLight
+                : context.colors.secondaryLight,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(

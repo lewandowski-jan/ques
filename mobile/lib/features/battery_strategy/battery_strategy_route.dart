@@ -45,7 +45,7 @@ class BatteryStratgeyScreen extends StatelessWidget {
                 Column(
                   children: [
                     const SizedBox(height: 16),
-                    Assets.icons.battery.big.svg(),
+                    Assets.icons.battery.small.svg(),
                     const SizedBox(height: 16),
                     FittedBox(
                       child: QSText(
@@ -85,7 +85,7 @@ class BatteryStratgeyScreen extends StatelessWidget {
                 Column(
                   children: [
                     const SizedBox(height: 16),
-                    Assets.icons.battery.small.svg(),
+                    Assets.icons.battery.big.svg(),
                     const SizedBox(height: 16),
                     FittedBox(
                       child: QSText(

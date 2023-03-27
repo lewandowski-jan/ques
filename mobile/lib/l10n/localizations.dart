@@ -233,7 +233,7 @@ abstract class QSLocalizations {
   /// No description provided for @add_new_device_page_device_exists.
   ///
   /// In en, this message translates to:
-  /// **'This device is already registered in the system'**
+  /// **'This device is already registered in the system.'**
   String get add_new_device_page_device_exists;
 
   /// No description provided for @add_new_device_page_add.
@@ -371,7 +371,7 @@ abstract class QSLocalizations {
   /// No description provided for @devices_sorting_button_last_seen.
   ///
   /// In en, this message translates to:
-  /// **'last seen'**
+  /// **'last seen ↑'**
   String get devices_sorting_button_last_seen;
 
   /// No description provided for @battery_saving_page_battery_saving.
@@ -434,18 +434,6 @@ abstract class QSLocalizations {
   /// **'one'**
   String get notifications_management_page_one;
 
-  /// No description provided for @notifications_management_page_more.
-  ///
-  /// In en, this message translates to:
-  /// **'more'**
-  String get notifications_management_page_more;
-
-  /// No description provided for @notifications_management_page_information.
-  ///
-  /// In en, this message translates to:
-  /// **'information'**
-  String get notifications_management_page_information;
-
   /// No description provided for @notifications_management_page_only.
   ///
   /// In en, this message translates to:
@@ -457,6 +445,66 @@ abstract class QSLocalizations {
   /// In en, this message translates to:
   /// **'important'**
   String get notifications_management_page_important;
+
+  /// No description provided for @notifications_management_page_all.
+  ///
+  /// In en, this message translates to:
+  /// **'all'**
+  String get notifications_management_page_all;
+
+  /// No description provided for @notifications_management_page_disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'disabled'**
+  String get notifications_management_page_disabled;
+
+  /// No description provided for @edit_user_device_page_something_went_wrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong, please try again later.'**
+  String get edit_user_device_page_something_went_wrong;
+
+  /// No description provided for @edit_user_device_page_alert.
+  ///
+  /// In en, this message translates to:
+  /// **'Alert'**
+  String get edit_user_device_page_alert;
+
+  /// No description provided for @edit_user_device_page_are_you_sure.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure that you want to delete this device?'**
+  String get edit_user_device_page_are_you_sure;
+
+  /// No description provided for @edit_user_device_page_no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get edit_user_device_page_no;
+
+  /// No description provided for @edit_user_device_page_yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get edit_user_device_page_yes;
+
+  /// No description provided for @edit_user_device_page_edit_device.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit device'**
+  String get edit_user_device_page_edit_device;
+
+  /// No description provided for @edit_user_device_page_save.
+  ///
+  /// In en, this message translates to:
+  /// **'save'**
+  String get edit_user_device_page_save;
+
+  /// No description provided for @edit_user_device_page_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'delete'**
+  String get edit_user_device_page_delete;
 }
 
 class _QSLocalizationsDelegate extends LocalizationsDelegate<QSLocalizations> {

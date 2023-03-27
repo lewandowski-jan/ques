@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
@@ -15,6 +17,8 @@ class MapBody extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final markerSize = Platform.isIOS ? 40.0 : 80.0;
+
     final locationCubit = context.read<LocationCubit>();
     final devicesCubit = context.read<DevicesCubit>();
     final devices = devicesCubit.state.mapOrNull(
@@ -91,10 +95,10 @@ class MapBody extends HookWidget {
         StaticPositionGeoPoint(
           'userLocation',
           MarkerIcon(
-            icon: Icon(
+            iconWidget: Icon(
               Icons.person_pin_circle_rounded,
               color: context.colors.primaryLight,
-              size: 40,
+              size: markerSize,
             ),
           ),
           [
@@ -108,10 +112,10 @@ class MapBody extends HookWidget {
           (e) => StaticPositionGeoPoint(
             e.id,
             MarkerIcon(
-              icon: Icon(
+              iconWidget: Icon(
                 Icons.location_on,
                 color: context.colors.accent,
-                size: 40,
+                size: markerSize,
               ),
             ),
             [

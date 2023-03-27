@@ -74,13 +74,13 @@ class NotificationsStrategyScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     FittedBox(
                       child: QSText(
-                        context.l10n.notifications_management_page_more,
+                        context.l10n.notifications_management_page_only,
                         style: context.textTheme.bodySmall,
                       ),
                     ),
                     FittedBox(
                       child: QSText(
-                        context.l10n.notifications_management_page_information,
+                        context.l10n.notifications_management_page_important,
                         style: context.textTheme.titleSmall,
                         color: context.colors.primaryLight,
                       ),
@@ -94,13 +94,13 @@ class NotificationsStrategyScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     FittedBox(
                       child: QSText(
-                        context.l10n.notifications_management_page_only,
+                        context.l10n.notifications_management_page_all,
                         style: context.textTheme.bodySmall,
                       ),
                     ),
                     FittedBox(
                       child: QSText(
-                        context.l10n.notifications_management_page_important,
+                        context.l10n.notifications_management_page_disabled,
                         style: context.textTheme.titleSmall,
                         color: context.colors.primaryLight,
                       ),

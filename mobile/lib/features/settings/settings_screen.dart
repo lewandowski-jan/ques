@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/battery_strategy/battery_strategy_route.dart';
@@ -62,12 +63,19 @@ class SettingsScreen extends StatelessWidget {
                           data: context.theme.copyWith(
                             appBarTheme: AppBarTheme(
                               foregroundColor: context.colors.background,
-                              backgroundColor: context.colors.primary,
+                              backgroundColor: context.colors.primaryLight,
                               toolbarTextStyle:
                                   context.textTheme.titleLarge!.copyWith(
                                 color: context.colors.background,
                               ),
                               shadowColor: context.colors.transparent,
+                              systemOverlayStyle:
+                                  SystemUiOverlayStyle.dark.copyWith(
+                                statusBarColor: Colors.white,
+                                systemNavigationBarColor: Colors.white,
+                                statusBarBrightness: Brightness.light,
+                                systemStatusBarContrastEnforced: true,
+                              ),
                             ),
                             dividerTheme: DividerThemeData(
                               color: context.colors.primary,
