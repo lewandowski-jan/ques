@@ -29,6 +29,13 @@ void main() async {
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
 
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: Colors.black,
+      statusBarBrightness: Brightness.light,
+    ),
+  );
+
   final firebaseApp = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

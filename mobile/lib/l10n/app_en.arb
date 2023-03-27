@@ -23,7 +23,7 @@
     "add_new_device_page_select_device": "SELECT DEVICE",
     "add_new_device_page_edit_device_name": "EDIT DEVICE NAME",
     "add_new_device_page_select_device_type": "SELECT DEVICE TYPE",
-    "add_new_device_page_device_exists": "This device is already registered in the system",
+    "add_new_device_page_device_exists": "This device is already registered in the system.",
     "add_new_device_page_add": "add",
     "account_page_account": "Account",
     "account_page_change_name": "Change name",
@@ -60,5 +60,13 @@
     "notifications_management_page_only": "only",
     "notifications_management_page_important": "important",
     "notifications_management_page_all": "all",
-    "notifications_management_page_disabled": "disabled"
+    "notifications_management_page_disabled": "disabled",
+    "edit_user_device_page_something_went_wrong": "Something went wrong, please try again later.",
+    "edit_user_device_page_alert": "Alert",
+    "edit_user_device_page_are_you_sure": "Are you sure that you want to delete this device?",
+    "edit_user_device_page_no": "No",
+    "edit_user_device_page_yes": "Yes",
+    "edit_user_device_page_edit_device": "Edit device",
+    "edit_user_device_page_save": "save",
+    "edit_user_device_page_delete": "delete"
 }

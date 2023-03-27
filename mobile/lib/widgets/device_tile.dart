@@ -10,11 +10,13 @@ class QSDeviceTile extends StatelessWidget {
     required this.device,
     this.deviceType = DeviceType.unknown,
     this.onTap,
+    this.onLongPress,
   });
 
   final Device device;
   final DeviceType deviceType;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class QSDeviceTile extends StatelessWidget {
     return OnPressedAnimatedScale(
       child: GestureDetector(
         onTap: onTap,
+        onLongPress: onLongPress,
         child: Container(
           height: 60,
           padding: const EdgeInsets.symmetric(

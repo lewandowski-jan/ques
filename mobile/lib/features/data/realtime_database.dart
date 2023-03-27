@@ -35,6 +35,10 @@ class RealtimeDatabase {
     return null;
   }
 
+  Future<void> delete(String path) async {
+    return _ref.child(path).remove();
+  }
+
   Stream<Map<String, dynamic>?> onValue(String path) async* {
     yield* _ref.child(path).onValue.map(
       (event) {

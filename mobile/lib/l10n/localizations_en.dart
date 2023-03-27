@@ -76,7 +76,7 @@ class QSLocalizationsEn extends QSLocalizations {
 
   @override
   String get add_new_device_page_device_exists =>
-      'This device is already registered in the system';
+      'This device is already registered in the system.';
 
   @override
   String get add_new_device_page_add => 'add';
@@ -192,4 +192,30 @@ class QSLocalizationsEn extends QSLocalizations {
 
   @override
   String get notifications_management_page_disabled => 'disabled';
+
+  @override
+  String get edit_user_device_page_something_went_wrong =>
+      'Something went wrong, please try again later.';
+
+  @override
+  String get edit_user_device_page_alert => 'Alert';
+
+  @override
+  String get edit_user_device_page_are_you_sure =>
+      'Are you sure that you want to delete this device?';
+
+  @override
+  String get edit_user_device_page_no => 'No';
+
+  @override
+  String get edit_user_device_page_yes => 'Yes';
+
+  @override
+  String get edit_user_device_page_edit_device => 'Edit device';
+
+  @override
+  String get edit_user_device_page_save => 'save';
+
+  @override
+  String get edit_user_device_page_delete => 'delete';
 }
