@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
-import 'package:ques/resources/md_texts.dart';
+import 'package:ques/resources/markdown_texts.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/widgets/widgets.dart';
 

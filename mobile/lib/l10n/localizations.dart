@@ -434,18 +434,6 @@ abstract class QSLocalizations {
   /// **'one'**
   String get notifications_management_page_one;
 
-  /// No description provided for @notifications_management_page_more.
-  ///
-  /// In en, this message translates to:
-  /// **'more'**
-  String get notifications_management_page_more;
-
-  /// No description provided for @notifications_management_page_information.
-  ///
-  /// In en, this message translates to:
-  /// **'information'**
-  String get notifications_management_page_information;
-
   /// No description provided for @notifications_management_page_only.
   ///
   /// In en, this message translates to:
@@ -457,6 +445,18 @@ abstract class QSLocalizations {
   /// In en, this message translates to:
   /// **'important'**
   String get notifications_management_page_important;
+
+  /// No description provided for @notifications_management_page_all.
+  ///
+  /// In en, this message translates to:
+  /// **'all'**
+  String get notifications_management_page_all;
+
+  /// No description provided for @notifications_management_page_disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'disabled'**
+  String get notifications_management_page_disabled;
 }
 
 class _QSLocalizationsDelegate extends LocalizationsDelegate<QSLocalizations> {

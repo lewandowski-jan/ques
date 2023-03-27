@@ -182,14 +182,14 @@ class QSLocalizationsEn extends QSLocalizations {
   String get notifications_management_page_one => 'one';
 
   @override
-  String get notifications_management_page_more => 'more';
-
-  @override
-  String get notifications_management_page_information => 'information';
-
-  @override
   String get notifications_management_page_only => 'only';
 
   @override
   String get notifications_management_page_important => 'important';
+
+  @override
+  String get notifications_management_page_all => 'all';
+
+  @override
+  String get notifications_management_page_disabled => 'disabled';
 }

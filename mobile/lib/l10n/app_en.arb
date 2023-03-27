@@ -57,8 +57,8 @@
     "notifications_management_page_notifications_strategy": "NOTIFICATIONS STRATEGY",
     "notifications_management_page_every": "every",
     "notifications_management_page_one": "one",
-    "notifications_management_page_more": "more",
-    "notifications_management_page_information": "information",
     "notifications_management_page_only": "only",
-    "notifications_management_page_important": "important"
+    "notifications_management_page_important": "important",
+    "notifications_management_page_all": "all",
+    "notifications_management_page_disabled": "disabled"
 }
