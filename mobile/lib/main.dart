@@ -56,7 +56,13 @@ void main() async {
         ),
         BlocProvider(
           lazy: false,
-          create: (_) => LocationCubit(),
+          create: (_) => BatteryStrategyCubit(),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (context) => LocationCubit(
+            initialBatteryStrategy: context.read<BatteryStrategyCubit>().state,
+          ),
         ),
         Provider(
           lazy: false,
@@ -83,15 +89,13 @@ void main() async {
         ),
         BlocProvider(
           lazy: false,
-          create: (_) => BatteryStrategyCubit(),
-        ),
-        BlocProvider(
-          lazy: false,
           create: (_) => NotificationsStrategyCubit(),
         ),
         BlocProvider(
           lazy: false,
-          create: (context) => BluetoothCubit(),
+          create: (context) => BluetoothCubit(
+            initialBatteryStrategy: context.read<BatteryStrategyCubit>().state,
+          ),
         ),
       ],
       child: const QSApp(),
