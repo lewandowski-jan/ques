@@ -371,7 +371,7 @@ abstract class QSLocalizations {
   /// No description provided for @devices_sorting_button_last_seen.
   ///
   /// In en, this message translates to:
-  /// **'last seen'**
+  /// **'last seen ↑'**
   String get devices_sorting_button_last_seen;
 
   /// No description provided for @battery_saving_page_battery_saving.

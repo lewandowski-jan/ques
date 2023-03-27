@@ -146,7 +146,7 @@ class QSLocalizationsEn extends QSLocalizations {
   String get devices_sorting_button_distance_decreasing => 'distance ↓';
 
   @override
-  String get devices_sorting_button_last_seen => 'last seen';
+  String get devices_sorting_button_last_seen => 'last seen ↑';
 
   @override
   String get battery_saving_page_battery_saving => 'Battery saving';

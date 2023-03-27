@@ -51,12 +51,16 @@ class QSDevicesSortingButton extends HookWidget {
           },
           currentSorting: sorting.value,
         ),
-        child: QSText(
-          getText(context, from: sorting.value),
-          style: context.textTheme.bodySmall,
-          color: context.colors.primaryLight,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+        child: Container(
+          height: 20,
+          alignment: Alignment.center,
+          child: QSText(
+            getText(context, from: sorting.value),
+            style: context.textTheme.bodySmall,
+            color: context.colors.primaryLight,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ),
     );

@@ -46,7 +46,7 @@
     "settings_page_ques": "Ques",
     "devices_sorting_button_distance_increasing": "distance ↑",
     "devices_sorting_button_distance_decreasing": "distance ↓",
-    "devices_sorting_button_last_seen": "last seen",
+    "devices_sorting_button_last_seen": "last seen ↑",
     "battery_saving_page_battery_saving": "Battery saving",
     "battery_saving_page_battery_usage_strategy": "BATTERY USAGE STRATEGY",
     "battery_saving_page_precision": "precision",

@@ -70,9 +70,11 @@ class SettingsScreen extends StatelessWidget {
                               ),
                               shadowColor: context.colors.transparent,
                               systemOverlayStyle:
-                                  SystemUiOverlayStyle.light.copyWith(
-                                statusBarColor: Colors.black,
+                                  SystemUiOverlayStyle.dark.copyWith(
+                                statusBarColor: Colors.white,
+                                systemNavigationBarColor: Colors.white,
                                 statusBarBrightness: Brightness.light,
+                                systemStatusBarContrastEnforced: true,
                               ),
                             ),
                             dividerTheme: DividerThemeData(
