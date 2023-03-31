@@ -34,6 +34,7 @@ dependencies:
   location: ^4.4.0
   logging: ^1.1.1
   lottie: ^2.3.0
+  maps_launcher: ^2.2.0
   oktoast: ^3.3.1
   path_provider: ^2.0.14
   provider: ^6.0.5
