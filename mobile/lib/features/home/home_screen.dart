@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_comms/flutter_comms.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:ques/features/add_device/select_device_route.dart';
+import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
 import 'package:ques/features/devices/devices_cubit.dart';
 import 'package:ques/features/edit_user_device/edit_user_device_route.dart';
+import 'package:ques/features/maps/map_cubit.dart';
 import 'package:ques/features/profile/profile_route.dart';
+import 'package:ques/features/router/routes.dart';
 import 'package:ques/l10n/l10n.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/utils/spaced.dart';
 import 'package:ques/widgets/widgets.dart';
 
-class HomeScreen extends HookWidget {
+class HomeScreen extends HookWidget with Sender<MapMessage> {
   const HomeScreen({super.key});
 
   String _getGreeting(BuildContext context, String? name) {
@@ -32,6 +36,10 @@ class HomeScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final devicesState = context.watch<DevicesCubit>().state;
+    final bluetoothState = context.watch<BluetoothCubit>().state;
+    final bluetoothDevices = bluetoothState.mapOrNull(
+      found: (found) => found.devices,
+    );
 
     return Scaffold(
       body: SafeArea(
@@ -82,14 +90,34 @@ class HomeScreen extends HookWidget {
                 success: (success) => Column(
                   children: success.devices
                       .map(
-                        (device) => QSDeviceTile(
-                          device: device,
-                          onLongPress: () => Navigator.of(context).push(
-                            EditUserDeviceRoute(
-                              device: device.userDevice,
+                        (device) {
+                          return QSDeviceTile(
+                            device: bluetoothDevices?.containsKey(device.id) ??
+                                    false
+                                ? device.copyWith(
+                                    deviceLocation:
+                                        device.deviceLocation.copyWith(
+                                      distanceInMeters:
+                                          bluetoothDevices![device.id]!
+                                              .distanceInMeters
+                                              .round(),
+                                    ),
+                                  )
+                                : device,
+                            onTap: () {
+                              send(
+                                MapMessage.navigate(device: device),
+                                oneOff: true,
+                              );
+                              GoMainRoute(tab: Tabs.search).go(context);
+                            },
+                            onLongPress: () => Navigator.of(context).push(
+                              EditUserDeviceRoute(
+                                device: device.userDevice,
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       )
                       .spaced(8)
                       .toList(),
