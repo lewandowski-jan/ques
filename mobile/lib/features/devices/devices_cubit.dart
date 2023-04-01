@@ -34,6 +34,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
   @override
   List<ListenerDelegate> get listenerDelegates => [
         ListenerDelegate<LatLong?>(),
+        ListenerDelegate<BluetoothState>(),
         ListenerDelegate<BluetoothMessage>(),
         ListenerDelegate<AuthState>(),
       ];
@@ -47,8 +48,34 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
     }
 
     if (message is BluetoothMessage) {
-      if (message is BluetoothDevices) {
+      if (message is BluetoothUpdate) {
         await updateDevicesLocations(devices: message.devices);
+      }
+    }
+
+    if (message is BluetoothState) {
+      if (message is BluetoothDevicesFound) {
+        final bluetoothDevices = message.devices;
+        state.mapOrNull(
+          success: (success) {
+            final newDevices = success.devices.map(
+              (device) {
+                if (!bluetoothDevices.containsKey(device.id)) {
+                  return device;
+                }
+
+                return device.copyWith(
+                  deviceLocation: device.deviceLocation.copyWith(
+                    distanceInMeters:
+                        bluetoothDevices[device.id]!.distanceInMeters.round(),
+                  ),
+                );
+              },
+            ).toList();
+
+            emit(DevicesState.success(devices: newDevices));
+          },
+        );
       }
     }
 

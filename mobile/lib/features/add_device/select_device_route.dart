@@ -74,6 +74,7 @@ class SelectDeviceScreen extends StatelessWidget {
                 );
               },
             ),
+            const SizedBox(height: 40),
           ],
         ),
       ),
