@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_comms/flutter_comms.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:ques/features/add_device/select_device_route.dart';
-import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
 import 'package:ques/features/devices/devices_cubit.dart';
 import 'package:ques/features/edit_user_device/edit_user_device_route.dart';
 import 'package:ques/features/maps/map_cubit.dart';
@@ -36,10 +35,6 @@ class HomeScreen extends HookWidget with Sender<MapMessage> {
   @override
   Widget build(BuildContext context) {
     final devicesState = context.watch<DevicesCubit>().state;
-    final bluetoothState = context.watch<BluetoothCubit>().state;
-    final bluetoothDevices = bluetoothState.mapOrNull(
-      found: (found) => found.devices,
-    );
 
     return Scaffold(
       body: SafeArea(
@@ -92,18 +87,7 @@ class HomeScreen extends HookWidget with Sender<MapMessage> {
                       .map(
                         (device) {
                           return QSDeviceTile(
-                            device: bluetoothDevices?.containsKey(device.id) ??
-                                    false
-                                ? device.copyWith(
-                                    deviceLocation:
-                                        device.deviceLocation.copyWith(
-                                      distanceInMeters:
-                                          bluetoothDevices![device.id]!
-                                              .distanceInMeters
-                                              .round(),
-                                    ),
-                                  )
-                                : device,
+                            device: device,
                             onTap: () {
                               send(
                                 MapMessage.navigate(device: device),
@@ -132,6 +116,7 @@ class HomeScreen extends HookWidget with Sender<MapMessage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 40),
             ],
           ),
         ),

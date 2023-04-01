@@ -11,9 +11,8 @@ import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
 
 part 'bluetooth_cubit.freezed.dart';
 
-// TODO: handle permissions and service like in LocationCubit
 class BluetoothCubit extends Cubit<BluetoothState>
-    with MultiListener, Sender<BluetoothMessage> {
+    with MultiListener, Sender<BluetoothMessage>, StateSender {
   BluetoothCubit({
     required BatteryStrategy initialBatteryStrategy,
   }) : super(const BluetoothState.initial()) {
@@ -21,7 +20,7 @@ class BluetoothCubit extends Cubit<BluetoothState>
     listen();
   }
 
-  static const _measuredPower = -70;
+  static const _measuredPower = -71;
   static const _n = 2;
 
   var _updateInterval = const Duration(seconds: 30);
@@ -47,6 +46,7 @@ class BluetoothCubit extends Cubit<BluetoothState>
 
       await _discoveredStreamSub?.cancel();
       _filterTimer?.cancel();
+      await _ble.deinitialize();
       emit(const BluetoothState.initial());
     }
 
@@ -78,6 +78,8 @@ class BluetoothCubit extends Cubit<BluetoothState>
 
   Future<void> init() async {
     emit(const BluetoothState.initial());
+
+    await _ble.initialize();
 
     final discovered = _ble.scanForDevices(
       withServices: [],
@@ -133,7 +135,7 @@ class BluetoothCubit extends Cubit<BluetoothState>
           }
         }
 
-        send(BluetoothDevices(newDevices.values.toList()));
+        send(BluetoothUpdate(newDevices.values.toList()));
         emit(BluetoothState.found(devices: newDevices));
       },
     );
@@ -159,8 +161,8 @@ class BluetoothState with _$BluetoothState {
 
 abstract class BluetoothMessage {}
 
-class BluetoothDevices extends BluetoothMessage {
-  BluetoothDevices(this.devices);
+class BluetoothUpdate extends BluetoothMessage {
+  BluetoothUpdate(this.devices);
 
   final List<BluetoothDevice> devices;
 }

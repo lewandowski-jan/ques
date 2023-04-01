@@ -137,22 +137,6 @@ class MapBody extends HookWidget {
                       zoomInto: false,
                     ),
                   );
-
-                  await mapController.zoomToBoundingBox(
-                    BoundingBox.fromGeoPoints(
-                      [
-                        GeoPoint(
-                          latitude: location.latitude,
-                          longitude: location.longitude,
-                        ),
-                        GeoPoint(
-                          latitude: device.location!.latitude,
-                          longitude: device.location!.longitude,
-                        ),
-                      ],
-                    ),
-                    paddinInPixel: 150,
-                  );
                 }
               }
             });
@@ -198,55 +182,52 @@ class MapBody extends HookWidget {
     return Stack(
       alignment: AlignmentDirectional.topEnd,
       children: [
-        IgnorePointer(
-          ignoring: mapState is MapNavigate,
-          child: OSMFlutter(
-            controller: mapController,
-            mapIsLoading: const QSLoading(),
-            androidHotReloadSupport: true,
-            initZoom: 12,
-            maxZoomLevel: 17,
-            staticPoints: [
-              StaticPositionGeoPoint(
-                'userLocation',
+        OSMFlutter(
+          controller: mapController,
+          mapIsLoading: const QSLoading(),
+          androidHotReloadSupport: true,
+          initZoom: 12,
+          maxZoomLevel: 17,
+          staticPoints: [
+            StaticPositionGeoPoint(
+              'userLocation',
+              MarkerIcon(
+                iconWidget: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: context.colors.primary,
+                  ),
+                  padding: const EdgeInsets.all(4),
+                  child: Icon(
+                    Icons.person_outline,
+                    color: context.colors.background,
+                    size: markerSize * .8,
+                  ),
+                ),
+              ),
+              [],
+            ),
+            ...devices.map(
+              (e) => StaticPositionGeoPoint(
+                e.id,
                 MarkerIcon(
                   iconWidget: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: context.colors.primary,
+                      color: context.colors.background,
                     ),
                     padding: const EdgeInsets.all(4),
                     child: Icon(
-                      Icons.person_outline,
-                      color: context.colors.background,
-                      size: markerSize * .8,
+                      getIconFromDeviceType(e.type),
+                      color: context.colors.primary,
+                      size: markerSize,
                     ),
                   ),
                 ),
                 [],
               ),
-              ...devices.map(
-                (e) => StaticPositionGeoPoint(
-                  e.id,
-                  MarkerIcon(
-                    iconWidget: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: context.colors.background,
-                      ),
-                      padding: const EdgeInsets.all(4),
-                      child: Icon(
-                        getIconFromDeviceType(e.type),
-                        color: context.colors.primary,
-                        size: markerSize,
-                      ),
-                    ),
-                  ),
-                  [],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
         if (mapState is MapNavigate &&
             mapState.device.location != null &&
