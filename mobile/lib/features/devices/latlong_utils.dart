@@ -28,7 +28,7 @@ LatLong offset(
 
   final h = degToRadian(bearing);
 
-  final a = min(distanceInMeters, 5) / 6378137.0;
+  final a = min(distanceInMeters, 3) / 6378137.0;
 
   final lat2 = asin(
     sin(degToRadian(from.latitude)) * cos(a) +

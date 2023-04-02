@@ -6,6 +6,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'localizations_en.dart';
+import 'localizations_es.dart';
+import 'localizations_pl.dart';
 
 /// Callers can lookup localized strings with an instance of QSLocalizations
 /// returned by `QSLocalizations.of(context)`.
@@ -90,7 +92,11 @@ abstract class QSLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('es'),
+    Locale('pl')
+  ];
 
   /// No description provided for @app_title.
   ///
@@ -320,6 +326,12 @@ abstract class QSLocalizations {
   /// **'Battery saving'**
   String get settings_page_battery_saving;
 
+  /// No description provided for @settings_page_change_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Change language'**
+  String get settings_page_change_language;
+
   /// No description provided for @settings_page_notifications_management.
   ///
   /// In en, this message translates to:
@@ -505,6 +517,48 @@ abstract class QSLocalizations {
   /// In en, this message translates to:
   /// **'delete'**
   String get edit_user_device_page_delete;
+
+  /// No description provided for @device_tile_distance.
+  ///
+  /// In en, this message translates to:
+  /// **'dist.: {distance}'**
+  String device_tile_distance(String distance);
+
+  /// No description provided for @device_tile_last_seen.
+  ///
+  /// In en, this message translates to:
+  /// **'last seen: {when}'**
+  String device_tile_last_seen(String when);
+
+  /// No description provided for @language_en.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get language_en;
+
+  /// No description provided for @language_pl.
+  ///
+  /// In en, this message translates to:
+  /// **'Polish'**
+  String get language_pl;
+
+  /// No description provided for @language_es.
+  ///
+  /// In en, this message translates to:
+  /// **'Spanish'**
+  String get language_es;
+
+  /// No description provided for @language_page_change_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Change language'**
+  String get language_page_change_language;
+
+  /// No description provided for @language_page_select_language.
+  ///
+  /// In en, this message translates to:
+  /// **'SELECT LANGUAGE'**
+  String get language_page_select_language;
 }
 
 class _QSLocalizationsDelegate extends LocalizationsDelegate<QSLocalizations> {
@@ -517,7 +571,7 @@ class _QSLocalizationsDelegate extends LocalizationsDelegate<QSLocalizations> {
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      <String>['en', 'es', 'pl'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_QSLocalizationsDelegate old) => false;
@@ -528,6 +582,10 @@ QSLocalizations lookupQSLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return QSLocalizationsEn();
+    case 'es':
+      return QSLocalizationsEs();
+    case 'pl':
+      return QSLocalizationsPl();
   }
 
   throw FlutterError(

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/battery_strategy/battery_strategy_route.dart';
+import 'package:ques/features/language/language_route.dart';
 import 'package:ques/features/notifications_strategy/notifications_strategy_route.dart';
 import 'package:ques/features/settings/privacy_notice_route.dart';
 import 'package:ques/l10n/l10n.dart';
@@ -34,6 +35,12 @@ class SettingsScreen extends StatelessWidget {
                     text: context.l10n.settings_page_battery_saving,
                     onTap: () => Navigator.of(context).push(
                       BatteryStrategyRoute(),
+                    ),
+                  ),
+                  SettingsButtonData(
+                    text: context.l10n.settings_page_change_language,
+                    onTap: () => Navigator.of(context).push(
+                      LanguageRoute(),
                     ),
                   ),
                   SettingsButtonData(

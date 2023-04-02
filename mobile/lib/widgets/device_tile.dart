@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:ques/features/devices/models/devices_models.dart';
+import 'package:ques/l10n/extensions.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/widgets/widgets.dart';
 
@@ -38,8 +39,9 @@ class QSDeviceTile extends StatelessWidget {
     final formattedDistance = formatDistance(distanceInMeters);
 
     final discoveryDate = device.deviceLocation.discoveryDate;
+
     final lastSeen =
-        discoveryDate != null ? DateFormat.yMd().format(discoveryDate) : null;
+        discoveryDate != null ? Jiffy(discoveryDate).fromNow() : null;
 
     return OnPressedAnimatedScale(
       child: GestureDetector(
@@ -94,7 +96,9 @@ class QSDeviceTile extends StatelessWidget {
                         children: [
                           if (distanceInMeters != null) ...[
                             QSText(
-                              'dist.: $formattedDistance',
+                              context.l10n.device_tile_distance(
+                                formattedDistance,
+                              ),
                               style: context.textTheme.displaySmall,
                               maxLines: 1,
                             ),
@@ -102,10 +106,14 @@ class QSDeviceTile extends StatelessWidget {
                           ],
                           if (lastSeen != null)
                             Expanded(
-                              child: QSText(
-                                'last seen: $lastSeen',
-                                style: context.textTheme.displaySmall,
-                                maxLines: 1,
+                              child: FittedBox(
+                                alignment: AlignmentDirectional.centerStart,
+                                fit: BoxFit.scaleDown,
+                                child: QSText(
+                                  context.l10n.device_tile_last_seen(lastSeen),
+                                  style: context.textTheme.displaySmall,
+                                  maxLines: 1,
+                                ),
                               ),
                             ),
                         ],
