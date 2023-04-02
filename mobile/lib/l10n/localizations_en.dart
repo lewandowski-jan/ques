@@ -121,6 +121,9 @@ class QSLocalizationsEn extends QSLocalizations {
   String get settings_page_battery_saving => 'Battery saving';
 
   @override
+  String get settings_page_change_language => 'Change language';
+
+  @override
   String get settings_page_notifications_management =>
       'Notifications management';
 
@@ -218,4 +221,29 @@ class QSLocalizationsEn extends QSLocalizations {
 
   @override
   String get edit_user_device_page_delete => 'delete';
+
+  @override
+  String device_tile_distance(String distance) {
+    return 'dist.: $distance';
+  }
+
+  @override
+  String device_tile_last_seen(String when) {
+    return 'last seen: $when';
+  }
+
+  @override
+  String get language_en => 'English';
+
+  @override
+  String get language_pl => 'Polish';
+
+  @override
+  String get language_es => 'Spanish';
+
+  @override
+  String get language_page_change_language => 'Change language';
+
+  @override
+  String get language_page_select_language => 'SELECT LANGUAGE';
 }

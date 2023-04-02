@@ -38,6 +38,7 @@
     "change_password_page_save": "save",
     "settings_page_app_settings": "App settings",
     "settings_page_battery_saving": "Battery saving",
+    "settings_page_change_language": "Change language",
     "settings_page_notifications_management": "Notifications management",
     "settings_page_information": "Information",
     "settings_page_privacy_notice": "Privacy notice",
@@ -68,5 +69,27 @@
     "edit_user_device_page_yes": "Yes",
     "edit_user_device_page_edit_device": "Edit device",
     "edit_user_device_page_save": "save",
-    "edit_user_device_page_delete": "delete"
+    "edit_user_device_page_delete": "delete",
+    "device_tile_distance": "dist.: {distance}",
+    "@device_tile_distance": {
+        "placeholders": {
+            "distance": {
+                "type": "String"
+            }
+        }
+    },
+    "device_tile_last_seen": "last seen: {when}",
+    "@device_tile_last_seen": {
+        "placeholders": {
+            "when": {
+                "type": "String"
+            }
+        }
+    },
+    "language_en": "English",
+    "language_pl": "Polish",
+    "language_es": "Spanish",
+    "language_page_change_language": "Change language",
+    "language_page_select_language": "SELECT LANGUAGE"
+    
 }

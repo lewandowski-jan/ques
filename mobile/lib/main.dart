@@ -14,6 +14,7 @@ import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
 import 'package:ques/features/data/data_repository.dart';
 import 'package:ques/features/data/realtime_database.dart';
 import 'package:ques/features/devices/devices_cubit.dart';
+import 'package:ques/features/language/language_cubit.dart';
 import 'package:ques/features/location/location_cubit.dart';
 import 'package:ques/features/notifications_strategy/notifications_strategy_cubit.dart';
 import 'package:ques/features/router/router.dart';
@@ -96,6 +97,10 @@ void main() async {
           create: (context) => BluetoothCubit(
             initialBatteryStrategy: context.read<BatteryStrategyCubit>().state,
           ),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (_) => LanguageCubit(),
         ),
       ],
       child: const QSApp(),

@@ -12,7 +12,7 @@ import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
 part 'bluetooth_cubit.freezed.dart';
 
 class BluetoothCubit extends Cubit<BluetoothState>
-    with MultiListener, Sender<BluetoothMessage>, StateSender {
+    with MultiListener, Sender<BluetoothMessage> {
   BluetoothCubit({
     required BatteryStrategy initialBatteryStrategy,
   }) : super(const BluetoothState.initial()) {

@@ -1,3 +1,6 @@
+// ignore_for_file: must_be_immutable
+
+import 'dart:async';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
@@ -9,16 +12,30 @@ import 'package:provider/provider.dart';
 import 'package:ques/features/devices/devices_cubit.dart';
 import 'package:ques/features/loading/loading_page.dart';
 import 'package:ques/features/location/location_cubit.dart';
+import 'package:ques/features/location/models/location_models.dart';
 import 'package:ques/features/maps/map_controller_extension.dart';
 import 'package:ques/features/maps/map_cubit.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/utils/osm_hooks.dart';
 
 class MapBody extends HookWidget {
-  const MapBody({super.key});
+  MapBody({super.key});
+
+  StreamSubscription<LatLong?>? _locationSub;
+  StreamSubscription<DevicesState>? _devicesSub;
 
   @override
   Widget build(BuildContext context) {
+    useEffect(
+      () {
+        return () {
+          _locationSub?.cancel();
+          _devicesSub?.cancel();
+        };
+      },
+      [],
+    );
+
     final markerSize = Platform.isIOS ? 30.0 : 60.0;
 
     final mapIsReady = useState(false);
@@ -44,7 +61,8 @@ class MapBody extends HookWidget {
           to: location,
         );
 
-        locationCubit.stream.listen((location) async {
+        await _locationSub?.cancel();
+        _locationSub = locationCubit.stream.listen((location) async {
           await mapController.setPosition(
             of: 'userLocation',
             to: location,
@@ -60,7 +78,8 @@ class MapBody extends HookWidget {
               );
             }
 
-            devicesCubit.stream.listen((state) async {
+            await _devicesSub?.cancel();
+            _devicesSub = devicesCubit.stream.listen((state) async {
               final devices = state.mapOrNull(success: (s) => s.devices) ?? [];
 
               for (final device in devices) {
@@ -107,7 +126,8 @@ class MapBody extends HookWidget {
               to: device.location,
             );
 
-            devicesCubit.stream.listen((state) async {
+            await _devicesSub?.cancel();
+            _devicesSub = devicesCubit.stream.listen((state) async {
               final devices = state.mapOrNull(success: (s) => s.devices) ?? [];
 
               for (final device in devices) {
@@ -187,7 +207,7 @@ class MapBody extends HookWidget {
           mapIsLoading: const QSLoading(),
           androidHotReloadSupport: true,
           initZoom: 12,
-          maxZoomLevel: 17,
+          maxZoomLevel: mapState is MapNavigate ? 17 : 19,
           staticPoints: [
             StaticPositionGeoPoint(
               'userLocation',

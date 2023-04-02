@@ -1,5 +1,5 @@
 name: ques
-description: A new Flutter project.
+description: App for tracking your bluetooth devices.
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -29,6 +29,7 @@ dependencies:
   go_router: ^6.5.0
   hydrated_bloc: ^9.1.0
   intl: ^0.17.0
+  jiffy: ^5.0.0
   json_annotation: ^4.8.0
   leancode_hooks: ^0.0.3+1
   location: ^4.4.0

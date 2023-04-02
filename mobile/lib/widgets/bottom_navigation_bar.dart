@@ -39,17 +39,20 @@ class QSBottomNavigationBar extends HookWidget {
                 ),
               ),
               _BottomNavigationBubble(currentTab: currentTab),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: Tabs.values
-                    .map(
-                      (tab) => _BottomNavigationItem(
-                        tab: tab,
-                        selected: tab == currentTab,
-                        onTap: () => onTabChanged(tab),
-                      ),
-                    )
-                    .toList(),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: Tabs.values
+                      .map(
+                        (tab) => _BottomNavigationItem(
+                          tab: tab,
+                          selected: tab == currentTab,
+                          onTap: () => onTabChanged(tab),
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
             ],
           ),
@@ -124,10 +127,12 @@ class _BottomNavigationItem extends HookWidget {
               child: SizedOverflowBox(
                 alignment: Alignment.topCenter,
                 size: Size.fromHeight(selected ? 18 : 0),
-                child: QSText(
-                  context.l10n.getBottomNavigationLabel(tab),
-                  style: context.textTheme.labelSmall,
-                  color: context.colors.secondaryLight,
+                child: FittedBox(
+                  child: QSText(
+                    context.l10n.getBottomNavigationLabel(tab),
+                    style: context.textTheme.labelSmall,
+                    color: context.colors.secondaryLight,
+                  ),
                 ),
               ),
             )
