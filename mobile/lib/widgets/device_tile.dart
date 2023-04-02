@@ -18,11 +18,25 @@ class QSDeviceTile extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
 
+  String formatDistance(int? distanceInMeters) {
+    if (distanceInMeters == null) {
+      return '';
+    }
+
+    if (distanceInMeters < 1000) {
+      return '$distanceInMeters m';
+    }
+
+    final distanceInKilometers = (distanceInMeters / 1000).round();
+
+    return '$distanceInKilometers km';
+  }
+
   @override
   Widget build(BuildContext context) {
-    final distanceInMeters = device.deviceLocation.distanceInMeters != null
-        ? NumberFormat.compact().format(device.deviceLocation.distanceInMeters)
-        : null;
+    final distanceInMeters = device.deviceLocation.distanceInMeters;
+    final formattedDistance = formatDistance(distanceInMeters);
+
     final discoveryDate = device.deviceLocation.discoveryDate;
     final lastSeen =
         discoveryDate != null ? DateFormat.yMd().format(discoveryDate) : null;
@@ -80,7 +94,7 @@ class QSDeviceTile extends StatelessWidget {
                         children: [
                           if (distanceInMeters != null) ...[
                             QSText(
-                              'dist.: ${distanceInMeters}m',
+                              'dist.: $formattedDistance',
                               style: context.textTheme.displaySmall,
                               maxLines: 1,
                             ),

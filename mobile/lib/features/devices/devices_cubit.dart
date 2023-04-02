@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math' show asin, cos, sqrt;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_comms/flutter_comms.dart';
@@ -8,6 +7,7 @@ import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
 import 'package:ques/features/bluetooth/models.dart/bluetooth_models.dart';
 import 'package:ques/features/data/data_repository.dart';
+import 'package:ques/features/devices/latlong_utils.dart';
 import 'package:ques/features/devices/models/devices_models.dart';
 import 'package:ques/features/location/models/location_models.dart';
 
@@ -34,7 +34,6 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
   @override
   List<ListenerDelegate> get listenerDelegates => [
         ListenerDelegate<LatLong?>(),
-        ListenerDelegate<BluetoothState>(),
         ListenerDelegate<BluetoothMessage>(),
         ListenerDelegate<AuthState>(),
       ];
@@ -50,32 +49,6 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
     if (message is BluetoothMessage) {
       if (message is BluetoothUpdate) {
         await updateDevicesLocations(devices: message.devices);
-      }
-    }
-
-    if (message is BluetoothState) {
-      if (message is BluetoothDevicesFound) {
-        final bluetoothDevices = message.devices;
-        state.mapOrNull(
-          success: (success) {
-            final newDevices = success.devices.map(
-              (device) {
-                if (!bluetoothDevices.containsKey(device.id)) {
-                  return device;
-                }
-
-                return device.copyWith(
-                  deviceLocation: device.deviceLocation.copyWith(
-                    distanceInMeters:
-                        bluetoothDevices[device.id]!.distanceInMeters.round(),
-                  ),
-                );
-              },
-            ).toList();
-
-            emit(DevicesState.success(devices: newDevices));
-          },
-        );
       }
     }
 
@@ -141,7 +114,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
                   final distanceInMeters = _lastLocation != null &&
                           deviceLocation.latitude != null &&
                           deviceLocation.longitude != null
-                      ? _calculateDistanceInMeters(
+                      ? calculateDistanceInMeters(
                           _lastLocation!.latitude,
                           _lastLocation!.longitude,
                           deviceLocation.latitude!,
@@ -171,19 +144,6 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
         );
       },
     );
-  }
-
-  double _calculateDistanceInMeters(
-    double lat1,
-    double lon1,
-    double lat2,
-    double lon2,
-  ) {
-    const p = 0.017453292519943295;
-    final a = 0.5 -
-        cos((lat2 - lat1) * p) / 2 +
-        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
-    return 12742 * asin(sqrt(a)) * 1000;
   }
 
   Future<bool> addDevice({
@@ -224,13 +184,24 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
       return;
     }
 
-    for (final device in devices) {
+    final devicesLength = devices.length;
+
+    for (var i = 0; i < devicesLength; i++) {
+      final device = devices[i];
+
+      final location = _lastLocation!;
+      final deviceLocation = offset(
+        location,
+        device.distanceInMeters,
+        i * (360 / devicesLength),
+      );
+
       await _dataRepository.tryUpdateDeviceLocation(
         DeviceLocation(
           id: device.id,
-          latitude: _lastLocation!.latitude,
-          longitude: _lastLocation!.longitude,
-          distanceInMeters: device.distanceInMeters.round(),
+          latitude: deviceLocation.latitude,
+          longitude: deviceLocation.longitude,
+          distanceInMeters: null,
           discoveryDate: device.discoveryDate,
         ),
       );

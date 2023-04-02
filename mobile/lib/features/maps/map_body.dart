@@ -187,7 +187,7 @@ class MapBody extends HookWidget {
           mapIsLoading: const QSLoading(),
           androidHotReloadSupport: true,
           initZoom: 12,
-          maxZoomLevel: 17,
+          maxZoomLevel: mapState is MapNavigate ? 17 : 19,
           staticPoints: [
             StaticPositionGeoPoint(
               'userLocation',
