@@ -115,6 +115,9 @@ class BluetoothCubit extends Cubit<BluetoothState>
       _updateInterval,
       (_) => _filterDevices(),
     );
+
+    await Future<void>.delayed(const Duration(seconds: 1));
+    await _filterDevices();
   }
 
   double _findDistanceInMeters(int rssi) => pow(
