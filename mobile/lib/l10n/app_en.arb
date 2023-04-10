@@ -90,6 +90,9 @@
     "language_pl": "Polish",
     "language_es": "Spanish",
     "language_page_change_language": "Change language",
-    "language_page_select_language": "SELECT LANGUAGE"
-    
+    "language_page_select_language": "SELECT LANGUAGE",
+    "foreground_task_channel_name": "Foreground Notification",
+    "foreground_task_channel_description": "This notification appears when the foreground service is running.",
+    "foreground_task_notification_title": "Still looking for your devices",
+    "foreground_task_notification_text": "Tap to return to the app"
 }

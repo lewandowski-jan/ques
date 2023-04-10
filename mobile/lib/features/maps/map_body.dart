@@ -17,12 +17,14 @@ import 'package:ques/features/maps/map_controller_extension.dart';
 import 'package:ques/features/maps/map_cubit.dart';
 import 'package:ques/resources/resources.dart';
 import 'package:ques/utils/osm_hooks.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MapBody extends HookWidget {
   MapBody({super.key});
 
   StreamSubscription<LatLong?>? _locationSub;
   StreamSubscription<DevicesState>? _devicesSub;
+  StreamSubscription<List<Object?>>? _locationDevicesSub;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class MapBody extends HookWidget {
         return () {
           _locationSub?.cancel();
           _devicesSub?.cancel();
+          _locationDevicesSub?.cancel();
         };
       },
       [],
@@ -45,6 +48,12 @@ class MapBody extends HookWidget {
 
     final mapCubit = useBloc(MapCubit.new);
     final mapState = mapCubit.state;
+
+    final locationDevicesStream = CombineLatestStream.combine2(
+      locationCubit.stream,
+      devicesCubit.stream,
+      (a, b) => [a, b],
+    );
 
     final devices = devicesCubit.state.mapOrNull(
           success: (success) => success.devices,
@@ -126,8 +135,11 @@ class MapBody extends HookWidget {
               to: device.location,
             );
 
-            await _devicesSub?.cancel();
-            _devicesSub = devicesCubit.stream.listen((state) async {
+            await _locationDevicesSub?.cancel();
+            _locationDevicesSub = locationDevicesStream.listen((values) async {
+              final location = values[0] as LatLong?;
+              final state = values[1]! as DevicesState;
+
               final devices = state.mapOrNull(success: (s) => s.devices) ?? [];
 
               for (final device in devices) {

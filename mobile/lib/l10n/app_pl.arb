@@ -90,5 +90,9 @@
     "language_pl": "Polski",
     "language_es": "Hiszpański",
     "language_page_change_language": "Zmiana języka",
-    "language_page_select_language": "WYBIERZ JĘZYK"
+    "language_page_select_language": "WYBIERZ JĘZYK",
+    "foreground_task_channel_name": "Powiadomienie działania w tle",
+    "foreground_task_channel_description": "To powiadomienie pojawia się gdy usługa działa w tle",
+    "foreground_task_notification_title": "Nadal szukam urządzeń",
+    "foreground_task_notification_text": "Kliknij by powrócić do aplikacji"
 }

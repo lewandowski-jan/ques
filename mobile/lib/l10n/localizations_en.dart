@@ -246,4 +246,18 @@ class QSLocalizationsEn extends QSLocalizations {
 
   @override
   String get language_page_select_language => 'SELECT LANGUAGE';
+
+  @override
+  String get foreground_task_channel_name => 'Foreground Notification';
+
+  @override
+  String get foreground_task_channel_description =>
+      'This notification appears when the foreground service is running.';
+
+  @override
+  String get foreground_task_notification_title =>
+      'Still looking for your devices';
+
+  @override
+  String get foreground_task_notification_text => 'Tap to return to the app';
 }
