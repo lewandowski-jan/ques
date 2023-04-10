@@ -246,4 +246,18 @@ class QSLocalizationsPl extends QSLocalizations {
 
   @override
   String get language_page_select_language => 'WYBIERZ JĘZYK';
+
+  @override
+  String get foreground_task_channel_name => 'Powiadomienie działania w tle';
+
+  @override
+  String get foreground_task_channel_description =>
+      'To powiadomienie pojawia się gdy usługa działa w tle';
+
+  @override
+  String get foreground_task_notification_title => 'Nadal szukam urządzeń';
+
+  @override
+  String get foreground_task_notification_text =>
+      'Kliknij by powrócić do aplikacji';
 }

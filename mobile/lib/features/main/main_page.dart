@@ -6,6 +6,7 @@ import 'package:ques/features/home/home_screen.dart';
 import 'package:ques/features/router/routes.dart';
 import 'package:ques/features/search/search_screen.dart';
 import 'package:ques/features/settings/settings_screen.dart';
+import 'package:ques/l10n/extensions.dart';
 import 'package:ques/widgets/widgets.dart';
 
 @pragma('vm:entry-point')
@@ -49,9 +50,8 @@ class MainScreen extends HookWidget {
       onWillStart: () async => true,
       androidNotificationOptions: AndroidNotificationOptions(
         channelId: 'notification_channel_id',
-        channelName: 'Foreground Notification',
-        channelDescription:
-            'This notification appears when the foreground service is running.',
+        channelName: context.l10n.foreground_task_channel_name,
+        channelDescription: context.l10n.foreground_task_channel_description,
         channelImportance: NotificationChannelImportance.LOW,
         priority: NotificationPriority.LOW,
         iconData: const NotificationIconData(
@@ -62,8 +62,8 @@ class MainScreen extends HookWidget {
       ),
       iosNotificationOptions: const IOSNotificationOptions(),
       foregroundTaskOptions: const ForegroundTaskOptions(allowWifiLock: true),
-      notificationTitle: 'Still looking for your devices',
-      notificationText: 'Tap to return to the app',
+      notificationTitle: context.l10n.foreground_task_notification_title,
+      notificationText: context.l10n.foreground_task_notification_text,
       callback: _startTask,
       child: Scaffold(
         body: Stack(

@@ -249,4 +249,19 @@ class QSLocalizationsEs extends QSLocalizations {
 
   @override
   String get language_page_select_language => 'SELECCIONAR IDIOMA';
+
+  @override
+  String get foreground_task_channel_name => 'Notificación de primer plano';
+
+  @override
+  String get foreground_task_channel_description =>
+      'Esta notificación aparece cuando el servicio en primer plano está en ejecución.';
+
+  @override
+  String get foreground_task_notification_title =>
+      'Todavía buscando tus dispositivos';
+
+  @override
+  String get foreground_task_notification_text =>
+      'Toca para regresar a la aplicación';
 }
