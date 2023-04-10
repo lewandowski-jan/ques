@@ -52,12 +52,14 @@ class QuesTaskHandler extends TaskHandler {
     final locationStream = location.onLocationChanged;
 
     final ble = FlutterBluePlus.instance;
-    await ble.turnOn();
-    final bleStream = ble.scan().bufferTime(const Duration(seconds: 10));
+    final bleStream = ble.scanResults.bufferTime(const Duration(seconds: 10));
 
     final locationDevicesStream = bleStream.withLatestFrom(
       locationStream,
-      (devices, location) => [location, devices],
+      (devices, location) => [
+        location,
+        devices.expand((e) => [...e]).toList(),
+      ],
     );
 
     await _locationDevicesStreamSub?.cancel();
