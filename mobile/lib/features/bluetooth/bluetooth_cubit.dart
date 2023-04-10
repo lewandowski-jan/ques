@@ -116,7 +116,7 @@ class BluetoothCubit extends Cubit<BluetoothState>
       (_) => _filterDevices(),
     );
 
-    await Future<void>.delayed(const Duration(seconds: 1));
+    await Future<void>.delayed(const Duration(seconds: 3));
     await _filterDevices();
   }
 

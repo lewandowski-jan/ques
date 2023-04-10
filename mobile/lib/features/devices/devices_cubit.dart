@@ -161,7 +161,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
         id: device.id,
         latitude: _lastLocation?.latitude,
         longitude: _lastLocation?.longitude,
-        distanceInMeters: device.distanceInMeters.round(),
+        distanceInMeters: null,
         discoveryDate: device.discoveryDate,
       ),
     );
@@ -223,9 +223,9 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
                       double.infinity,
                 );
               case DevicesSorting.lastSeen:
-                return (a.deviceLocation.discoveryDate ?? DateTime(1999))
+                return (b.deviceLocation.discoveryDate ?? DateTime(1999))
                     .compareTo(
-                  b.deviceLocation.discoveryDate ?? DateTime(1999),
+                  a.deviceLocation.discoveryDate ?? DateTime(1999),
                 );
               case DevicesSorting.distanceDecreasing:
                 return (b.deviceLocation.distanceInMeters?.toDouble() ??

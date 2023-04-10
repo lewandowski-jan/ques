@@ -29,7 +29,7 @@ class HomeScreen extends HookWidget with Sender<MapMessage> {
       greeting = context.l10n.home_page_greeting_evening;
     }
 
-    return name != null ? '$greeting, $name!' : '$greeting!';
+    return name != null ? '$greeting, $name' : greeting;
   }
 
   @override
