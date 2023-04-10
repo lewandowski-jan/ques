@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart' hide BluetoothDevice;
 import 'package:flutter_comms/flutter_comms.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ques/features/auth/auth_cubit.dart';
 import 'package:ques/features/battery_strategy/battery_strategy_cubit.dart';
@@ -26,8 +26,8 @@ class BluetoothCubit extends Cubit<BluetoothState>
   var _updateInterval = const Duration(seconds: 30);
   var _scanMode = ScanMode.lowLatency;
 
-  final _ble = FlutterReactiveBle();
-  StreamSubscription<DiscoveredDevice>? _discoveredStreamSub;
+  final _ble = FlutterBluePlus.instance;
+  StreamSubscription<ScanResult>? _discoveredStreamSub;
   Timer? _filterTimer;
 
   @override
@@ -44,9 +44,11 @@ class BluetoothCubit extends Cubit<BluetoothState>
         return;
       }
 
+      await _ble.stopScan();
       await _discoveredStreamSub?.cancel();
+      _discoveredStreamSub = null;
+
       _filterTimer?.cancel();
-      await _ble.deinitialize();
       emit(const BluetoothState.initial());
     }
 
@@ -79,24 +81,27 @@ class BluetoothCubit extends Cubit<BluetoothState>
   Future<void> init() async {
     emit(const BluetoothState.initial());
 
-    await _ble.initialize();
+    await _ble.stopScan();
+    await _discoveredStreamSub?.cancel();
+    _discoveredStreamSub = null;
 
-    final discovered = _ble.scanForDevices(
+    final discovered = _ble.scan(
       withServices: [],
       scanMode: _scanMode,
     );
 
     await _discoveredStreamSub?.cancel();
-    _discoveredStreamSub = discovered.listen((device) {
+    _discoveredStreamSub = discovered.listen((scanResult) {
+      final device = scanResult.device;
       if (device.name != '') {
         final bluetoothDevice = BluetoothDevice(
-          id: device.id,
-          distanceInMeters: _findDistanceInMeters(device.rssi),
+          id: device.id.id,
+          distanceInMeters: _findDistanceInMeters(scanResult.rssi),
           name: device.name,
           discoveryDate: DateTime.now(),
         );
 
-        final id = device.id;
+        final id = device.id.id;
 
         state.when(
           initial: () {

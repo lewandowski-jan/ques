@@ -119,14 +119,9 @@ PODS:
   - PromisesSwift (2.2.0):
     - PromisesObjC (= 2.2.0)
   - Protobuf (3.22.1)
-  - reactive_ble_mobile (0.0.1):
-    - Flutter
-    - Protobuf (~> 3.5)
-    - SwiftProtobuf (~> 1.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - SwiftProtobuf (1.21.0)
   - Tangram-es (0.17.1)
   - url_launcher_ios (0.0.1):
     - Flutter
@@ -144,7 +139,6 @@ DEPENDENCIES:
   - maps_launcher (from `.symlinks/plugins/maps_launcher/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
-  - reactive_ble_mobile (from `.symlinks/plugins/reactive_ble_mobile/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
@@ -169,7 +163,6 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
     - Protobuf
-    - SwiftProtobuf
     - Tangram-es
 
 EXTERNAL SOURCES:
@@ -197,8 +190,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/ios"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
-  reactive_ble_mobile:
-    :path: ".symlinks/plugins/reactive_ble_mobile/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/ios"
   url_launcher_ios:
@@ -236,9 +227,7 @@ SPEC CHECKSUMS:
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
   Protobuf: d7f7c8329edf5eb8af65547a8ba3e9c1cee927d5
-  reactive_ble_mobile: 9ce6723d37ccf701dbffd202d487f23f5de03b4c
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
-  SwiftProtobuf: afced68785854575756db965e9da52bbf3dc45e7
   Tangram-es: 628b634f7fc09d2217469b9914de00d9de49ff9d
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
 
