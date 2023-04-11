@@ -34,6 +34,8 @@
 	<string>The app uses bluetooth to find different devices</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The app uses location to determin devices location</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The app uses location to determin devices location</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

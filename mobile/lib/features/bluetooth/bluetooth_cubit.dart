@@ -76,6 +76,12 @@ class BluetoothCubit extends Cubit<BluetoothState>
         _updateInterval = const Duration(minutes: 5);
         break;
     }
+
+    _filterTimer?.cancel();
+    _filterTimer = Timer.periodic(
+      _updateInterval,
+      (_) => _filterDevices(),
+    );
   }
 
   Future<void> init() async {
