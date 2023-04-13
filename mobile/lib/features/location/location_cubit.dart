@@ -73,6 +73,7 @@ class LocationCubit extends Cubit<LatLong?> with MultiListener, StateSender {
       return;
     }
 
+    await _location.enableBackgroundMode();
     await _location.changeSettings(
       accuracy: _locationAccuracy,
       interval: _locationInterval,

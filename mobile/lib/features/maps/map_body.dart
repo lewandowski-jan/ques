@@ -49,12 +49,6 @@ class MapBody extends HookWidget {
     final mapCubit = useBloc(MapCubit.new);
     final mapState = mapCubit.state;
 
-    final locationDevicesStream = CombineLatestStream.combine2(
-      locationCubit.stream,
-      devicesCubit.stream,
-      (a, b) => [a, b],
-    );
-
     final devices = devicesCubit.state.mapOrNull(
           success: (success) => success.devices,
         ) ??
@@ -133,6 +127,12 @@ class MapBody extends HookWidget {
             await mapController.setPosition(
               of: device.id,
               to: device.location,
+            );
+
+            final locationDevicesStream = CombineLatestStream.combine2(
+              locationCubit.stream,
+              devicesCubit.stream,
+              (a, b) => [a, b],
             );
 
             await _locationDevicesSub?.cancel();
