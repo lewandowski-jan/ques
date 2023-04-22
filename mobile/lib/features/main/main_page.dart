@@ -49,11 +49,10 @@ class MainScreen extends HookWidget {
     return WillStartForegroundTask(
       onWillStart: () async => true,
       androidNotificationOptions: AndroidNotificationOptions(
-        channelId: 'notification_channel_id',
+        channelId: 'ques_notification_channel_id',
         channelName: context.l10n.foreground_task_channel_name,
         channelDescription: context.l10n.foreground_task_channel_description,
-        channelImportance: NotificationChannelImportance.LOW,
-        priority: NotificationPriority.LOW,
+        priority: NotificationPriority.HIGH,
         iconData: const NotificationIconData(
           resType: ResourceType.mipmap,
           resPrefix: ResourcePrefix.ic,
@@ -61,7 +60,7 @@ class MainScreen extends HookWidget {
         ),
       ),
       iosNotificationOptions: const IOSNotificationOptions(),
-      foregroundTaskOptions: const ForegroundTaskOptions(allowWifiLock: true),
+      foregroundTaskOptions: const ForegroundTaskOptions(),
       notificationTitle: context.l10n.foreground_task_notification_title,
       notificationText: context.l10n.foreground_task_notification_text,
       callback: _startTask,

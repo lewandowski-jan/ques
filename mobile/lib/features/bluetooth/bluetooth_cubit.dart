@@ -44,7 +44,11 @@ class BluetoothCubit extends Cubit<BluetoothState>
         return;
       }
 
-      await _ble.stopScan();
+      final isScanning = await _ble.isScanning.first;
+      if (isScanning) {
+        await _ble.stopScan();
+      }
+
       await _discoveredStreamSub?.cancel();
       _discoveredStreamSub = null;
 
@@ -87,7 +91,11 @@ class BluetoothCubit extends Cubit<BluetoothState>
   Future<void> init() async {
     emit(const BluetoothState.initial());
 
-    await _ble.stopScan();
+    final isScanning = await _ble.isScanning.first;
+    if (isScanning) {
+      await _ble.stopScan();
+    }
+
     await _discoveredStreamSub?.cancel();
     _discoveredStreamSub = null;
 

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>644324286173-u5gltv1vm8eou16b6hh7ue3ebqksmlds.apps.googleusercontent.com</string>
+	<string>644324286173-6mjcf7k6k7aa0fvsrtbqka302fh5mvj4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.644324286173-u5gltv1vm8eou16b6hh7ue3ebqksmlds</string>
+	<string>com.googleusercontent.apps.644324286173-6mjcf7k6k7aa0fvsrtbqka302fh5mvj4</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCQ5NerOdggM65Y0_6lAqgB6Htot0FofLk</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>pl.ques</string>
+	<string>pl.ques.app</string>
 	<key>PROJECT_ID</key>
 	<string>ques-1b24c</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:644324286173:ios:1772c0182d5728d5e38534</string>
+	<string>1:644324286173:ios:879e1b8a187648fee38534</string>
+	<key>DATABASE_URL</key>
+	<string>https://ques-1b24c-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

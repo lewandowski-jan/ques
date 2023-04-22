@@ -1,18 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class RealtimeDatabase {
-  RealtimeDatabase({
-    required FirebaseApp firebaseApp,
-  }) {
-    _ref = FirebaseDatabase.instanceFor(
-      app: firebaseApp,
-      databaseURL: _dbUrl,
-    ).ref();
+  RealtimeDatabase() {
+    _ref = FirebaseDatabase.instance.ref();
   }
-
-  static const _dbUrl =
-      'https://ques-1b24c-default-rtdb.europe-west1.firebasedatabase.app';
 
   late final DatabaseReference _ref;
 

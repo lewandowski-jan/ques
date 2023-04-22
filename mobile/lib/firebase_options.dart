@@ -54,17 +54,21 @@ class DefaultFirebaseOptions {
     appId: '1:644324286173:android:c9b5ec7a5f1b6b51e38534',
     messagingSenderId: '644324286173',
     projectId: 'ques-1b24c',
+    databaseURL:
+        'https://ques-1b24c-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'ques-1b24c.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCQ5NerOdggM65Y0_6lAqgB6Htot0FofLk',
-    appId: '1:644324286173:ios:1772c0182d5728d5e38534',
+    appId: '1:644324286173:ios:879e1b8a187648fee38534',
     messagingSenderId: '644324286173',
     projectId: 'ques-1b24c',
+    databaseURL:
+        'https://ques-1b24c-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'ques-1b24c.appspot.com',
     iosClientId:
-        '644324286173-u5gltv1vm8eou16b6hh7ue3ebqksmlds.apps.googleusercontent.com',
-    iosBundleId: 'pl.ques',
+        '644324286173-6mjcf7k6k7aa0fvsrtbqka302fh5mvj4.apps.googleusercontent.com',
+    iosBundleId: 'pl.ques.app',
   );
 }
