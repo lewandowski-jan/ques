@@ -208,6 +208,21 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
     }
   }
 
+  @override
+  void onChange(Change<DevicesState> change) {
+    super.onChange(change);
+  }
+
+  Future<void> refresh() async {
+    await state.mapOrNull(
+      success: (success) async {
+        emit(const DevicesState.initial());
+        await Future<void>.delayed(const Duration(seconds: 1));
+        emit(success);
+      },
+    );
+  }
+
   void changeSorting(DevicesSorting newSorting) {
     sorting = newSorting;
 

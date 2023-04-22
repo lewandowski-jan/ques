@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "644324286173",
+    "firebase_url": "https://ques-1b24c-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "ques-1b24c",
     "storage_bucket": "ques-1b24c.appspot.com"
   },
@@ -31,10 +32,10 @@
               "client_type": 3
             },
             {
-              "client_id": "644324286173-u5gltv1vm8eou16b6hh7ue3ebqksmlds.apps.googleusercontent.com",
+              "client_id": "644324286173-6mjcf7k6k7aa0fvsrtbqka302fh5mvj4.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "pl.ques"
+                "bundle_id": "pl.ques.app"
               }
             }
           ]

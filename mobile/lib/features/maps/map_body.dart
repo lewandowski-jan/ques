@@ -41,8 +41,6 @@ class MapBody extends HookWidget {
 
     final markerSize = Platform.isIOS ? 30.0 : 60.0;
 
-    final mapIsReady = useState(false);
-
     final locationCubit = context.read<LocationCubit>();
     final devicesCubit = context.read<DevicesCubit>();
 
@@ -56,24 +54,22 @@ class MapBody extends HookWidget {
 
     final mapController = useQsMapController(
       onMapIsReady: (mapController) async {
-        mapIsReady.value = true;
-
-        final location = locationCubit.state;
-        await mapController.setPosition(
-          of: 'userLocation',
-          to: location,
-        );
-
-        await _locationSub?.cancel();
-        _locationSub = locationCubit.stream.listen((location) async {
-          await mapController.setPosition(
-            of: 'userLocation',
-            to: location,
-          );
-        });
-
         await mapState.map(
           initial: (_) async {
+            final location = locationCubit.state;
+            await mapController.setPosition(
+              of: 'userLocation',
+              to: location,
+            );
+
+            await _locationSub?.cancel();
+            _locationSub = locationCubit.stream.listen((location) async {
+              await mapController.setPosition(
+                of: 'userLocation',
+                to: location,
+              );
+            });
+
             for (final device in devices) {
               await mapController.setPosition(
                 of: device.id,
@@ -119,6 +115,12 @@ class MapBody extends HookWidget {
             );
           },
           navigate: (navigate) async {
+            final location = locationCubit.state;
+            await mapController.setPosition(
+              of: 'userLocation',
+              to: location,
+            );
+
             final device = devices.firstWhereOrNull(
                   (d) => d.id == navigate.device.id,
                 ) ??
@@ -138,8 +140,12 @@ class MapBody extends HookWidget {
             await _locationDevicesSub?.cancel();
             _locationDevicesSub = locationDevicesStream.listen((values) async {
               final location = values[0] as LatLong?;
-              final state = values[1]! as DevicesState;
+              await mapController.setPosition(
+                of: 'userLocation',
+                to: location,
+              );
 
+              final state = values[1]! as DevicesState;
               final devices = state.mapOrNull(success: (s) => s.devices) ?? [];
 
               for (final device in devices) {
@@ -150,11 +156,10 @@ class MapBody extends HookWidget {
                   );
 
                   if (location == null || device.location == null) {
-                    return;
+                    break;
                   }
 
                   await mapController.clearAllRoads();
-
                   await mapController.drawRoad(
                     GeoPoint(
                       latitude: location.latitude,
@@ -204,10 +209,14 @@ class MapBody extends HookWidget {
                   ),
                 ],
               ),
-              paddinInPixel: 150,
+              paddinInPixel: 100,
             );
+
+            await devicesCubit.refresh();
           },
         );
+
+        // mapIsReady.value = true;
       },
     );
 
@@ -261,9 +270,7 @@ class MapBody extends HookWidget {
             ),
           ],
         ),
-        if (mapState is MapNavigate &&
-            mapState.device.location != null &&
-            mapIsReady.value)
+        if (mapState is MapNavigate && mapState.device.location != null)
           SafeArea(
             child: GestureDetector(
               onTap: () => MapsLauncher.launchCoordinates(

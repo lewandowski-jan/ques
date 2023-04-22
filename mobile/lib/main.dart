@@ -38,7 +38,7 @@ void main() async {
     ),
   );
 
-  final firebaseApp = await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -75,11 +75,7 @@ void main() async {
         ),
         Provider(
           lazy: false,
-          create: (_) => DataRepository(
-            database: RealtimeDatabase(
-              firebaseApp: firebaseApp,
-            ),
-          ),
+          create: (_) => DataRepository(database: RealtimeDatabase()),
           dispose: (_, dataRepository) => dataRepository.dispose(),
         ),
         BlocProvider(
