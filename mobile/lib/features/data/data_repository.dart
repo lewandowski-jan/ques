@@ -163,7 +163,8 @@ class DataRepository with Listener<AuthState> implements IDataRepository {
   }
 
   Future<List<DeviceLocation?>> getDeviceLocations(
-      List<String> deviceIds) async {
+    List<String> deviceIds,
+  ) async {
     return Future.wait(
       List.of(deviceIds.map(getDeviceLocation)),
     );

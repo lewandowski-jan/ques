@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_comms/flutter_comms.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
@@ -53,6 +54,12 @@ class HomeScreen extends HookWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
+                statusBarColor: Colors.white,
+                systemNavigationBarColor: Colors.white,
+                statusBarBrightness: Brightness.light,
+                systemStatusBarContrastEnforced: true,
+              ),
               backgroundColor: context.colors.transparent,
               shadowColor: context.colors.transparent,
               floating: true,
