@@ -41,12 +41,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
   Future<void> onMessage(dynamic message) async {
     if (message is LatLong?) {
       if (message != null) {
-        if (_lastLocation == null) {
-          _lastLocation = message;
-          await init();
-
-          return;
-        }
+        _onLocation(message);
         _lastLocation = message;
       }
     }
@@ -102,6 +97,35 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
     );
   }
 
+  void _onLocation(LatLong location) {
+    state.mapOrNull(
+      success: (success) {
+        final newDevices = [...success.devices].map((device) {
+          if (device.location == null) {
+            return device;
+          }
+
+          final distanceInMeters = device.deviceLocation.latitude != null &&
+                  device.deviceLocation.longitude != null
+              ? calculateDistanceInMeters(
+                  location.latitude,
+                  location.longitude,
+                  device.deviceLocation.latitude!,
+                  device.deviceLocation.longitude!,
+                )
+              : null;
+
+          return device.copyWith(
+            deviceLocation: device.deviceLocation
+                .copyWith(distanceInMeters: distanceInMeters?.round()),
+          );
+        }).toList();
+
+        emit(DevicesState.success(devices: newDevices));
+      },
+    );
+  }
+
   Future<void> _onUpdatedDevices(List<String> deviceIds) async {
     await deviceLocationSub?.cancel();
     deviceLocationSub = _dataRepository.onDevicesLocations(deviceIds).listen(
@@ -127,13 +151,9 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
                     )
                   : null;
 
-              if (distanceInMeters == null) {
-                return device.copyWith(deviceLocation: deviceLocation);
-              }
-
               return device.copyWith(
                 deviceLocation: deviceLocation.copyWith(
-                  distanceInMeters: distanceInMeters.round(),
+                  distanceInMeters: distanceInMeters?.round(),
                 ),
               );
             }
