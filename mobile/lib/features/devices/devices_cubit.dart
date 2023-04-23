@@ -41,6 +41,12 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
   Future<void> onMessage(dynamic message) async {
     if (message is LatLong?) {
       if (message != null) {
+        if (_lastLocation == null) {
+          _lastLocation = message;
+          await init();
+
+          return;
+        }
         _lastLocation = message;
       }
     }
@@ -48,6 +54,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
     if (message is BluetoothMessage) {
       if (message is BluetoothUpdate) {
         await updateDevicesLocations(devices: message.devices);
+        return;
       }
     }
 
@@ -86,17 +93,16 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
             )
             .toList();
 
+        final deviceIds = devices.map((e) => e.id).toList();
+
         emit(DevicesState.success(devices: devices));
-        await _onUpdatedDevices(devices);
+
+        await _onUpdatedDevices(deviceIds);
       },
     );
   }
 
-  Future<void> _onUpdatedDevices(List<Device> devices) async {
-    final deviceIds = devices.map((e) => e.id).toList();
-
-    await Future<void>.delayed(const Duration(seconds: 1));
-
+  Future<void> _onUpdatedDevices(List<String> deviceIds) async {
     await deviceLocationSub?.cancel();
     deviceLocationSub = _dataRepository.onDevicesLocations(deviceIds).listen(
       (deviceLocation) {
@@ -122,7 +128,7 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
                   : null;
 
               if (distanceInMeters == null) {
-                return device;
+                return device.copyWith(deviceLocation: deviceLocation);
               }
 
               return device.copyWith(
