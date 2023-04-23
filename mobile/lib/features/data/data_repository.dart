@@ -150,6 +150,26 @@ class DataRepository with Listener<AuthState> implements IDataRepository {
     });
   }
 
+  Future<DeviceLocation?> getDeviceLocation(String deviceId) async {
+    final path = RealtimeDatabasePath.getDeviceLocationPath(deviceId);
+
+    final json = await _database.get(path);
+
+    if (json != null) {
+      return DeviceLocation.fromJson(json);
+    }
+
+    return null;
+  }
+
+  Future<List<DeviceLocation?>> getDeviceLocations(
+    List<String> deviceIds,
+  ) async {
+    return Future.wait(
+      List.of(deviceIds.map(getDeviceLocation)),
+    );
+  }
+
   @override
   Stream<DeviceLocation?> onDeviceLocation(String deviceId) async* {
     final path = RealtimeDatabasePath.getDeviceLocationPath(deviceId);
