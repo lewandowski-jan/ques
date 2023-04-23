@@ -123,7 +123,7 @@ class EditUserDeviceScreen extends HookWidget {
     return Scaffold(
       appBar: QSAppBar(title: context.l10n.edit_user_device_page_edit_device),
       backgroundColor: context.colors.background,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,

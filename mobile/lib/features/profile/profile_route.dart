@@ -17,8 +17,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authState = context.watch<AuthCubit>().state;
-    final user =
-        authState.authenticated ? (authState as AuthAuthenticated).user : null;
+    final user = authState.whenOrNull(authenticated: (user) => user);
     final userEmail = user?.email;
     final userName = user?.displayName;
 

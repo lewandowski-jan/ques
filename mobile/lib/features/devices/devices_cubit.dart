@@ -20,7 +20,6 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
       : _dataRepository = dataRepository,
         super(const DevicesState.initial()) {
     listen();
-    init();
   }
 
   final DataRepository _dataRepository;
@@ -88,60 +87,56 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
             .toList();
 
         emit(DevicesState.success(devices: devices));
+        await _onUpdatedDevices(devices);
+      },
+    );
+  }
 
-        final deviceIds = devices.map((e) => e.id).toList();
+  Future<void> _onUpdatedDevices(List<Device> devices) async {
+    final deviceIds = devices.map((e) => e.id).toList();
 
-        await deviceLocationSub?.cancel();
-        deviceLocationSub =
-            _dataRepository.onDevicesLocations(deviceIds).listen(
-          (deviceLocation) {
-            if (deviceLocation == null) {
-              return;
-            }
+    await deviceLocationSub?.cancel();
+    deviceLocationSub = _dataRepository.onDevicesLocations(deviceIds).listen(
+      (deviceLocation) {
+        if (deviceLocation == null) {
+          return;
+        }
 
-            final deviceId = deviceLocation.id;
-            final devices = state.mapOrNull(
-              success: (success) => success.devices,
-            );
+        final currentState = state as DevicesSuccess;
 
-            if (devices == null) {
-              return;
-            }
+        final deviceId = deviceLocation.id;
+        final newDevices = [...currentState.devices].map(
+          (device) {
+            if (device.id == deviceId) {
+              final distanceInMeters = _lastLocation != null &&
+                      deviceLocation.latitude != null &&
+                      deviceLocation.longitude != null
+                  ? calculateDistanceInMeters(
+                      _lastLocation!.latitude,
+                      _lastLocation!.longitude,
+                      deviceLocation.latitude!,
+                      deviceLocation.longitude!,
+                    )
+                  : null;
 
-            final newDevices = [...devices].map(
-              (device) {
-                if (device.id == deviceId) {
-                  final distanceInMeters = _lastLocation != null &&
-                          deviceLocation.latitude != null &&
-                          deviceLocation.longitude != null
-                      ? calculateDistanceInMeters(
-                          _lastLocation!.latitude,
-                          _lastLocation!.longitude,
-                          deviceLocation.latitude!,
-                          deviceLocation.longitude!,
-                        )
-                      : null;
-
-                  if (distanceInMeters == null) {
-                    return device;
-                  }
-
-                  return device.copyWith(
-                    deviceLocation: deviceLocation.copyWith(
-                      distanceInMeters: distanceInMeters.round(),
-                    ),
-                  );
-                }
-
+              if (distanceInMeters == null) {
                 return device;
-              },
-            ).toList();
+              }
 
-            emit(DevicesState.success(devices: newDevices));
+              return device.copyWith(
+                deviceLocation: deviceLocation.copyWith(
+                  distanceInMeters: distanceInMeters.round(),
+                ),
+              );
+            }
 
-            changeSorting(sorting);
+            return device;
           },
-        );
+        ).toList();
+
+        emit(DevicesState.success(devices: newDevices));
+
+        changeSorting(sorting);
       },
     );
   }

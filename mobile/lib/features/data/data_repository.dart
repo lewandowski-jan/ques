@@ -17,11 +17,7 @@ class DataRepository with Listener<AuthState> implements IDataRepository {
 
   @override
   void onMessage(AuthState message) {
-    if (message is AuthAuthenticated) {
-      _userId = message.user.uid;
-      return;
-    }
-    _userId = null;
+    _userId = message.whenOrNull(authenticated: (user) => user.uid);
   }
 
   @override
@@ -179,6 +175,7 @@ class DataRepository with Listener<AuthState> implements IDataRepository {
     Stream<DeviceLocation?>? devicesLocationsStream;
 
     final devicesLocationsStreams = <Stream<DeviceLocation?>>[];
+
     for (final deviceId in deviceIds) {
       devicesLocationsStreams.add(onDeviceLocation(deviceId));
     }
