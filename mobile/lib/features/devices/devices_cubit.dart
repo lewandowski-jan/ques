@@ -95,6 +95,8 @@ class DevicesCubit extends Cubit<DevicesState> with MultiListener {
   Future<void> _onUpdatedDevices(List<Device> devices) async {
     final deviceIds = devices.map((e) => e.id).toList();
 
+    await Future<void>.delayed(const Duration(seconds: 1));
+
     await deviceLocationSub?.cancel();
     deviceLocationSub = _dataRepository.onDevicesLocations(deviceIds).listen(
       (deviceLocation) {
