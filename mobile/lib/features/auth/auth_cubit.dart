@@ -3,9 +3,12 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_comms/flutter_comms.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'auth_cubit.freezed.dart';
 
 class AuthCubit extends Cubit<AuthState> with StateSender {
-  AuthCubit() : super(AuthInitial()) {
+  AuthCubit() : super(const AuthState.initial()) {
     init();
   }
 
@@ -13,34 +16,27 @@ class AuthCubit extends Cubit<AuthState> with StateSender {
   StreamSubscription<User?>? userChangesSubscription;
 
   Future<void> init() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      emit(AuthAuthenticated(user));
-    } else {
-      emit(AuthUnauthenticated());
-    }
-
-    await authStateSubscription?.cancel();
-    authStateSubscription = FirebaseAuth.instance.authStateChanges().listen(
-      (user) {
-        if (user == null) {
-          emit(AuthUnauthenticated());
-        } else {
-          emit(AuthAuthenticated(user));
-        }
-      },
-    );
+    final initialUser = FirebaseAuth.instance.currentUser;
+    _onUser(initialUser);
 
     await userChangesSubscription?.cancel();
     userChangesSubscription = FirebaseAuth.instance.userChanges().listen(
       (user) {
-        if (user == null) {
-          emit(AuthUnauthenticated());
-        } else {
-          emit(AuthAuthenticated(user));
+        if (user?.email != initialUser?.email ||
+            user?.displayName != initialUser?.displayName ||
+            user?.uid != initialUser?.uid) {
+          _onUser(user);
         }
       },
     );
+  }
+
+  void _onUser(User? user) {
+    if (user != null) {
+      emit(AuthState.authenticated(user: user));
+    } else {
+      emit(const AuthState.unauthenticated());
+    }
   }
 
   Future<bool> signIn({
@@ -76,16 +72,21 @@ class AuthCubit extends Cubit<AuthState> with StateSender {
   }
 
   Future<bool> changeUserName({required String userName}) async {
-    if (!state.authenticated) {
-      return false;
-    }
-
-    final authenticated = state as AuthAuthenticated;
-    final user = authenticated.user;
-
     try {
-      await user.updateDisplayName(userName);
-      return true;
+      final result = await state.mapOrNull(
+        authenticated: (authenticated) async {
+          final user = authenticated.user;
+          await user.updateDisplayName(userName);
+
+          return true;
+        },
+      );
+
+      if (result != null) {
+        return result;
+      }
+
+      return false;
     } catch (e) {
       return false;
     }
@@ -99,16 +100,21 @@ class AuthCubit extends Cubit<AuthState> with StateSender {
       return false;
     }
 
-    if (!state.authenticated) {
-      return false;
-    }
-
-    final authenticated = state as AuthAuthenticated;
-    final user = authenticated.user;
-
     try {
-      await user.updatePassword(password);
-      return true;
+      final result = await state.mapOrNull(
+        authenticated: (authenticated) async {
+          final user = authenticated.user;
+          await user.updatePassword(password);
+
+          return true;
+        },
+      );
+
+      if (result != null) {
+        return result;
+      }
+
+      return false;
     } catch (e) {
       return false;
     }
@@ -122,25 +128,21 @@ class AuthCubit extends Cubit<AuthState> with StateSender {
   }
 }
 
-abstract class AuthState {
-  bool get authenticated;
-}
+@freezed
+class AuthState with _$AuthState {
+  const AuthState._();
 
-class AuthInitial extends AuthState {
-  @override
-  bool get authenticated => false;
-}
+  const factory AuthState.initial() = AuthInitial;
 
-class AuthAuthenticated extends AuthState {
-  AuthAuthenticated(this.user);
+  const factory AuthState.authenticated({
+    required User user,
+  }) = AuthAuthenticated;
 
-  final User user;
+  const factory AuthState.unauthenticated() = AuthUnauthenticated;
 
-  @override
-  bool get authenticated => true;
-}
-
-class AuthUnauthenticated extends AuthState {
-  @override
-  bool get authenticated => false;
+  bool get authenticated => map(
+        initial: (_) => false,
+        authenticated: (_) => true,
+        unauthenticated: (_) => false,
+      );
 }
