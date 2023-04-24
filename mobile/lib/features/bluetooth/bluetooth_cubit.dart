@@ -65,6 +65,12 @@ class BluetoothCubit extends Cubit<BluetoothState>
   @override
   void onInitialMessage(dynamic message) => onMessage(message);
 
+  Future<void> refresh() async {
+    if (state is BluetoothInitial) {
+      await init();
+    }
+  }
+
   void _updateStrategy(BatteryStrategy strategy) {
     switch (strategy) {
       case BatteryStrategy.accurate:
@@ -145,6 +151,8 @@ class BluetoothCubit extends Cubit<BluetoothState>
       ).toDouble();
 
   Future<void> _filterDevices() async {
+    await refresh();
+
     state.whenOrNull(
       found: (devices) {
         final newDevices = {...devices};
