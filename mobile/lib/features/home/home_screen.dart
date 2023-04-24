@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_comms/flutter_comms.dart';
-import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:ques/features/add_device/select_device_route.dart';
 import 'package:ques/features/bluetooth/bluetooth_cubit.dart';
 import 'package:ques/features/devices/devices_cubit.dart';
@@ -17,7 +16,7 @@ import 'package:ques/resources/resources.dart';
 import 'package:ques/utils/spaced.dart';
 import 'package:ques/widgets/widgets.dart';
 
-class HomeScreen extends HookWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   String _getGreeting(BuildContext context, String? name) {
@@ -38,7 +37,7 @@ class HomeScreen extends HookWidget {
 
   Future<void> _onRefresh(BuildContext context) async {
     await Future.wait([
-      context.read<BluetoothCubit>().init(),
+      context.read<BluetoothCubit>().refresh(),
       context.read<LocationCubit>().init(),
       context.read<DevicesCubit>().init(),
     ]);
@@ -49,24 +48,24 @@ class HomeScreen extends HookWidget {
     final devicesState = context.watch<DevicesCubit>().state;
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-                statusBarColor: Colors.white,
-                systemNavigationBarColor: Colors.white,
-                statusBarBrightness: Brightness.light,
-                systemStatusBarContrastEnforced: true,
-              ),
-              backgroundColor: context.colors.transparent,
-              shadowColor: context.colors.transparent,
-              floating: true,
-              forceElevated: true,
-              titleSpacing: 0,
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(64),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
+              statusBarColor: Colors.white,
+              systemNavigationBarColor: Colors.white,
+              statusBarBrightness: Brightness.light,
+              systemStatusBarContrastEnforced: true,
+            ),
+            backgroundColor: context.colors.transparent,
+            shadowColor: context.colors.transparent,
+            floating: true,
+            forceElevated: true,
+            titleSpacing: 16,
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(64),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,42 +85,45 @@ class HomeScreen extends HookWidget {
                   ],
                 ),
               ),
-              title: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: MediaQuery.of(context).padding.top),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      QSText(
-                        _getGreeting(context, null),
-                        style: context.textTheme.bodyMedium,
-                      ),
-                      QSAvatar(
-                        size: 50,
-                        onTap: () => Navigator.of(context).push(ProfileRoute()),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 32),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      QSText(
-                        context.l10n.home_page_devices,
-                        style: context.textTheme.bodySmall,
-                      ),
-                      const QSDevicesSortingButton(),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                ],
-              ),
             ),
-            CupertinoSliverRefreshControl(onRefresh: () => _onRefresh(context)),
-            devicesState.map(
+            title: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: MediaQuery.of(context).padding.top),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    QSText(
+                      _getGreeting(context, null),
+                      style: context.textTheme.bodyMedium,
+                    ),
+                    QSAvatar(
+                      size: 50,
+                      onTap: () => Navigator.of(context).push(ProfileRoute()),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 32),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    QSText(
+                      context.l10n.home_page_devices,
+                      style: context.textTheme.bodySmall,
+                    ),
+                    const QSDevicesSortingButton(),
+                  ],
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+          CupertinoSliverRefreshControl(onRefresh: () => _onRefresh(context)),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: devicesState.map(
               initial: (_) => SliverToBoxAdapter(
                 child: Column(
                   children: [
@@ -150,9 +152,9 @@ class HomeScreen extends HookWidget {
               ),
               success: _DevicesList.new,
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          ],
-        ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 40)),
+        ],
       ),
     );
   }
