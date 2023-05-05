@@ -29,7 +29,7 @@ class QSApp extends HookWidget {
       final isResumed = current == AppLifecycleState.resumed;
 
       if ((wasPaused || wasInactive) && isResumed) {
-        context.read<BluetoothCubit>().refresh();
+        context.read<BluetoothCubit>().init();
         context.read<LocationCubit>().init();
         context.read<DevicesCubit>().init();
       }
