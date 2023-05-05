@@ -559,30 +559,6 @@ abstract class QSLocalizations {
   /// In en, this message translates to:
   /// **'SELECT LANGUAGE'**
   String get language_page_select_language;
-
-  /// No description provided for @foreground_task_channel_name.
-  ///
-  /// In en, this message translates to:
-  /// **'Foreground Notification'**
-  String get foreground_task_channel_name;
-
-  /// No description provided for @foreground_task_channel_description.
-  ///
-  /// In en, this message translates to:
-  /// **'This notification appears when the foreground service is running.'**
-  String get foreground_task_channel_description;
-
-  /// No description provided for @foreground_task_notification_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Still looking for your devices'**
-  String get foreground_task_notification_title;
-
-  /// No description provided for @foreground_task_notification_text.
-  ///
-  /// In en, this message translates to:
-  /// **'Tap to return to the app'**
-  String get foreground_task_notification_text;
 }
 
 class _QSLocalizationsDelegate extends LocalizationsDelegate<QSLocalizations> {

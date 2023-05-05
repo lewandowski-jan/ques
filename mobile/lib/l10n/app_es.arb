@@ -90,9 +90,5 @@
     "language_pl": "Polaco",
     "language_es": "Español",
     "language_page_change_language": "Cambiar idioma",
-    "language_page_select_language": "SELECCIONAR IDIOMA",
-    "foreground_task_channel_name": "Notificación de primer plano",
-    "foreground_task_channel_description": "Esta notificación aparece cuando el servicio en primer plano está en ejecución.",
-    "foreground_task_notification_title": "Todavía buscando tus dispositivos",
-    "foreground_task_notification_text": "Toca para regresar a la aplicación"
+    "language_page_select_language": "SELECCIONAR IDIOMA"
 }
