@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ques">
     <!-- required for API 18 - 30 -->
     <uses-permission
@@ -27,6 +28,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
    <application
+        tools:replace="android:label"
         android:label="ques"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
