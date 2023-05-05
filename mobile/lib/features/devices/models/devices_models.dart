@@ -67,6 +67,7 @@ class DeviceLocation with _$DeviceLocation {
     required double? longitude,
     required int? distanceInMeters,
     required DateTime? discoveryDate,
+    @Default(false) bool updatedInBackground,
   }) = _DeviceLocation;
 
   factory DeviceLocation.fromJson(Map<String, Object?> json) =>
