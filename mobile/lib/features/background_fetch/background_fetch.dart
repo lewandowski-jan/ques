@@ -49,6 +49,7 @@ class _BackgroundFetchWrapperState extends State<BackgroundFetchWrapper> {
               longitude: location.longitude,
               distanceInMeters: null,
               discoveryDate: DateTime.now(),
+              updatedInBackground: true,
             ),
           );
         }

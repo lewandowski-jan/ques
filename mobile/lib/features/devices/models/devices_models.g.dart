@@ -54,6 +54,7 @@ _$_DeviceLocation _$$_DeviceLocationFromJson(Map<String, dynamic> json) =>
       discoveryDate: json['discoveryDate'] == null
           ? null
           : DateTime.parse(json['discoveryDate'] as String),
+      updatedInBackground: json['updatedInBackground'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_DeviceLocationToJson(_$_DeviceLocation instance) =>
@@ -63,4 +64,5 @@ Map<String, dynamic> _$$_DeviceLocationToJson(_$_DeviceLocation instance) =>
       'longitude': instance.longitude,
       'distanceInMeters': instance.distanceInMeters,
       'discoveryDate': instance.discoveryDate?.toIso8601String(),
+      'updatedInBackground': instance.updatedInBackground,
     };

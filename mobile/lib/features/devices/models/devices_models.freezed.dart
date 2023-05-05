@@ -376,6 +376,7 @@ mixin _$DeviceLocation {
   double? get longitude => throw _privateConstructorUsedError;
   int? get distanceInMeters => throw _privateConstructorUsedError;
   DateTime? get discoveryDate => throw _privateConstructorUsedError;
+  bool get updatedInBackground => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -394,7 +395,8 @@ abstract class $DeviceLocationCopyWith<$Res> {
       double? latitude,
       double? longitude,
       int? distanceInMeters,
-      DateTime? discoveryDate});
+      DateTime? discoveryDate,
+      bool updatedInBackground});
 }
 
 /// @nodoc
@@ -415,6 +417,7 @@ class _$DeviceLocationCopyWithImpl<$Res, $Val extends DeviceLocation>
     Object? longitude = freezed,
     Object? distanceInMeters = freezed,
     Object? discoveryDate = freezed,
+    Object? updatedInBackground = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -437,6 +440,10 @@ class _$DeviceLocationCopyWithImpl<$Res, $Val extends DeviceLocation>
           ? _value.discoveryDate
           : discoveryDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      updatedInBackground: null == updatedInBackground
+          ? _value.updatedInBackground
+          : updatedInBackground // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -454,7 +461,8 @@ abstract class _$$_DeviceLocationCopyWith<$Res>
       double? latitude,
       double? longitude,
       int? distanceInMeters,
-      DateTime? discoveryDate});
+      DateTime? discoveryDate,
+      bool updatedInBackground});
 }
 
 /// @nodoc
@@ -473,6 +481,7 @@ class __$$_DeviceLocationCopyWithImpl<$Res>
     Object? longitude = freezed,
     Object? distanceInMeters = freezed,
     Object? discoveryDate = freezed,
+    Object? updatedInBackground = null,
   }) {
     return _then(_$_DeviceLocation(
       id: null == id
@@ -495,6 +504,10 @@ class __$$_DeviceLocationCopyWithImpl<$Res>
           ? _value.discoveryDate
           : discoveryDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      updatedInBackground: null == updatedInBackground
+          ? _value.updatedInBackground
+          : updatedInBackground // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -507,7 +520,8 @@ class _$_DeviceLocation implements _DeviceLocation {
       required this.latitude,
       required this.longitude,
       required this.distanceInMeters,
-      required this.discoveryDate});
+      required this.discoveryDate,
+      this.updatedInBackground = false});
 
   factory _$_DeviceLocation.fromJson(Map<String, dynamic> json) =>
       _$$_DeviceLocationFromJson(json);
@@ -522,10 +536,13 @@ class _$_DeviceLocation implements _DeviceLocation {
   final int? distanceInMeters;
   @override
   final DateTime? discoveryDate;
+  @override
+  @JsonKey()
+  final bool updatedInBackground;
 
   @override
   String toString() {
-    return 'DeviceLocation(id: $id, latitude: $latitude, longitude: $longitude, distanceInMeters: $distanceInMeters, discoveryDate: $discoveryDate)';
+    return 'DeviceLocation(id: $id, latitude: $latitude, longitude: $longitude, distanceInMeters: $distanceInMeters, discoveryDate: $discoveryDate, updatedInBackground: $updatedInBackground)';
   }
 
   @override
@@ -541,13 +558,15 @@ class _$_DeviceLocation implements _DeviceLocation {
             (identical(other.distanceInMeters, distanceInMeters) ||
                 other.distanceInMeters == distanceInMeters) &&
             (identical(other.discoveryDate, discoveryDate) ||
-                other.discoveryDate == discoveryDate));
+                other.discoveryDate == discoveryDate) &&
+            (identical(other.updatedInBackground, updatedInBackground) ||
+                other.updatedInBackground == updatedInBackground));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, latitude, longitude, distanceInMeters, discoveryDate);
+  int get hashCode => Object.hash(runtimeType, id, latitude, longitude,
+      distanceInMeters, discoveryDate, updatedInBackground);
 
   @JsonKey(ignore: true)
   @override
@@ -569,7 +588,8 @@ abstract class _DeviceLocation implements DeviceLocation {
       required final double? latitude,
       required final double? longitude,
       required final int? distanceInMeters,
-      required final DateTime? discoveryDate}) = _$_DeviceLocation;
+      required final DateTime? discoveryDate,
+      final bool updatedInBackground}) = _$_DeviceLocation;
 
   factory _DeviceLocation.fromJson(Map<String, dynamic> json) =
       _$_DeviceLocation.fromJson;
@@ -584,6 +604,8 @@ abstract class _DeviceLocation implements DeviceLocation {
   int? get distanceInMeters;
   @override
   DateTime? get discoveryDate;
+  @override
+  bool get updatedInBackground;
   @override
   @JsonKey(ignore: true)
   _$$_DeviceLocationCopyWith<_$_DeviceLocation> get copyWith =>
