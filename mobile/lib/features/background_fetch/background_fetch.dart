@@ -23,8 +23,6 @@ class BackgroundFetchWrapper extends StatefulWidget {
 }
 
 class _BackgroundFetchWrapperState extends State<BackgroundFetchWrapper> {
-  final _events = <DateTime>[];
-
   @override
   void initState() {
     super.initState();
@@ -36,9 +34,7 @@ class _BackgroundFetchWrapperState extends State<BackgroundFetchWrapper> {
     final location = await Location().getLocation();
 
     final ble = FlutterBluePlus.instance;
-
     final isScanning = await ble.isScanning.first;
-
     if (!isScanning) {
       await ble.startScan(timeout: const Duration(seconds: 5));
     }
@@ -51,7 +47,7 @@ class _BackgroundFetchWrapperState extends State<BackgroundFetchWrapper> {
               id: result.device.id.id,
               latitude: location.latitude,
               longitude: location.longitude,
-              distanceInMeters: 6,
+              distanceInMeters: null,
               discoveryDate: DateTime.now(),
             ),
           );
@@ -75,22 +71,13 @@ class _BackgroundFetchWrapperState extends State<BackgroundFetchWrapper> {
         requiredNetworkType: NetworkType.ANY,
       ),
       (dynamic taskId) async {
-        // <-- Event handler
-        // This is the fetch-event callback.
         print('[BackgroundFetch] Event received $taskId');
 
         await _onFetch();
 
-        setState(() {
-          _events.insert(0, DateTime.now());
-        });
-        // IMPORTANT:  You must signal completion of your task or the OS can punish your app
-        // for taking too long in the background.
         BackgroundFetch.finish(taskId.toString());
       },
       (dynamic taskId) async {
-        // <-- Task timeout handler.
-        // This task has exceeded its allowed running-time.  You must stop what you're doing and immediately .finish(taskId)
         print('[BackgroundFetch] TASK TIMEOUT taskId: $taskId');
         BackgroundFetch.finish(taskId.toString());
       },
@@ -100,9 +87,6 @@ class _BackgroundFetchWrapperState extends State<BackgroundFetchWrapper> {
 
     _onEnable(true);
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) {
       return;
     }
